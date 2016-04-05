@@ -121,6 +121,7 @@ public class Face implements Comparable<Face>
 	public Color getShading()
 	{
 		return shading;
+		
 	}
 	public void calculateShading()
 	{
