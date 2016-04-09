@@ -133,7 +133,7 @@ public class Face implements Comparable<Face>
 		if(shade<.5)
 			shade = 0;
 		shade *= distCoefficient;
-		shading = new Color((int)(color.getRed() * shade), (int)(color.getGreen() * shade), (int)(color.getBlue() * shade));
+		shading = new Color((int)(color.getRed() * shade), (int)(color.getGreen() * shade), (int)(color.getBlue() * shade), color.getAlpha());
 		
 	}
 	/**

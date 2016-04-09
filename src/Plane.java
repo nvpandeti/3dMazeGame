@@ -38,6 +38,8 @@ public class Plane implements Shapes
 				plane[i*(quality+1)+j][0] = x+i*(length/quality);
 				plane[i*(quality+1)+j][1] =	y+j*(width/quality);
 				plane[i*(quality+1)+j][2] = z;
+				//plane[i*(quality+1)+j][2] = z+Math.sin(plane[i*(quality+1)+j][0]/5)/2 + Math.sin(plane[i*(quality+1)+j][1]/5)/2;
+				
 			}
 				
 		}

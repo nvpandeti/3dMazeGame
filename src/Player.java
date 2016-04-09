@@ -3,12 +3,17 @@ public class Player implements Hitboxable
 {
 	private Hitbox hitbox;
 	private double x,y,z;
+	private double footstepDist, lastStepX, lastStepY;
 	public Player(double x, double y, double z)
 	{
 		this.x = x; 
 		this.y = y; 
 		this.z = z;
 		hitbox = new Hitbox(x,y,z,1,1,1);
+		
+		footstepDist = 0;
+		lastStepX = x;
+		lastStepY = y;
 	}
 	public void setPosition(double x, double y, double z)
 	{
@@ -65,6 +70,14 @@ public class Player implements Hitboxable
         	//z += Math.sqrt(Math.pow(moveCoefficient * Math.cos(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ)),2) + 
         	//					Math.pow(moveCoefficient * Math.sin(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ)), 2));
    	  	}
+   	  	if(Math.pow(x-lastStepX, 2)+Math.pow(y-lastStepY, 2)>6)
+   	  	{
+   	  		int footstepNum = (int)Math.random()*5+1;
+   	  		(new Thread(new Sound("footstep"+footstepNum+".wav"))).start();
+   	  		lastStepX = x;
+   	  		lastStepY = y;
+   	  	}
+   	  	
 	}
 	public Hitbox getHitbox()
 	{
