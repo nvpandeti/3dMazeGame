@@ -72,8 +72,7 @@ public class Player implements Hitboxable
    	  	}
    	  	if(Math.pow(x-lastStepX, 2)+Math.pow(y-lastStepY, 2)>6)
    	  	{
-   	  		int footstepNum = (int)(Math.random()*5+1);
-   	  		System.out.println(footstepNum);
+   	  		int footstepNum = (int)Math.random()*5+1;
    	  		(new Thread(new Sound("footstep"+footstepNum+".wav"))).start();
    	  		lastStepX = x;
    	  		lastStepY = y;
