@@ -5,6 +5,7 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 
@@ -22,9 +23,16 @@ import java.awt.image.*;
 public class Sound implements Runnable
 {
 	String fileName;
+	float masterGain;
 	public Sound(String fileName)
 	{
 		this.fileName = fileName;
+		masterGain = 0f;
+	}
+	public Sound(String fileName, float masterGain)
+	{
+		this.fileName = fileName;
+		this.masterGain = masterGain;
 	}
 	
 	public void run() 
@@ -47,6 +55,7 @@ public class Sound implements Runnable
         {
             line = (SourceDataLine) AudioSystem.getLine(info);
             line.open(audioFormat);
+            ((FloatControl)line.getControl(FloatControl.Type.MASTER_GAIN)).setValue(masterGain);
         } 
         catch (LineUnavailableException e) 
         {
@@ -64,6 +73,7 @@ public class Sound implements Runnable
             try 
             {
                 nBytesRead = audioInputStream.read(abData, 0, abData.length);
+                
             } 
             catch (IOException e) 
             {

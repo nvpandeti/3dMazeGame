@@ -4,7 +4,9 @@
  * Period 2
  */
 import java.awt.*;
+
 import javax.swing.*;
+
 import java.awt.event.*;
 import java.util.*;
 /**
@@ -127,14 +129,31 @@ public class Face implements Comparable<Face>
 	{
 		double distCoefficient = Math.max((10-distance)/10, 0);
 		if(distCoefficient != 0)
+		{
+			//shade =   Math.acos( ( (light[0] - center[0])*(normal[0] - center[0]) + (light[1] - center[1])*(normal[1] - center[1]) + (light[2] - center[2])*(normal[2] - center[2]) ) 
+	        //                                 / ( Math.sqrt( Math.pow( light[0] - center[0], 2) + Math.pow( light[1] - center[1], 2) + Math.pow( light[2] - center[2], 2) ) *  Math.sqrt( Math.pow( normal[0] - center[0], 2) + Math.pow( normal[1] - center[1], 2) + Math.pow( normal[2] - center[2], 2) ) ) ) / Math.PI;
 			shade =   Math.acos( ( (light[0] - center[0])*(normal[0] - center[0]) + (light[1] - center[1])*(normal[1] - center[1]) + (light[2] - center[2])*(normal[2] - center[2]) ) 
-	                                         / ( Math.sqrt( Math.pow( light[0] - center[0], 2) + Math.pow( light[1] - center[1], 2) + Math.pow( light[2] - center[2], 2) ) *  Math.sqrt( Math.pow( normal[0] - center[0], 2) + Math.pow( normal[1] - center[1], 2) + Math.pow( normal[2] - center[2], 2) ) ) ) / Math.PI;
+                    * invSqrt( Math.pow( light[0] - center[0], 2) + Math.pow( light[1] - center[1], 2) + Math.pow( light[2] - center[2], 2) ) *  invSqrt( Math.pow( normal[0] - center[0], 2) + Math.pow( normal[1] - center[1], 2) + Math.pow( normal[2] - center[2], 2) ) ) / Math.PI;
+		}
 		//System.out.println (shade);
 		if(shade<.5)
 			shade = 0;
 		shade *= distCoefficient;
 		shading = new Color((int)(color.getRed() * shade), (int)(color.getGreen() * shade), (int)(color.getBlue() * shade), color.getAlpha());
 		
+	}
+	public static double invSqrt(double x) 
+	{
+	    double xhalf = 0.5d*x;
+	    long i = Double.doubleToLongBits(x);
+	    i = 0x5fe6ec85e7de30daL - (i>>1);
+	    x = Double.longBitsToDouble(i);
+	    x = x*(1.5d - xhalf*x*x);
+	    x = x*(1.5d - xhalf*x*x);
+	    x = x*(1.5d - xhalf*x*x);
+	    x = x*(1.5d - xhalf*x*x);
+	    //x = x*(1.5d - xhalf*x*x);
+	    return x;
 	}
 	/**
 	 * Calculates which Face is farther from the real position

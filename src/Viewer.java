@@ -102,7 +102,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 	{
 		if(bkgMusic==null || !bkgMusic.isAlive())
 		{
-			bkgMusic = new Thread(new Sound("HauntedHouseStory.wav"));
+			bkgMusic = new Thread(new Sound("HauntedHouseStory.wav", -5f));
 			bkgMusic.start();
 		}
 		try

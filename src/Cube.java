@@ -15,7 +15,7 @@ public class Cube implements Shapes, Hitboxable
 	private ArrayList<Face> faces;
 	private String s;
 	private double[] center;
-	private Hitbox hitbox;
+	private ArrayList<Hitbox> hitbox;
 	/**
 	 * A constructor for Cube
 	 * @param color Color
@@ -40,7 +40,8 @@ public class Cube implements Shapes, Hitboxable
 							{x-length/2, y+width/2, z-height/2},
 							{x-length/2, y-width/2, z+height/2},
 							{x-length/2, y-width/2, z-height/2}};
-		hitbox = new Hitbox(x,y,z,length,width,height);
+		hitbox = new ArrayList<Hitbox>();
+		hitbox.add(new Hitbox(x,y,z,length,width,height));
 		
 		center = new double[3];
 		center[0] = x;
@@ -109,7 +110,7 @@ public class Cube implements Shapes, Hitboxable
 	{
 		 return center;
 	}
-	public Hitbox getHitbox()
+	public ArrayList<Hitbox> getHitbox()
 	{
 		return hitbox;
 	}
