@@ -86,7 +86,9 @@ public class Face implements Comparable<Face>
 	
 	public void updateDistance()
 	{
-		distance = Math.sqrt( Math.pow(realX - this.center[0], 2) + Math.pow(realY - this.center[1], 2) + Math.pow(realZ - this.center[2], 2));
+		double temp = Math.pow(realX - this.center[0], 2) + Math.pow(realY - this.center[1], 2) + Math.pow(realZ - this.center[2], 2);
+		distance = temp * invSqrt(temp);
+		//distance = Math.sqrt( Math.pow(realX - this.center[0], 2) + Math.pow(realY - this.center[1], 2) + Math.pow(realZ - this.center[2], 2));
 	}
 	/**
 	 * Returns the coordinates (x,y,z) of the center of the face
@@ -149,9 +151,9 @@ public class Face implements Comparable<Face>
 	    i = 0x5fe6ec85e7de30daL - (i>>1);
 	    x = Double.longBitsToDouble(i);
 	    x = x*(1.5d - xhalf*x*x);
-	    x = x*(1.5d - xhalf*x*x);
-	    x = x*(1.5d - xhalf*x*x);
-	    x = x*(1.5d - xhalf*x*x);
+	    //x = x*(1.5d - xhalf*x*x);
+	    //x = x*(1.5d - xhalf*x*x);
+	    //x = x*(1.5d - xhalf*x*x);
 	    //x = x*(1.5d - xhalf*x*x);
 	    return x;
 	}

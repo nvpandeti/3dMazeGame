@@ -24,6 +24,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 	private int mX, mY, tempX, tempY;
 	private double[] origin, light;
 	private Player player;
+	private Maze maze;
 	private Thread bkgMusic;
 	/**
 	 * A constructor for Viewer
@@ -72,8 +73,8 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		keys = new boolean[10];
 		posH = 45;
 		posZ = 0;
-		realX = 2.5;
-		realY = 2.5;
+		realX = 7.5;
+		realY = 7.5;
 		realZ = 1;
 		r = 10;
 		origin = new double[3];
@@ -90,7 +91,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		viewerPainter.setOrigin(origin);
 		Face.setReal(realX, realY, realZ);
 		player = new Player(realX, realY, realZ);
-		new Maze(11,11,5,4);
+		maze = new Maze(11,11,5,4);
    	  	robot.mouseMove(getWidth()/2,getHeight()/2);
    	  	repaint();
    	  	new Thread(this).start();
@@ -156,7 +157,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
    	  		if(posZ>89)
   				posZ = 89;
    	  	}
-   	  	player.move(keys, posH, posZ);
+   	  	player.move(keys, posH, posZ, maze.getHitbox());
    	  	double[] position = player.getPosition();
    	  	realX = position[0];
    	  	realY = position[1];

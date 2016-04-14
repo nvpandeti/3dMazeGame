@@ -4,11 +4,13 @@ import java.util.Random;
 import java.util.Stack;
 
 
-public class Maze 
+public class Maze implements Hitboxable
 {
 	private int rows,cols;
 	private boolean[][][] maze;
 	private Random r;
+	private ArrayList<Hitbox> hitbox;
+	private ArrayList<Cube> cubes;
 	public Maze(int rows, int cols, int width, int height)
 	{
 		r = new Random();
@@ -72,11 +74,14 @@ public class Maze
 		Viewer.viewerPainter.addShape(new Plane(Color.blue.darker(), -.5,-.5,-.51,rows*width+1, cols*width+1, Math.max(rows*width+1, cols*width+1), 0, 0, 0, false));
 		Viewer.viewerPainter.addShape(new Plane(new Color(127, 0, 255).darker(), -.5,-.5,height-.49,rows*width+1, cols*width+1, Math.max(rows*width+1, cols*width+1), 0, 0, 0, true));
 		Viewer.viewerPainter.addShape(new Plane(Color.yellow, rows*width+.5,(cols-1)*width+.5,-.51,width-1, width-1, width-1, 0, 0, 0, false));
+		
+		cubes = new ArrayList<Cube>();
+		
 		Color wallColor = new Color(139,69,19, 255);
 		for (int i = 0; i<rows+1; i++)
 			for (int j = 0; j<cols+1; j++)
 				for (int h = 0; h<height; h++)
-					Viewer.viewerPainter.addShape(new Cube(wallColor, j*width, i*width, h,1,1,1,0,0,0));
+					cubes.add(new Cube(wallColor, j*width, i*width, h,1,1,1,0,0,0));
 					
 		for (int i = 0; i<rows; i++)
 		{
@@ -85,24 +90,31 @@ public class Maze
 				if(maze[i][j][1])
 					for (int h = 0; h<height; h++)
 						for (int w = 1; w<width; w++)
-							Viewer.viewerPainter.addShape(new Cube(wallColor, j*width+w, i*width, h,1,1,1,0,0,0));
+							cubes.add(new Cube(wallColor, j*width+w, i*width, h,1,1,1,0,0,0));
 				if(maze[i][j][4])
 					for (int h = 0; h<height; h++)
 						for (int w = 1; w<width; w++)
-							Viewer.viewerPainter.addShape(new Cube(wallColor, j*width, i*width+w, h,1,1,1,0,0,0));
+							cubes.add(new Cube(wallColor, j*width, i*width+w, h,1,1,1,0,0,0));
 							
 				if(i==rows-1 || j==cols-1)
 				{
 					if(maze[i][j][2])
 						for (int h = 0; h<height; h++)
 							for (int w = 1; w<width; w++)
-								Viewer.viewerPainter.addShape(new Cube(wallColor, j*width+width, i*width+w, h,1,1,1,0,0,0));
+								cubes.add(new Cube(wallColor, j*width+width, i*width+w, h,1,1,1,0,0,0));
 					if(maze[i][j][3])
 						for (int h = 0; h<height; h++)
 							for (int w = 1; w<width; w++)
-								Viewer.viewerPainter.addShape(new Cube(wallColor, j*width+w, i*width+width, h,1,1,1,0,0,0));
+								cubes.add(new Cube(wallColor, j*width+w, i*width+width, h,1,1,1,0,0,0));
 				}
 			}
+		}
+		
+		hitbox = new ArrayList<Hitbox>();
+		for(Cube c: cubes)
+		{
+			Viewer.viewerPainter.addShape(c);
+			hitbox.add(c.getHitbox().get(0));
 		}
 	}
 	private boolean inBounds(int a, int b)
@@ -127,5 +139,10 @@ public class Maze
 			return 0;
 		
 		return possible.get(r.nextInt(possible.size()));
+	}
+	
+	public ArrayList<Hitbox> getHitbox() 
+	{
+		return hitbox;
 	}
 }

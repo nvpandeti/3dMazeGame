@@ -33,46 +33,83 @@ public class Player implements Hitboxable
 		ret[2] = z;
 		return ret;
 	}
-	public void move(boolean[] keys, double posH, double posZ)
+	public void move(boolean[] keys, double posH, double posZ, ArrayList<Hitbox> maze)
 	{
 		double moveCoefficient = .25;
+		double changeX = 0;
+		double changeY = 0;
+		double changeZ = 0;
    	  	if(keys[4])
    	  	{
    	  		//System.out.println ("Blahhhhh");
-   	  		x += moveCoefficient * Math.cos(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
-        	y += moveCoefficient * Math.sin(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
+   	  		changeX += moveCoefficient * Math.cos(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
+        	changeY += moveCoefficient * Math.sin(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
         	//z += moveCoefficient * Math.sin(Math.toRadians(posZ));
    	  	}
    	  	if(keys[5])
    	  	{
-   	  		x -= moveCoefficient * Math.cos(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
-        	y -= moveCoefficient * Math.sin(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
+   	  		changeX -= moveCoefficient * Math.cos(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
+   	  		changeY -= moveCoefficient * Math.sin(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
         	//z -= moveCoefficient * Math.sin(Math.toRadians(posZ));
    	  	}
    	  	if(keys[6])
    	  	{
-   	  		x += moveCoefficient * Math.sin(Math.toRadians(posH));
-        	y -= moveCoefficient * Math.cos(Math.toRadians(posH));
+   	  		changeX += moveCoefficient * Math.sin(Math.toRadians(posH));
+   	  		changeY -= moveCoefficient * Math.cos(Math.toRadians(posH));
    	  	}
    	  	if(keys[7])
    	  	{
-   	  		x -= moveCoefficient * Math.sin(Math.toRadians(posH));
-        	y += moveCoefficient * Math.cos(Math.toRadians(posH));
+   	  		changeX -= moveCoefficient * Math.sin(Math.toRadians(posH));
+   	  		changeY += moveCoefficient * Math.cos(Math.toRadians(posH));
    	  	}
    	  	if(keys[8])
    	  	{
-   	  		x += moveCoefficient * Math.cos(Math.toRadians(posH)) * Math.sin(Math.toRadians(posZ));
-        	y += moveCoefficient * Math.sin(Math.toRadians(posH)) * Math.sin(Math.toRadians(posZ));
+   	  		changeX += moveCoefficient * Math.cos(Math.toRadians(posH)) * Math.sin(Math.toRadians(posZ));
+   	  		changeY += moveCoefficient * Math.sin(Math.toRadians(posH)) * Math.sin(Math.toRadians(posZ));
         	//z -= Math.sqrt(Math.pow(moveCoefficient * Math.cos(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ)),2) + 
         	//					Math.pow(moveCoefficient * Math.sin(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ)), 2));
    	  	}
    	  	if(keys[9])
    	  	{
-   	  		x -= moveCoefficient * Math.cos(Math.toRadians(posH)) * Math.sin(Math.toRadians(posZ));
-        	y -= moveCoefficient * Math.sin(Math.toRadians(posH)) * Math.sin(Math.toRadians(posZ));
+   	  		changeX -= moveCoefficient * Math.cos(Math.toRadians(posH)) * Math.sin(Math.toRadians(posZ));
+   	  		changeY -= moveCoefficient * Math.sin(Math.toRadians(posH)) * Math.sin(Math.toRadians(posZ));
         	//z += Math.sqrt(Math.pow(moveCoefficient * Math.cos(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ)),2) + 
         	//					Math.pow(moveCoefficient * Math.sin(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ)), 2));
    	  	}
+   	  	x += changeX;
+   	  	y += changeY;
+   	  	z += changeZ;
+   	  	
+   	  	hitbox.get(0).setPosition(x, y, z);
+   	  	//ArrayList<Hitbox> collisions = new ArrayList<Hitbox>();
+  		for(Hitbox m:maze)
+  		{
+  			if(hitbox.get(0).isColliding(m))
+  			{
+  				//collisions.add(m);
+  				if(Math.abs(x-m.getPosition()[0])>Math.abs(y-m.getPosition()[1]))
+  				{
+  					if(x-m.getPosition()[0]<0)
+	  					hitbox.get(0).setPosition(m.getMinX()-.5, y, z);
+	  				else
+	  					hitbox.get(0).setPosition(m.getMaxX()+.5, y, z);
+  				}
+  				else// if(Math.abs(x-m.getPosition()[0])<Math.abs(y-m.getPosition()[1]))
+  				{
+  					if(y-m.getPosition()[1]<0)
+	  					hitbox.get(0).setPosition(x, m.getMinY()-.5, z);
+	  				else
+	  					hitbox.get(0).setPosition(x, m.getMaxY()+.5, z);
+  				}
+  				double[] temp = hitbox.get(0).getPosition();
+  		   	  	x = temp[0];
+  		   	  	y = temp[1];
+  		   	  	z = temp[2];
+	  				
+  			}
+  				
+  		}
+   	  	
    	  	
    	  	if(Math.pow(x-lastStepX, 2)+Math.pow(y-lastStepY, 2)>6)
    	  	{

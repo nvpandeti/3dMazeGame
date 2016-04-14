@@ -179,8 +179,8 @@ public class ViewerPainter extends JComponent
 	    x = Double.longBitsToDouble(i);
 	    x = x*(1.5d - xhalf*x*x);
 	    x = x*(1.5d - xhalf*x*x);
-	    x = x*(1.5d - xhalf*x*x);
-	    x = x*(1.5d - xhalf*x*x);
+	    //x = x*(1.5d - xhalf*x*x);
+	    //x = x*(1.5d - xhalf*x*x);
 	    //x = x*(1.5d - xhalf*x*x);
 	    return x;
 	}
