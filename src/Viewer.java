@@ -73,8 +73,8 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		keys = new boolean[10];
 		posH = 45;
 		posZ = 0;
-		realX = 2.5;
-		realY = 2.5;
+		realX = 7.5;
+		realY = 7.5;
 		realZ = 1;
 		r = 10;
 		origin = new double[3];
