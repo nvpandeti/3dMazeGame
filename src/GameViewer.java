@@ -13,6 +13,6 @@ public class GameViewer
 	public static void main(String[] args) throws IOException
 	{        
 		//new SculptureDrawer();
-		new Viewer(new File("temp.txt"));
+		new Viewer(new File("temp.txt")); 
 	}   
 }

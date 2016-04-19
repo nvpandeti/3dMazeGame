@@ -4,17 +4,16 @@ import java.awt.Image;
 import java.io.File;
 import java.util.*;
 
-
 import javax.swing.JComponent;
 
 /**
  * A component that draws the shapes
  */
+@SuppressWarnings("serial")
 public class ViewerPainter extends JComponent
 {
 	
 	private ArrayList<Shapes> shapes;
-	private Color color;
 	private double[] origin;
 	private double realX, realY, realZ;
 	
@@ -25,7 +24,6 @@ public class ViewerPainter extends JComponent
 	{
 		//setPreferredSize(new Dimension(400,500));
 		shapes = new ArrayList<Shapes>();
-		color = Color.RED;
 		origin = new double[3];
 		realX = -2;
 		realY = -6;
@@ -143,12 +141,13 @@ public class ViewerPainter extends JComponent
 	        int[] pointsX = new int[face.getCorners().length];
 	        int[] pointsY = new int[face.getCorners().length];
 	        boolean behind = true;
+	        double fov = Math.sqrt(Math.pow(getWidth(), 2) + Math.pow(getHeight(), 2)) / 110;
 	        for (int i = 0; i<pointsX.length; i++)
 	        {
 	            if(behind && angleD[i]<55)
 	                behind = false;
-	            pointsX[i] = (int)Math.round(getWidth()/2.0+angleD[i]*15*Math.cos(angleR[i]));
-	            pointsY[i] = (int)Math.round(getHeight()/2.0-angleD[i]*15*Math.sin(angleR[i]));
+	            pointsX[i] = (int)Math.round(getWidth()/2.0+angleD[i]*fov*Math.cos(angleR[i]));
+	            pointsY[i] = (int)Math.round(getHeight()/2.0-angleD[i]*fov*Math.sin(angleR[i]));
 	        }
 	        
 	        if(!behind)
@@ -166,7 +165,7 @@ public class ViewerPainter extends JComponent
 		//g.fillRect(0,0,(int)g.getClipBounds().getX(),(int)g.getClipBounds().getY());
 		
 	    }
-	    //System.out.println(counter);
+	    System.out.println("Faces: "+counter);
 	    //g2 = g;
 	    g.dispose();
 	    g2.drawImage(img, getX()+8, getY()+31, this);
@@ -188,6 +187,7 @@ public class ViewerPainter extends JComponent
 	 * Loads the shapes from a specified file.
 	 * @param f the specified file
 	 */
+	@SuppressWarnings("resource")
 	public void load(File f)
 	{
 		if(f != null)
