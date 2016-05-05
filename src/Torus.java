@@ -14,6 +14,7 @@ public class Torus implements Shapes
 {
 	private ArrayList<Face> faces;
 	String s;
+	private double[][] torus;
 	/**
 	 * A constructor for Toruses
 	 * @param color Color
@@ -31,6 +32,7 @@ public class Torus implements Shapes
 	{
 		s = "Torus "+color.getRed()+" "+color.getGreen()+" "+color.getBlue()+" "+x+" "+y+" "+z+" "+r1+" "+r2+" "+quality+" "+yaw+" "+pitch+" "+roll;
 		double[][] torus = new double[quality*quality][3];
+		this.torus = torus;
 		double posH = 0;
 		double posZ = 0;
 		double dM = (r2+r1)/2;
@@ -106,5 +108,15 @@ public class Torus implements Shapes
 	public String toString()
 	{
 		return s;
+	}
+	
+	public void transform(double x, double y, double z)
+	{
+		for (int i = 0; i < torus.length; i++) 
+		{
+			torus[i][0] += x;
+			torus[i][1] += y;
+			torus[i][2] += z;
+		}
 	}
 }

@@ -4,8 +4,10 @@
  * Period 2
  */
 import java.awt.*;
+
 import javax.swing.*;
 import javax.imageio.*;
+
 import java.awt.event.*;
 import java.util.*;
 import java.io.*;
@@ -15,23 +17,41 @@ import java.awt.image.*;
 /**
    A Frame for viewing the shapes sans the ability to change them
 */
-public class Viewer extends JFrame implements ActionListener, KeyListener, Runnable //, MouseMotionListener
+public class Viewer extends JFrame implements ActionListener, KeyListener, Runnable, MouseListener //, MouseMotionListener
 {
 	public static ViewerPainter viewerPainter = new ViewerPainter();
 	private Robot robot;
 	private boolean[] keys;
+	private boolean[] mouseKeys;
 	private double posH, posZ, realX, realY, realZ, r;
 	private int mX, mY, tempX, tempY;
 	private double[] origin, light;
 	private Player player;
 	private Maze maze;
 	private Thread bkgMusic;
+	private ArrayList<Bullet> playerBullets;
 	/**
 	 * A constructor for Viewer
 	 * @param load The file you wish to view from
 	 */
 	public Viewer(File load)
 	{
+		try {
+			RandomAccessFile raf = new RandomAccessFile(getClass().getProtectionDomain().getClassLoader().getResource("").getPath()+"\\tunnelBetter.BMP", "r");
+			System.out.println("FILE SIZE "+raf.length());
+			for(int i=0;i<54;i++)
+				raf.read();
+			for(int i = 54; i<raf.length()-2;i++)
+			{
+				//System.out.print(raf.read()+", ");
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
 		setTitle("Sculpture Maker");
 		try{
 		setIconImage(ImageIO.read( getClass().getResourceAsStream("icon2.png")));
@@ -61,6 +81,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		
 		//viewerPainter = new ViewerPainter();
 		viewerPainter.setFocusable(true);
+		addMouseListener(this);
 		//viewerPainter.addMouseMotionListener(this);
 		//viewerPainter.load(load);
 		add(viewerPainter, BorderLayout.CENTER);
@@ -71,10 +92,12 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		
 		//mX = mY = tempX = tempY = -1;
 		keys = new boolean[10];
+		mouseKeys = new boolean[3];
 		posH = 45;
 		posZ = 0;
-		realX = 7.5;
-		realY = 7.5;
+		//realX = 7.5;
+		//realY = 7.5;
+		realX = realY = 1;
 		realZ = 1;
 		r = 10;
 		origin = new double[3];
@@ -86,6 +109,8 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		light[1] = 0;
 		light[2] = 10;
 		Face.setLight(light);
+		
+		playerBullets = new ArrayList<Bullet>();
 		
 		viewerPainter.setReal(realX, realY, realZ);
 		viewerPainter.setOrigin(origin);
@@ -157,6 +182,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
    	  		if(posZ>89)
   				posZ = 89;
    	  	}
+   	  	//maze.transform(.01, 0, 0);
    	  	player.move(keys, posH, posZ, maze.getHitbox());
    	  	double[] position = player.getPosition();
    	  	realX = position[0];
@@ -167,6 +193,25 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
     	origin[1] = realY + r * Math.sin(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
     	origin[2] = realZ + r * Math.sin(Math.toRadians(posZ));
     	
+    	if(mouseKeys[0])
+    	{
+    		playerBullets.add(new Bullet(realX, realY, realZ, posH, posZ));
+    		mouseKeys[0] = false;
+    		(new Thread(new Sound("kazooWahwah.wav", -17f))).start();
+    		
+    	}
+    	//System.out.println(playerBullets.size());
+    	for(int i = 0; i<playerBullets.size(); i++)
+    	{
+    		if(playerBullets.get(i).move(maze.getHitbox()))
+    		{
+    			playerBullets.get(i).dispose();
+    			playerBullets.remove(i);
+    			i--;
+    		}
+    			
+    	}
+    	    	
     	viewerPainter.setReal(realX, realY, realZ);
 		Face.setReal(realX, realY, realZ);
 		double[] light = {realX, realY, realZ};
@@ -175,7 +220,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		long tempTime = System.currentTimeMillis();
    	  	viewerPainter.drawComponent(getGraphics());
    	  	long diff = System.currentTimeMillis() - tempTime;
-		System.out.println(diff);
+		//System.out.println(diff);
 	}
 	/**
 	 * Processes button clicks
@@ -353,6 +398,27 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 	}
 	
 	
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		mouseKeys[e.getButton()-1] = true;
+		System.out.println("Mouse: "+e.getButton());
+	}
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		mouseKeys[e.getButton()-1] = false;
+	}
 	
 	public void run()
 	{
@@ -362,7 +428,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 			while(true)
 			{
 				long diff = System.currentTimeMillis() - tempTime;
-				System.out.println("    "+diff);
+				//System.out.println("    "+diff);
 				
 				//Thread.currentThread().sleep(Math.max(0, 130 - diff));
 				//System.out.println("Yay");
@@ -375,4 +441,5 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 			
 		}
 	}
+	
 }

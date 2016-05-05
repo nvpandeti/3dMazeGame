@@ -53,6 +53,12 @@ public class Hitbox
 		this.y = y; 
 		this.z = z; 
 	}
+	public void transform(double x, double y, double z)
+	{
+		this.x += x; 
+		this.y += y; 
+		this.z += z;
+	}
 	public double getMaxX()
 	{
 		return x+length/2;

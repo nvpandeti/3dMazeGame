@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.*;
 
@@ -54,9 +55,51 @@ public class ViewerPainter extends JComponent
 	 * Adds a permanent shape
 	 * @param s A shape that implements Shapes
 	 */
-	public void addShape(Shapes s)
+	public int addShape(Shapes s)
 	{
 		shapes.add(s);
+		return shapes.size()-1;
+	}
+	public void setShape(int index, Shapes s)
+	{
+		shapes.set(index, s);
+	}
+	public void addShapes(ArrayList<Shapes> s)
+	{
+		int size = s.size();
+		int index = 0;
+		int counter = 0;
+		for (int i = 0; i < shapes.size(); i++) {
+			if(shapes.get(i)==null)
+			{
+				if(counter == 0)
+					index = i;
+				counter++;
+			}
+			else
+			{
+				counter = 0;
+			}
+			if(counter==size)
+			{
+				break;
+			}
+			
+		}
+		if(counter==size)
+		{
+			for(int i=index;i<index+size;i++)
+			{
+				shapes.set(i, s.get(1));
+			}
+		}
+		else
+		{
+			for(Shapes p: s)
+			{
+				shapes.add(p);
+			}
+		}
 	}
 	/**
 	 * Draws the shapes. It also double buffers
@@ -78,17 +121,18 @@ public class ViewerPainter extends JComponent
 		ArrayList<Face> faces = new ArrayList<Face>();
 	    for(Shapes s: shapes)
 	    {
-	    	for(Face face: s.getFaces())
+	    	if(s!=null)
 	    	{
-	    		face.updateDistance();
-	    		face.calculateShading();
-	    		if(face.getShadeCoefficient() != 0)
+	    		for(Face face: s.getFaces())
 		    	{
-					faces.add(face);
+		    		face.updateDistance();
+		    		face.calculateShading();
+		    		if(face.getShadeCoefficient() != 0)
+			    	{
+						faces.add(face);
+			    	}
 		    	}
-	    		
-	    		
-	    	}
+	    	}	
 	    }
 	        
 	    Collections.sort(faces);
@@ -96,6 +140,7 @@ public class ViewerPainter extends JComponent
 	    HashMap<double[], double[]> calculatedCorners = new HashMap<double[], double[]>();
 	    int counter = 0;
 	    //for(Face face: faces.subList(Math.max(0, faces.size()-2300), faces.size()))
+	    outerOuter:
 	    for(Face face:faces)
 	    {
 	    	
@@ -103,8 +148,13 @@ public class ViewerPainter extends JComponent
 			++counter;
 	        //ArrayList<Double> angleD = new ArrayList<Double>();
 	        //ArrayList<Double> angleR = new ArrayList<Double>();
+			int[] pointsX = new int[face.getCorners().length];
+	        int[] pointsY = new int[face.getCorners().length];
+	        boolean behind = true;
+	        double fov = Math.sqrt(Math.pow(getWidth(), 2) + Math.pow(getHeight(), 2)) / 110;
 	        double[] angleD = new double[face.getCorners().length];
 	        double[] angleR = new double[face.getCorners().length];
+	        outer:
 	        for(int c = 0; c < angleD.length; c++)
 	        {
 	        	double[] corner = face.getCorners()[c];
@@ -128,30 +178,57 @@ public class ViewerPainter extends JComponent
 	                    angleR[c] = 2*Math.PI - R;
 	                else
 	                    angleR[c] = R;
+	                if(behind && angleD[c]<55)
+		                behind = false;
+		            pointsX[c] = (int)Math.round(getWidth()/2.0+angleD[c]*fov*Math.cos(angleR[c]));
+		            pointsY[c] = (int)Math.round(getHeight()/2.0-angleD[c]*fov*Math.sin(angleR[c]));
+//		            if(face.getShadeCoefficient()==0 && pointsX[c]>0 && pointsX[c]<getWidth() && pointsY[c]>0 && pointsY[c]<getHeight() &&
+//		            		((BufferedImage)img).getRGB(pointsX[c], pointsY[c])==0)
+//		            {
+//		            	System.out.println("Break");
+//		            	break outer;
+//		            }
+		            	
 	                double[] temp = {angleD[c], angleR[c]};
 	                calculatedCorners.put(corner, temp);
 	            }
-	            else
+	            else 
 	            {
 	                
 	                angleD[c] = calculatedCorners.get(corner)[0];
 	                angleR[c] = calculatedCorners.get(corner)[1];
+	                if(behind && angleD[c]<55)
+		                behind = false;
+		            pointsX[c] = (int)Math.round(getWidth()/2.0+angleD[c]*fov*Math.cos(angleR[c]));
+		            pointsY[c] = (int)Math.round(getHeight()/2.0-angleD[c]*fov*Math.sin(angleR[c]));
+//		            if(face.getShadeCoefficient()==0 && pointsX[c]>0 && pointsX[c]<getWidth() && pointsY[c]>0 && pointsY[c]<getHeight() &&
+//		            		((BufferedImage)img).getRGB(pointsX[c], pointsY[c])==0)
+//		            	break outer;
 	            }
 	        }
-	        int[] pointsX = new int[face.getCorners().length];
-	        int[] pointsY = new int[face.getCorners().length];
-	        boolean behind = true;
-	        double fov = Math.sqrt(Math.pow(getWidth(), 2) + Math.pow(getHeight(), 2)) / 110;
-	        for (int i = 0; i<pointsX.length; i++)
-	        {
-	            if(behind && angleD[i]<55)
-	                behind = false;
-	            pointsX[i] = (int)Math.round(getWidth()/2.0+angleD[i]*fov*Math.cos(angleR[i]));
-	            pointsY[i] = (int)Math.round(getHeight()/2.0-angleD[i]*fov*Math.sin(angleR[i]));
-	        }
 	        
+//	        for (int i = 0; i<pointsX.length; i++)
+//	        {
+//	            if(behind && angleD[i]<55)
+//	                behind = false;
+//	            pointsX[i] = (int)Math.round(getWidth()/2.0+angleD[i]*fov*Math.cos(angleR[i]));
+//	            pointsY[i] = (int)Math.round(getHeight()/2.0-angleD[i]*fov*Math.sin(angleR[i]));
+//	        }
+		        
+			
 	        if(!behind)
 	        {
+	        	double x = 0;
+				double y = 0;
+				for(int c = 0; c < angleD.length; c++)
+				{
+					x+= pointsX[c];
+					y+= pointsY[c];
+					//if(face.getShadeCoefficient()==0 && pointsX[c]>0 && pointsX[c]<getWidth() && pointsY[c]>0 && pointsY[c]<getHeight() &&
+		            //		((BufferedImage)img).getRGB(pointsX[c], pointsY[c])==0)
+					//	continue outerOuter;
+				}
+				
         		g.setColor(face.getShading());
         		g.fillPolygon(pointsX, pointsY, pointsX.length);
         		
@@ -159,13 +236,13 @@ public class ViewerPainter extends JComponent
         		//g.drawPolyline(pointsX, pointsY, pointsX.length);
 	        	
 	        }
-	        
+	    
 		//System.out.println (getWidth()+ " " + getHeight());
 		//System.out.println(g.getClipBounds().getX() +" "+g.getClipBounds().getY());
 		//g.fillRect(0,0,(int)g.getClipBounds().getX(),(int)g.getClipBounds().getY());
 		
 	    }
-	    System.out.println("Faces: "+counter);
+	    //System.out.println("Faces: "+counter);
 	    //g2 = g;
 	    g.dispose();
 	    g2.drawImage(img, getX()+8, getY()+31, this);

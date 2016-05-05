@@ -14,6 +14,7 @@ public class Cylinder implements Shapes
 {
 	private ArrayList<Face> faces;
 	String s;
+	private double[][] cylinder;
 	/**
 	 * A constructor for Cylinders
 	 * @param color Color
@@ -30,6 +31,7 @@ public class Cylinder implements Shapes
 	{
 		s = "Cylinder "+color.getRed()+" "+color.getGreen()+" "+color.getBlue()+" "+x+" "+y+" "+z+" "+r+" "+h+" "+quality+" "+yaw+" "+pitch+" "+roll;
 		double[][] cylinder = new double[quality*2][3];
+		this.cylinder = cylinder;
         double changeH = 360/quality;
         double posH = 0;
         for (int i = 0; i<quality; i++)
@@ -130,5 +132,16 @@ public class Cylinder implements Shapes
 	public String toString()
 	{
 		return s;
+	}
+	
+	public void transform(double x, double y, double z)
+	{
+		for (int i = 0; i < cylinder.length; i++) 
+		{
+			cylinder[i][0] += x;
+			cylinder[i][1] += y;
+			cylinder[i][2] += z;
+		}
+		
 	}
 }

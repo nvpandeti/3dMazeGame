@@ -4,16 +4,20 @@
  * Period 2
  */
 import java.awt.*;
+
 import javax.swing.*;
+
 import java.awt.event.*;
 import java.util.*;
 /**
  * A class for Spheres that implements the Shapes interface
  */
-public class Sphere implements Shapes
+public class Sphere implements Shapes, Hitboxable
 {
 	private ArrayList<Face> faces;
 	String s;
+	private double[][] sphere;
+	private ArrayList<Hitbox> hitbox;
 	/**
 	 * A constructor for Spheres
 	 * @param color Color
@@ -26,7 +30,10 @@ public class Sphere implements Shapes
 	public Sphere(Color color, double x, double y, double z, double r, int quality)
 	{
 		s = "Sphere "+color.getRed()+" "+color.getGreen()+" "+color.getBlue()+" "+x+" "+y+" "+z+" "+r+" "+quality;
+		hitbox = new ArrayList<Hitbox>();
+		hitbox.add(new Hitbox(x,y,z,r));
 		double[][] sphere = new double[quality*quality+2][3];
+		this.sphere = sphere;
 		double posH = 0;
 		double posZ = 90;
 		double changeH = 360.0/quality;
@@ -80,5 +87,23 @@ public class Sphere implements Shapes
 	public String toString()
 	{
 		return s;
+	}
+	
+	public void transform(double x, double y, double z)
+	{
+		for (int i = 0; i < sphere.length; i++) 
+		{
+			sphere[i][0] += x;
+			sphere[i][1] += y;
+			sphere[i][2] += z;
+		}
+		for(Hitbox h: hitbox)
+		{
+			h.transform(x, y, z);
+		}
+	}
+	
+	public ArrayList<Hitbox> getHitbox() {
+		return hitbox;
 	}
 }

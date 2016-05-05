@@ -23,6 +23,7 @@ public interface Shapes// implements Comparable<Shape>
 	 */
 	String toString();
 	
+	void transform(double x, double y, double z);
 	//int compareTo();
 	
 	//double[] getCenter();

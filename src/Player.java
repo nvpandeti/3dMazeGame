@@ -82,25 +82,39 @@ public class Player implements Hitboxable
    	  	
    	  	hitbox.get(0).setPosition(x, y, z);
    	  	//ArrayList<Hitbox> collisions = new ArrayList<Hitbox>();
-  		for(Hitbox m:maze)
+  		for(int i=0; i<maze.size(); i++)
   		{
+  			Hitbox m = maze.get(i);
+  			
   			if(hitbox.get(0).isColliding(m))
   			{
   				//collisions.add(m);
-  				if(Math.abs(x-m.getPosition()[0])>Math.abs(y-m.getPosition()[1]))
+  				if(i<4)
   				{
-  					if(x-m.getPosition()[0]<0)
-	  					hitbox.get(0).setPosition(m.getMinX()-.5, y, z);
+  					if(z-m.getPosition()[2]<0)
+	  					hitbox.get(0).setPosition(x, y, m.getMinZ()-.5);
 	  				else
-	  					hitbox.get(0).setPosition(m.getMaxX()+.5, y, z);
+	  					hitbox.get(0).setPosition(x, y, m.getMaxZ()+.5);
   				}
-  				else// if(Math.abs(x-m.getPosition()[0])<Math.abs(y-m.getPosition()[1]))
+  				else
   				{
-  					if(y-m.getPosition()[1]<0)
-	  					hitbox.get(0).setPosition(x, m.getMinY()-.5, z);
-	  				else
-	  					hitbox.get(0).setPosition(x, m.getMaxY()+.5, z);
+  					if(Math.abs(x-m.getPosition()[0])>Math.abs(y-m.getPosition()[1]))
+	  				{
+	  					if(x-m.getPosition()[0]<0)
+		  					hitbox.get(0).setPosition(m.getMinX()-.5, y, z);
+		  				else
+		  					hitbox.get(0).setPosition(m.getMaxX()+.5, y, z);
+	  				}
+	  				else// if(Math.abs(x-m.getPosition()[0])<Math.abs(y-m.getPosition()[1]))
+	  				{
+	  					if(y-m.getPosition()[1]<0)
+		  					hitbox.get(0).setPosition(x, m.getMinY()-.5, z);
+		  				else
+		  					hitbox.get(0).setPosition(x, m.getMaxY()+.5, z);
+	  				}
   				}
+	  				
+	  				
   				double[] temp = hitbox.get(0).getPosition();
   		   	  	x = temp[0];
   		   	  	y = temp[1];
@@ -118,7 +132,7 @@ public class Player implements Hitboxable
    	  			footstepNum = 2;
    	  		if(footstepNum==2)
    	  			footstepNum = 1;
-   	  		(new Thread(new Sound("footstep"+footstepNum+".wav", -8f))).start();
+   	  		(new Thread(new Sound("footstep"+footstepNum+".wav", 0f))).start();
    	  		lastStepX = x;
    	  		lastStepY = y;
    	  	}

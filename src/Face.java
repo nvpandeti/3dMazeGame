@@ -20,8 +20,9 @@ public class Face implements Comparable<Face>
 	private static double realZ = 0;
 	private double[][] corners;
 	private Color color,shading;
-	private double[] center, normal;
+	private double[] center, normal, a, b;
 	private double distance, shade;
+	private static ArrayList<Light> lights = new ArrayList<Light>();
 	/**
 	 * A constructor for Faces
 	 * @param color Color
@@ -30,8 +31,9 @@ public class Face implements Comparable<Face>
 	public Face(Color color, double[]... args)
 	{
 		this.color = color;
-		corners = args;
+		this.corners = args;
 		distance = 0;
+		shade = .5;
 		
 		double x = 0;
 		double y = 0;
@@ -49,6 +51,8 @@ public class Face implements Comparable<Face>
 		
 		double[] a = {corners[1][0] - corners[0][0], corners[1][1] - corners[0][1], corners[1][2] - corners[0][2]};
         double[] b = {corners[2][0] - corners[0][0], corners[2][1] - corners[0][1], corners[2][2] - corners[0][2]};
+        this.a = a;
+        this.b = b;
         
         double[] normal = { center[0] + (a[1]*b[2] - a[2]*b[1]),
                         	center[1] + (a[2]*b[0] - a[0]*b[2]),
@@ -57,11 +61,17 @@ public class Face implements Comparable<Face>
         
         updateDistance();
         calculateShading();
+        /*
 		shade =  Math.toDegrees( Math.acos( ( (light[0] - center[0])*(normal[0] - center[0]) + (light[1] - center[1])*(normal[1] - center[1]) + (light[2] - center[2])*(normal[2] - center[2]) ) 
                                          / ( Math.sqrt( Math.pow( light[0] - center[0], 2) + Math.pow( light[1] - center[1], 2) + Math.pow( light[2] - center[2], 2) ) *  Math.sqrt( Math.pow( normal[0] - center[0], 2) + Math.pow( normal[1] - center[1], 2) + Math.pow( normal[2] - center[2], 2) ) ) ) ) / 180
                                          *	 Math.max((10-distance)/10, 0);
 		//System.out.println (shade);
 		shading = new Color((int)(color.getRed() * shade), (int)(color.getGreen() * shade), (int)(color.getBlue() * shade));
+		*/
+	}
+	public void setColor(Color c)
+	{
+		color = c;
 	}
 	/**
 	 * Sets the posiion of the light
@@ -70,6 +80,16 @@ public class Face implements Comparable<Face>
 	public static void setLight(double[] tempLight)
 	{
 		light = tempLight;
+	}
+	
+	public static int addLights(Light l)
+	{
+		lights.add(l);
+		return lights.size()-1;
+	}
+	public static void setLights(int index, Light l)
+	{
+		lights.set(index, l);
 	}
 	/**
 	 * Sets the real position coordinates
@@ -86,6 +106,19 @@ public class Face implements Comparable<Face>
 	
 	public void updateDistance()
 	{
+		double x = 0;
+		double y = 0;
+		double z = 0;
+		for(double[] corner:corners)
+		{
+			x+= corner[0];
+			y+= corner[1];
+			z+= corner[2];
+		}
+		center[0] = x/corners.length;
+		center[1] = y/corners.length;
+		center[2] = z/corners.length;
+		
 		double temp = Math.pow(realX - this.center[0], 2) + Math.pow(realY - this.center[1], 2) + Math.pow(realZ - this.center[2], 2);
 		distance = temp * invSqrt(temp);
 		//distance = Math.sqrt( Math.pow(realX - this.center[0], 2) + Math.pow(realY - this.center[1], 2) + Math.pow(realZ - this.center[2], 2));
@@ -132,6 +165,16 @@ public class Face implements Comparable<Face>
 		double distCoefficient = Math.max((10-distance)/10, 0);
 		if(distCoefficient != 0)
 		{
+			a[0] = corners[1][0] - corners[0][0];
+			a[1] = corners[1][1] - corners[0][1]; 
+			a[2] = corners[1][2] - corners[0][2];
+			b[0] = corners[2][0] - corners[0][0];
+			b[1] = corners[2][1] - corners[0][1]; 
+			b[2] = corners[2][2] - corners[0][2];
+	        
+	        normal[0] =  center[0] + (a[1]*b[2] - a[2]*b[1]);
+	        normal[1] =  center[1] + (a[2]*b[0] - a[0]*b[2]);
+	        normal[2] =  center[2] + (a[0]*b[1] - a[1]*b[0]);
 			//shade =   Math.acos( ( (light[0] - center[0])*(normal[0] - center[0]) + (light[1] - center[1])*(normal[1] - center[1]) + (light[2] - center[2])*(normal[2] - center[2]) ) 
 	        //                                 / ( Math.sqrt( Math.pow( light[0] - center[0], 2) + Math.pow( light[1] - center[1], 2) + Math.pow( light[2] - center[2], 2) ) *  Math.sqrt( Math.pow( normal[0] - center[0], 2) + Math.pow( normal[1] - center[1], 2) + Math.pow( normal[2] - center[2], 2) ) ) ) / Math.PI;
 			shade =   Math.acos( ( (light[0] - center[0])*(normal[0] - center[0]) + (light[1] - center[1])*(normal[1] - center[1]) + (light[2] - center[2])*(normal[2] - center[2]) ) 
@@ -140,7 +183,28 @@ public class Face implements Comparable<Face>
 		//System.out.println (shade);
 		if(shade<.5)
 			shade = 0;
-		shade *= distCoefficient;
+		else
+		{
+			shade *= distCoefficient;
+			for(Light l:lights)
+			{
+				if(l!=null)
+				{
+					double tempDist = l.getDistanceCoefficient(center);
+					if(tempDist != 0)
+					{
+						double tempShade = l.getShadeCoefficient(center, normal);
+						if(tempShade>=.5)
+						{
+							shade += tempShade * tempDist;
+							shade = Math.min(1, shade);
+						}
+					}
+				}
+			}
+		}
+		
+		
 		shading = new Color((int)(color.getRed() * shade), (int)(color.getGreen() * shade), (int)(color.getBlue() * shade), color.getAlpha());
 		
 	}
@@ -151,7 +215,7 @@ public class Face implements Comparable<Face>
 	    i = 0x5fe6ec85e7de30daL - (i>>1);
 	    x = Double.longBitsToDouble(i);
 	    x = x*(1.5d - xhalf*x*x);
-	    //x = x*(1.5d - xhalf*x*x);
+	    x = x*(1.5d - xhalf*x*x);
 	    //x = x*(1.5d - xhalf*x*x);
 	    //x = x*(1.5d - xhalf*x*x);
 	    //x = x*(1.5d - xhalf*x*x);

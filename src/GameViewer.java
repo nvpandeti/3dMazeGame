@@ -6,7 +6,6 @@
 /**
  * A runner program for Sculpture Drawer
  */
- 
 import java.io.*;
 public class GameViewer
 {  

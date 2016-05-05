@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.io.FileNotFoundException;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
@@ -10,7 +12,7 @@ public class Maze implements Hitboxable
 	private boolean[][][] maze;
 	private Random r;
 	private ArrayList<Hitbox> hitbox;
-	private ArrayList<Cube> cubes;
+	private ArrayList<Shapes> cubes;
 	public Maze(int rows, int cols, int width, int height)
 	{
 		r = new Random();
@@ -71,12 +73,19 @@ public class Maze implements Hitboxable
 			for(int j = 0; j<cols*width+1; j++)
 				shapes.add(new Cube(Color.blue, j, i, -1, 1,1,1,0,0,0));
 		*/
-		Viewer.viewerPainter.addShape(new Plane(Color.blue.darker(), -.5,-.5,-.51,rows*width+1, cols*width+1, Math.max(rows*width+1, cols*width+1), 0, 0, 0, false));
-		Viewer.viewerPainter.addShape(new Plane(new Color(127, 0, 255).darker(), -.5,-.5,height-.49,rows*width+1, cols*width+1, Math.max(rows*width+1, cols*width+1), 0, 0, 0, true));
-		Viewer.viewerPainter.addShape(new Plane(Color.yellow, rows*width+.5,(cols-1)*width+.5,-.51,width-1, width-1, width-1, 0, 0, 0, false));
+		cubes = new ArrayList<Shapes>();
 		
-		cubes = new ArrayList<Cube>();
+		cubes.add(new Plane(Color.blue.darker(), -.5,-.5,-.51,rows*width+1, cols*width+1, Math.max(rows*width+1, cols*width+1), 0, 0, 0, false));
+		cubes.add(new Plane(new Color(127, 0, 255).darker(), -.5,-.5,height-.49,rows*width+1, cols*width+1, Math.max(rows*width+1, cols*width+1), 0, 0, 0, true));
+		cubes.add(new Plane(Color.yellow, rows*width+.5,(cols-1)*width+.5,-.51,width-1, width-1, width-1, 0, 0, 0, false));
+		Plane img = new Plane(Color.black, 2,.7,1,1,1,90,0,90,0,false);
+		img.rotate(-90, 0, 0);
+		img.drawImg("starrynightTempbig.BMP");
+		double[] tempLightPos = {2,2,2};
+		Face.addLights(new Light(tempLightPos, 10));
 		
+		cubes.add(img);
+		//cubes.add(new Torus(Color.orange, 2,2,2,.5,1,100,0,40,0));
 		Color wallColor = new Color(139,69,19, 255);
 		for (int i = 0; i<rows+1; i++)
 			for (int j = 0; j<cols+1; j++)
@@ -111,10 +120,13 @@ public class Maze implements Hitboxable
 		}
 		
 		hitbox = new ArrayList<Hitbox>();
-		for(Cube c: cubes)
+		for(Shapes c: cubes)
 		{
 			Viewer.viewerPainter.addShape(c);
-			hitbox.add(c.getHitbox().get(0));
+			if(c instanceof Cube)
+				hitbox.add(((Cube)c).getHitbox().get(0));
+			if(c instanceof Plane)
+				hitbox.add(((Plane)c).getHitbox().get(0));
 		}
 	}
 	private boolean inBounds(int a, int b)
@@ -140,7 +152,13 @@ public class Maze implements Hitboxable
 		
 		return possible.get(r.nextInt(possible.size()));
 	}
-	
+	public void transform(double x, double y, double z)
+	{
+		for(Shapes s: cubes)
+		{
+			s.transform(x, y, z);
+		}
+	}
 	public ArrayList<Hitbox> getHitbox() 
 	{
 		return hitbox;

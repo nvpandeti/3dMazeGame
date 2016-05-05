@@ -15,6 +15,7 @@ public class Cube implements Shapes, Hitboxable
 	private ArrayList<Face> faces;
 	private String s;
 	private double[] center;
+	private double[][] cube;
 	private ArrayList<Hitbox> hitbox;
 	/**
 	 * A constructor for Cube
@@ -40,6 +41,7 @@ public class Cube implements Shapes, Hitboxable
 							{x-length/2, y+width/2, z-height/2},
 							{x-length/2, y-width/2, z+height/2},
 							{x-length/2, y-width/2, z-height/2}};
+		this.cube = cube;
 		hitbox = new ArrayList<Hitbox>();
 		hitbox.add(new Hitbox(x,y,z,length,width,height));
 		
@@ -119,6 +121,19 @@ public class Cube implements Shapes, Hitboxable
 		//realX = x;
 		//realY = y;
 		//realZ = z;
+	}
+	public void transform(double x, double y, double z)
+	{
+		for (int i = 0; i < cube.length; i++) 
+		{
+			cube[i][0] += x;
+			cube[i][1] += y;
+			cube[i][2] += z;
+		}
+		for(Hitbox h: hitbox)
+		{
+			h.transform(x, y, z);
+		}
 	}
 	
 }
