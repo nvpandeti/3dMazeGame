@@ -13,5 +13,5 @@ public class GameViewer
 	{        
 		//new SculptureDrawer();
 		new Viewer(new File("temp.txt")); 
-	}   
+	}
 }

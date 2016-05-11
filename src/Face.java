@@ -21,7 +21,7 @@ public class Face implements Comparable<Face>
 	private double[][] corners;
 	private Color color,shading;
 	private double[] center, normal, a, b;
-	private double distance, shade;
+	private double distance, shade, origShade;
 	private static ArrayList<Light> lights = new ArrayList<Light>();
 	/**
 	 * A constructor for Faces
@@ -33,7 +33,8 @@ public class Face implements Comparable<Face>
 		this.color = color;
 		this.corners = args;
 		distance = 0;
-		shade = .5;
+		shade = 0;
+		origShade = 0;
 		
 		double x = 0;
 		double y = 0;
@@ -151,6 +152,10 @@ public class Face implements Comparable<Face>
 	{
 		return shade;
 	}
+	public double getOriginalShadeCoefficient()
+	{
+		return origShade; 
+	}
 	/**
 	 * Returns the calculated shading of the Face
 	 * @return the calculated shading of the Face
@@ -160,14 +165,19 @@ public class Face implements Comparable<Face>
 		return shading;
 		
 	}
+	public double getDistance()
+	{
+		return distance;
+	}
 	public void calculateShading()
 	{
 		double distCoefficient = Math.max((10-distance)/10, 0);
-		if(distCoefficient != 0)
+		//if(distCoefficient != 0)
+		if(distance<20) 
 		{
 			a[0] = corners[1][0] - corners[0][0];
 			a[1] = corners[1][1] - corners[0][1]; 
-			a[2] = corners[1][2] - corners[0][2];
+			a[2] = corners[1][2] - corners[0][2]; 
 			b[0] = corners[2][0] - corners[0][0];
 			b[1] = corners[2][1] - corners[0][1]; 
 			b[2] = corners[2][2] - corners[0][2];
@@ -181,11 +191,18 @@ public class Face implements Comparable<Face>
                     * invSqrt( Math.pow( light[0] - center[0], 2) + Math.pow( light[1] - center[1], 2) + Math.pow( light[2] - center[2], 2) ) *  invSqrt( Math.pow( normal[0] - center[0], 2) + Math.pow( normal[1] - center[1], 2) + Math.pow( normal[2] - center[2], 2) ) ) / Math.PI;
 		}
 		//System.out.println (shade);
-		if(shade<.5)
+		else
 			shade = 0;
+		if(shade<.5)
+		{
+			shade = 0;
+			origShade = 0;
+		}
 		else
 		{
+			origShade = shade;
 			shade *= distCoefficient;
+			
 			for(Light l:lights)
 			{
 				if(l!=null)

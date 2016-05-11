@@ -127,10 +127,10 @@ public class ViewerPainter extends JComponent
 		    	{
 		    		face.updateDistance();
 		    		face.calculateShading();
-		    		if(face.getShadeCoefficient() != 0)
+		    		if(face.getOriginalShadeCoefficient() != 0)
 			    	{
 						faces.add(face);
-			    	}
+			    	}  
 		    	}
 	    	}	
 	    }
@@ -143,9 +143,43 @@ public class ViewerPainter extends JComponent
 	    outerOuter:
 	    for(Face face:faces)
 	    {
+	    	//System.out.println(face.getDistance()+"   "+face.getShadeCoefficient()); 
+	    	if(face.getDistance() > 20) 
+	    	//if(face.getShadeCoefficient() == 0)
+	    	{
+	    		double[] corner = face.getCenter();
+	    		double D = Math.toDegrees( Math.acos( ( (origin[0] - realX)*(corner[0] - realX) + (origin[1] - realY)*(corner[1] - realY) + (origin[2] - realZ)*(corner[2] - realZ) )
+        					* invSqrt(Math.pow( origin[0] - realX, 2) + Math.pow( origin[1] - realY, 2) + Math.pow( origin[2] - realZ, 2)) * invSqrt(Math.pow( corner[0] - realX, 2) + Math.pow( corner[1] - realY, 2) + Math.pow( corner[2] - realZ, 2) ) ) );
+	    		double t = - ( (origin[0] - realX)*(realX - corner[0]) + (origin[1] - realY)*(realY - corner[1]) + (origin[2] - realZ)*(realZ - corner[2]) ) / ( Math.pow(origin[0] - realX, 2) + Math.pow(origin[1] - realY, 2) + Math.pow(origin[2] - realZ, 2) );
+                double[] vertex = {realX + (origin[0] - realX)*t, realY + (origin[1] - realY)*t, realZ + (origin[2] - realZ)*t};
+                double[] perpendicular = {vertex[0] - (origin[1] - realY), vertex[1] + (origin[0] - realX), vertex[2]};
+                double R = Math.acos( ( (perpendicular[0] - vertex[0])*(corner[0] - vertex[0]) + (perpendicular[1] - vertex[1])*(corner[1] - vertex[1]) + (perpendicular[2] - vertex[2])*(corner[2] - vertex[2]) ) 
+            			* invSqrt(Math.pow( perpendicular[0] - vertex[0], 2) + Math.pow( perpendicular[1] - vertex[1], 2) + Math.pow( perpendicular[2] - vertex[2], 2) ) * invSqrt(Math.pow( corner[0] - vertex[0], 2) + Math.pow( corner[1] - vertex[1], 2) + Math.pow( corner[2] - vertex[2], 2) ) );
+            
+	            if(corner[2]<perpendicular[2])
+	                R = 2*Math.PI - R;
+	            double fov = Math.sqrt(Math.pow(getWidth(), 2) + Math.pow(getHeight(), 2)) / 110;
+	            int X = (int)Math.round(getWidth()/2.0+D*fov*Math.cos(R));
+	            int Y = (int)Math.round(getHeight()/2.0-D*fov*Math.sin(R));
+	            //System.out.print(X+" "+Y);
+	            //System.out.println("   "+((BufferedImage)img).getRGB(X, Y));
+	            ++counter;
+	            if(X>=0 && X<getWidth() && Y>=0 && Y<getHeight() ) 
+	            {
+	            	//System.out.println("opt plz"); 
+	            	
+	            	//System.out.println("   "+((BufferedImage)img).getRGB(X, Y)); 
+	            	if(((BufferedImage)img).getRGB(X, Y) == Color.black.getRGB())
+	            	{
+	            		//System.out.println("really"); 
+	            		continue outerOuter;  
+	            	}
+	            		  
+	            }
+	            	
+	    	}
 	    	
-	    	
-			++counter;
+			
 	        //ArrayList<Double> angleD = new ArrayList<Double>();
 	        //ArrayList<Double> angleR = new ArrayList<Double>();
 			int[] pointsX = new int[face.getCorners().length];
@@ -244,6 +278,15 @@ public class ViewerPainter extends JComponent
 	    }
 	    //System.out.println("Faces: "+counter);
 	    //g2 = g;
+	    //System.out.println(((BufferedImage)img).getRGB(50, 50)); 
+	    //System.out.println("    "+Color.black.getRGB());
+	    
+	    g.setColor(Color.white);
+	    int midX = getWidth()/2;
+	    int midY = getHeight()/2;
+	    g.fillRect(midX-10, midY-2, 20, 4);
+	    g.fillRect(midX-2, midY-10, 4, 20);
+	    
 	    g.dispose();
 	    g2.drawImage(img, getX()+8, getY()+31, this);
 	}

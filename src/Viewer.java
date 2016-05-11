@@ -93,11 +93,11 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		//mX = mY = tempX = tempY = -1;
 		keys = new boolean[10];
 		mouseKeys = new boolean[3];
-		posH = 45;
+		posH = 270;
 		posZ = 0;
 		//realX = 7.5;
 		//realY = 7.5;
-		realX = realY = 1;
+		realX = realY = 3; 
 		realZ = 1;
 		r = 10;
 		origin = new double[3];
@@ -129,7 +129,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		if(bkgMusic==null || !bkgMusic.isAlive())
 		{
 			bkgMusic = new Thread(new Sound("HauntedHouseStory.wav", -5f));
-			bkgMusic.start();
+			bkgMusic.start(); 
 		}
 		try
 		{
@@ -193,22 +193,29 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
     	origin[1] = realY + r * Math.sin(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
     	origin[2] = realZ + r * Math.sin(Math.toRadians(posZ));
     	
-    	if(mouseKeys[0])
+    	if(mouseKeys[0] || mouseKeys[2])
     	{
     		playerBullets.add(new Bullet(realX, realY, realZ, posH, posZ));
-    		mouseKeys[0] = false;
-    		(new Thread(new Sound("kazooWahwah.wav", -17f))).start();
+    		mouseKeys[0] = mouseKeys[2] = false;
+    		(new Thread(new Sound("kazoo.wav", -17f))).start();
     		
     	}
     	//System.out.println(playerBullets.size());
     	for(int i = 0; i<playerBullets.size(); i++)
     	{
-    		if(playerBullets.get(i).move(maze.getHitbox()))
+    		//if(playerBullets.get(i).move(maze.getHitbox()))
+    		//{
+    		//	playerBullets.get(i).dispose();
+    		//	playerBullets.remove(i);
+    		//	i--;
+    		//}
+    		while(!playerBullets.get(i).move(maze.getHitbox()))
     		{
-    			playerBullets.get(i).dispose();
-    			playerBullets.remove(i);
-    			i--;
+    			
     		}
+	    	playerBullets.get(i).dispose(); 
+			playerBullets.remove(i);
+			i--;
     			
     	}
     	    	

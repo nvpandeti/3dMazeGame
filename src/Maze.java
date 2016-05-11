@@ -80,9 +80,9 @@ public class Maze implements Hitboxable
 		cubes.add(new Plane(Color.yellow, rows*width+.5,(cols-1)*width+.5,-.51,width-1, width-1, width-1, 0, 0, 0, false));
 		Plane img = new Plane(Color.black, 2,.7,1,1,1,90,0,90,0,false);
 		img.rotate(-90, 0, 0);
-		img.drawImg("starrynightTempbig.BMP");
-		double[] tempLightPos = {2,2,2};
-		Face.addLights(new Light(tempLightPos, 10));
+		img.drawImg("starrynightTempbig.BMP"); 
+		//double[] tempLightPos = {2,2,2};
+		//Face.addLights(new Light(tempLightPos, 10));
 		
 		cubes.add(img);
 		//cubes.add(new Torus(Color.orange, 2,2,2,.5,1,100,0,40,0));
