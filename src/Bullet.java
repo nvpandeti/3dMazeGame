@@ -1,10 +1,12 @@
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Bullet implements Hitboxable
 {
 	private ArrayList<Hitbox> hitbox;
 	private ArrayList<Shapes> cubes;
+	private ArrayList<Face> faces;
 	private double x,y,z,vX,vY,vZ; 
 	private int index;
 	
@@ -22,6 +24,7 @@ public class Bullet implements Hitboxable
     	cubes.add(new Cube(Color.white, x,y,z,.05,.05,.05,0,0,0));
     	
     	hitbox = new ArrayList<Hitbox>();
+    	faces = new ArrayList<Face>();
     	index = -1;
 		for(Shapes c: cubes)
 		{
@@ -30,11 +33,21 @@ public class Bullet implements Hitboxable
 			else
 				Viewer.viewerPainter.addShape(c);
 			if(c instanceof Cube)
+			{
 				hitbox.add(((Cube)c).getHitbox().get(0));
+				faces.addAll(((Cube)c).getFaces());
+			}
+				
 		}
 		System.out.println(index);
 	}
 	
+	public void multiplySpeed(double multiplier)
+	{
+		vX *= multiplier;
+		vY *= multiplier;
+		vZ *= multiplier;
+	}
 	public boolean move(ArrayList<Hitbox> maze)
 	{
 		transform(vX,vY,vZ);
@@ -50,9 +63,29 @@ public class Bullet implements Hitboxable
   			if(hitbox.get(0).isColliding(m))
   			{
   				System.out.println("Hitting");
-  				double[] tempLightPos = {x,y,z};
+  				//double[] tempLightPos = {x,y,z};
+  				//Face.addLights(new Light(tempLightPos, 4)); 
+  				//Viewer.viewerPainter.addShape(new Sphere(Color.red, x,y,z,.1,3));
+//  				ArrayList<Face> copy= new ArrayList<Face>();
+//  				copy.addAll(m.getReference().getFaces());
+//  				Collections.sort(copy);
+//  				copy.get(copy.size()-1).setColor(Color.green);
+  				ArrayList<Face> copy=m.getReference().getFaces();
+  				Face min = copy.get(0);
+  				double minDist = Math.sqrt(Math.pow(x - min.getCenter()[0], 2) + Math.pow(y - min.getCenter()[1], 2) + Math.pow(z - min.getCenter()[2], 2));
+  				for(int j=1; j<copy.size();j++)
+  				{
+  					double tempDist = Math.sqrt(Math.pow(x - copy.get(j).getCenter()[0], 2) + Math.pow(y - copy.get(j).getCenter()[1], 2) + Math.pow(z - copy.get(j).getCenter()[2], 2));
+  					if(minDist > tempDist)
+  					{
+  						minDist = tempDist;
+  						min = copy.get(j);
+  					}
+  				}
+  				//min.setColor(Color.green);
+  				double[] tempLightPos = min.getCenter();
   				Face.addLights(new Light(tempLightPos, 4)); 
-  				Viewer.viewerPainter.addShape(new Sphere(Color.red, x,y,z,.1,3));
+  				Viewer.viewerPainter.addShape(new Sphere(Color.red, tempLightPos[0],tempLightPos[1],tempLightPos[2],.2,3));
   				//dispose();
   				return true;
   			}
@@ -81,5 +114,9 @@ public class Bullet implements Hitboxable
 	public ArrayList<Hitbox> getHitbox() {
 		// TODO Auto-generated method stub
 		return hitbox;
+	}
+	public ArrayList<Face> getFaces()
+	{
+		return faces;
 	}
 }

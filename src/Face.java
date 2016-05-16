@@ -132,6 +132,11 @@ public class Face implements Comparable<Face>
 	{
 		return center;
 	}
+	
+	public double[] getNormal()
+	{
+		return normal;
+	}
 	/**
 	 * Returns a list of the corners
 	 * @return a list of the corners

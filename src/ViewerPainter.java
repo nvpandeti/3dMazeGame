@@ -1,9 +1,13 @@
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.*;
+import java.awt.geom.*;
 
 import javax.swing.JComponent;
 
@@ -17,6 +21,7 @@ public class ViewerPainter extends JComponent
 	private ArrayList<Shapes> shapes;
 	private double[] origin;
 	private double realX, realY, realZ;
+	private Bitmap bitmap;
 	
 	/**
 	 * A default constructor for ViewerPainter
@@ -29,6 +34,7 @@ public class ViewerPainter extends JComponent
 		realX = -2;
 		realY = -6;
 		realZ = 6.5;
+		
 		
 	}
 	/**
@@ -111,12 +117,16 @@ public class ViewerPainter extends JComponent
 	public void drawComponent(Graphics g2)
 	{
 		//super.paintComponent(g);
-		Image img = createImage(getWidth(), getHeight());
+		//Image img = createImage(getWidth(), getHeight());
+		bitmap = new Bitmap(getHeight(), getWidth());
+		BufferedImage img = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
 		
-		Graphics g = img.getGraphics();
+		Graphics2D g = img.createGraphics();
 		
 		g.setColor(Color.BLACK);
 		g.fillRect(0,0,getWidth(), getHeight());
+		//AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.DST_ATOP);  
+		//g.setComposite(ac);
 		
 		ArrayList<Face> faces = new ArrayList<Face>();
 	    for(Shapes s: shapes)
@@ -136,17 +146,42 @@ public class ViewerPainter extends JComponent
 	    }
 	        
 	    Collections.sort(faces);
+	    //Collections.reverse(faces);
+	    double divide = faces.size()/4.0;
+	    //System.out.print(divide);  
+	    PainterHelper ph1 = new PainterHelper(faces.subList((int) divide, (int) (divide*2)), realX, realY, realZ, origin, getWidth(), getHeight()); 
+	    PainterHelper ph2 = new PainterHelper(faces.subList((int) (divide*2), (int) (divide*3)), realX, realY, realZ, origin, getWidth(), getHeight());
+	    PainterHelper ph3 = new PainterHelper(faces.subList((int) (divide*3), (int) (divide*4)), realX, realY, realZ, origin, getWidth(), getHeight());
+	    Thread t1 = new Thread(ph1);
+	    Thread t2 = new Thread(ph2);
+	    Thread t3 = new Thread(ph3);
+	    t1.start();
+	    t2.start();
+	    t3.start();
 	    
+	    double fov = Math.sqrt(Math.pow(getWidth(), 2) + Math.pow(getHeight(), 2)) / 110;
 	    HashMap<double[], double[]> calculatedCorners = new HashMap<double[], double[]>();
 	    int counter = 0;
 	    //for(Face face: faces.subList(Math.max(0, faces.size()-2300), faces.size()))
-	    outerOuter:
-	    for(Face face:faces)
+	    boolean startBlack = false;
+	    //outerOuter:
+	    //for(Face face:faces)  
+	    for(Face face:faces.subList(0, (int)divide))
 	    {
+//	    	if(!startBlack)
+//	    	{
+//	    		
+//	    		if(face.getShadeCoefficient()!=0)
+//	    			startBlack = true;
+//	    		else
+//	    			continue outerOuter;
+//	    	}
+	    	
 	    	//System.out.println(face.getDistance()+"   "+face.getShadeCoefficient()); 
 	    	if(face.getDistance() > 20) 
 	    	//if(face.getShadeCoefficient() == 0)
 	    	{
+	    		/*
 	    		double[] corner = face.getCenter();
 	    		double D = Math.toDegrees( Math.acos( ( (origin[0] - realX)*(corner[0] - realX) + (origin[1] - realY)*(corner[1] - realY) + (origin[2] - realZ)*(corner[2] - realZ) )
         					* invSqrt(Math.pow( origin[0] - realX, 2) + Math.pow( origin[1] - realY, 2) + Math.pow( origin[2] - realZ, 2)) * invSqrt(Math.pow( corner[0] - realX, 2) + Math.pow( corner[1] - realY, 2) + Math.pow( corner[2] - realZ, 2) ) ) );
@@ -176,6 +211,7 @@ public class ViewerPainter extends JComponent
 	            	}
 	            		  
 	            }
+	            */
 	            	
 	    	}
 	    	
@@ -185,10 +221,10 @@ public class ViewerPainter extends JComponent
 			int[] pointsX = new int[face.getCorners().length];
 	        int[] pointsY = new int[face.getCorners().length];
 	        boolean behind = true;
-	        double fov = Math.sqrt(Math.pow(getWidth(), 2) + Math.pow(getHeight(), 2)) / 110;
+	        
 	        double[] angleD = new double[face.getCorners().length];
 	        double[] angleR = new double[face.getCorners().length];
-	        outer:
+	        outer: 
 	        for(int c = 0; c < angleD.length; c++)
 	        {
 	        	double[] corner = face.getCorners()[c];
@@ -261,11 +297,14 @@ public class ViewerPainter extends JComponent
 					//if(face.getShadeCoefficient()==0 && pointsX[c]>0 && pointsX[c]<getWidth() && pointsY[c]>0 && pointsY[c]<getHeight() &&
 		            //		((BufferedImage)img).getRGB(pointsX[c], pointsY[c])==0)
 					//	continue outerOuter;
-				}
+				} 
+				//g.setComposite(ac); 
 				
         		g.setColor(face.getShading());
-        		g.fillPolygon(pointsX, pointsY, pointsX.length);
-        		
+        		g.fillPolygon(pointsX, pointsY, pointsX.length); 
+        		//g.fill(new Polygon(pointsX, pointsY, pointsX.length));
+        		//g2.drawImage(img, getX()+8, getY()+31, this); 
+        		//bitmap.drawPolygon(pointsX, pointsY, face.getShading());
         		//g.setColor(Color.lightGray);
         		//g.drawPolyline(pointsX, pointsY, pointsX.length);
 	        	
@@ -280,6 +319,32 @@ public class ViewerPainter extends JComponent
 	    //g2 = g;
 	    //System.out.println(((BufferedImage)img).getRGB(50, 50)); 
 	    //System.out.println("    "+Color.black.getRGB());
+	     
+	    //bitmap.flip(g); 
+	    //System.out.println("yay?");
+	    
+	    //g.setColor(Color.BLACK);
+	    //g.fillRect(0,0,getWidth(), getHeight());
+	    
+	    while(t1.isAlive() || t2.isAlive() || t3.isAlive())
+	    {
+	    	//wait
+	    	//System.out.print("1");  
+	    }
+	    //System.out.println();
+	    ArrayList<Color> colors = new ArrayList<Color>();
+	    colors.addAll(ph1.getColors());
+	    colors.addAll(ph2.getColors());
+	    colors.addAll(ph3.getColors());
+	    ArrayList<Polygon> polys = new ArrayList<Polygon>();
+	    polys.addAll(ph1.getPolygons());
+	    polys.addAll(ph2.getPolygons());
+	    polys.addAll(ph3.getPolygons());
+	    for(int i = 0;i<colors.size();i++)
+	    {
+	    	g.setColor(colors.get(i));
+	    	g.fillPolygon(polys.get(i));
+	    }
 	    
 	    g.setColor(Color.white);
 	    int midX = getWidth()/2;

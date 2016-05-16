@@ -14,6 +14,7 @@ public class Hitbox
 {
 	private double x, y, z, length, width, height, radius;
 	private boolean isBox;
+	private Hitboxable reference;
 	/**
 	 * A constructor for Rectangular Hitboxes
 	 * @param x X
@@ -23,7 +24,7 @@ public class Hitbox
 	 * @param width Y Width
 	 * @param hight Z Height
 	 */
-	public Hitbox(double x, double y, double z, double length, double width, double height)
+	public Hitbox(double x, double y, double z, double length, double width, double height, Hitboxable ref)
 	{
 		this.x = x; 
 		this.y = y; 
@@ -32,20 +33,26 @@ public class Hitbox
 		this.width = width;
 		this.height	= height;
 		isBox = true;
+		reference = ref;
 	}
-	public Hitbox(double x, double y, double z, double radius)
+	public Hitbox(double x, double y, double z, double radius, Hitboxable ref)
 	{
 		this.x = x; 
 		this.y = y; 
 		this.z = z; 
 		this.radius = radius;
 		isBox = false;
+		reference = ref;
 	}
 	public double[] getPosition()
 	{
 		double[] pos = {x,y,z};
 		return pos;
 		
+	}
+	public Hitboxable getReference()
+	{
+		return reference;
 	}
 	public void setPosition(double x, double y, double z)
 	{

@@ -93,8 +93,8 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		//mX = mY = tempX = tempY = -1;
 		keys = new boolean[10];
 		mouseKeys = new boolean[3];
-		posH = 270;
-		posZ = 0;
+		posH = 45;
+		posZ = 0; 
 		//realX = 7.5;
 		//realY = 7.5;
 		realX = realY = 3; 
@@ -193,29 +193,33 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
     	origin[1] = realY + r * Math.sin(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
     	origin[2] = realZ + r * Math.sin(Math.toRadians(posZ));
     	
-    	if(mouseKeys[0] || mouseKeys[2])
+    	if(mouseKeys[0])
     	{
     		playerBullets.add(new Bullet(realX, realY, realZ, posH, posZ));
-    		mouseKeys[0] = mouseKeys[2] = false;
-    		(new Thread(new Sound("kazoo.wav", -17f))).start();
+    		playerBullets.get(playerBullets.size()-1).multiplySpeed(15);
+    		mouseKeys[0] = false;
+    		//(new Thread(new Sound("kazoo.wav", -17f))).start();
     		
+    	}
+    	if(mouseKeys[2])
+    	{
+    		mouseKeys[2] = false; 
+    		Bullet b = new Bullet(realX, realY, realZ, posH, posZ);
+    		while(!b.move(maze.getHitbox()))
+    		{
+    			
+    		}
+	    	b.dispose(); 
     	}
     	//System.out.println(playerBullets.size());
     	for(int i = 0; i<playerBullets.size(); i++)
     	{
-    		//if(playerBullets.get(i).move(maze.getHitbox()))
-    		//{
-    		//	playerBullets.get(i).dispose();
-    		//	playerBullets.remove(i);
-    		//	i--;
-    		//}
-    		while(!playerBullets.get(i).move(maze.getHitbox()))
+    		if(playerBullets.get(i).move(maze.getHitbox()))
     		{
-    			
+    			playerBullets.get(i).dispose();
+    			playerBullets.remove(i);
+    			i--;
     		}
-	    	playerBullets.get(i).dispose(); 
-			playerBullets.remove(i);
-			i--;
     			
     	}
     	    	
@@ -435,7 +439,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 			while(true)
 			{
 				long diff = System.currentTimeMillis() - tempTime;
-				//System.out.println("    "+diff);
+				System.out.println("    "+diff); 
 				
 				//Thread.currentThread().sleep(Math.max(0, 130 - diff));
 				//System.out.println("Yay");

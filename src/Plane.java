@@ -44,7 +44,7 @@ public class Plane implements Shapes, Hitboxable
 		this.z = z;
 		this.quality = quality;
 		hitbox = new ArrayList<Hitbox>();
-		hitbox.add(new Hitbox(x+length/2,y+width/2,z,length,width,.01));
+		hitbox.add(new Hitbox(x+length/2,y+width/2,z,length,width,.01, this));
 		for(int i = 0; i<quality+1; i++)
 		{
 			for(int j = 0; j<quality+1; j++)
@@ -189,7 +189,7 @@ public class Plane implements Shapes, Hitboxable
 				for(int i = 0;i<3;i++)
 				{
 					temp = raf.read();
-					System.out.println(temp);
+					//System.out.println(temp);
 					//while(temp==0)
 					//	temp = raf.read();
 					counter++;
@@ -214,7 +214,7 @@ public class Plane implements Shapes, Hitboxable
 				//r = raf.read();
 				
 				f.setColor(new Color(r, g, b));
-				System.out.println(new Color(r, g, b));
+				//System.out.println(new Color(r, g, b));
 				
 			}
 		}

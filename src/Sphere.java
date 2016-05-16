@@ -31,7 +31,7 @@ public class Sphere implements Shapes, Hitboxable
 	{
 		s = "Sphere "+color.getRed()+" "+color.getGreen()+" "+color.getBlue()+" "+x+" "+y+" "+z+" "+r+" "+quality;
 		hitbox = new ArrayList<Hitbox>();
-		hitbox.add(new Hitbox(x,y,z,r));
+		hitbox.add(new Hitbox(x,y,z,r,this));
 		double[][] sphere = new double[quality*quality+2][3];
 		this.sphere = sphere;
 		double posH = 0;

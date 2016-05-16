@@ -11,7 +11,7 @@ public class Player implements Hitboxable
 		this.y = y; 
 		this.z = z;
 		hitbox = new ArrayList<Hitbox>();
-		hitbox.add(new Hitbox(x,y,z,1,1,1));
+		hitbox.add(new Hitbox(x,y,z,1,1,1,this));
 		
 		footstepDist = 0;
 		lastStepX = x;
@@ -141,6 +141,12 @@ public class Player implements Hitboxable
 	public ArrayList<Hitbox> getHitbox()
 	{
 		return hitbox;
+	}
+	
+	public ArrayList<Face> getFaces() 
+	{
+		
+		return null;
 	}
 	
 }

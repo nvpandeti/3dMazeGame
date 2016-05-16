@@ -43,7 +43,7 @@ public class Cube implements Shapes, Hitboxable
 							{x-length/2, y-width/2, z-height/2}};
 		this.cube = cube;
 		hitbox = new ArrayList<Hitbox>();
-		hitbox.add(new Hitbox(x,y,z,length+.05,width+.05,height+.05));  
+		hitbox.add(new Hitbox(x,y,z,length+.05,width+.05,height+.05,this));  
 		
 		center = new double[3];
 		center[0] = x;
@@ -124,6 +124,9 @@ public class Cube implements Shapes, Hitboxable
 	}
 	public void transform(double x, double y, double z)
 	{
+		center[0] += x;
+		center[1] += y;
+		center[2] += z;
 		for (int i = 0; i < cube.length; i++) 
 		{
 			cube[i][0] += x;
