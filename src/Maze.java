@@ -2,7 +2,7 @@ import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.Random; 
 import java.util.Stack;
 
 
@@ -16,7 +16,7 @@ public class Maze implements Hitboxable
 	private ArrayList<Face> faces;
 	public Maze(int rows, int cols, int width, int height)
 	{
-		r = new Random();
+		r = new Random(4560);
 		this.rows = rows;
 		this.cols = cols;
 		maze = new boolean[rows][cols][5];
@@ -78,15 +78,16 @@ public class Maze implements Hitboxable
 		
 		cubes.add(new Plane(Color.blue.darker(), -.5,-.5,-.51,rows*width+1, cols*width+1, Math.max(rows*width+1, cols*width+1), 0, 0, 0, false));
 		cubes.add(new Plane(new Color(127, 0, 255).darker(), -.5,-.5,height-.49,rows*width+1, cols*width+1, Math.max(rows*width+1, cols*width+1), 0, 0, 0, true));
-		cubes.add(new Plane(Color.yellow, rows*width+.5,(cols-1)*width+.5,-.51,width-1, width-1, width-1, 0, 0, 0, false));
+		cubes.add(new Plane(Color.yellow, rows*width+.5,(cols-1)*width+.5,height-.49,width-1, width-1, width-1, 0, 0, 0, false));
 		Plane img = new Plane(Color.black, 2,.7,1,1,1,50,0,90,0,false);
 		img.rotate(-90, 0, 0);
 		//img.drawImg("starrynightTempbig.BMP"); 
-		img.drawImg("monalisaDithered.bmp");
+		img.drawImg("monalisaDithered.bmp"); 
 		//double[] tempLightPos = {2,2,2};
 		//Face.addLights(new Light(tempLightPos, 10));
 		
-		//cubes.add(img); 
+		cubes.add(img); 
+		
 		//cubes.add(new Torus(Color.orange, 2,2,2,.5,1,100,0,40,0));
 		Color wallColor = new Color(139,69,19, 255);
 		for (int i = 0; i<rows+1; i++)

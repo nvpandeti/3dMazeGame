@@ -30,6 +30,8 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 	private Maze maze;
 	private Thread bkgMusic;
 	private ArrayList<Bullet> playerBullets;
+	private int markerNum;
+	private ArrayList<Integer> availableMarkers;
 	/**
 	 * A constructor for Viewer
 	 * @param load The file you wish to view from
@@ -98,7 +100,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		//realX = 7.5;
 		//realY = 7.5;
 		realX = realY = 3; 
-		realZ = 1;
+		realZ = 2;
 		r = 10;
 		origin = new double[3];
 		origin[0] = 0;
@@ -109,6 +111,12 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		light[1] = 0;
 		light[2] = 10;
 		Face.setLight(light);
+		markerNum = -1;
+		availableMarkers = new ArrayList<Integer>();
+		for(int i = 1; i<10; i++)
+		{
+			availableMarkers.add(i);
+		}
 		
 		playerBullets = new ArrayList<Bullet>();
 		
@@ -117,6 +125,18 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		Face.setReal(realX, realY, realZ);
 		player = new Player(realX, realY, realZ);
 		maze = new Maze(11,11,5,4);
+		//for(int i=1;i<10;i++)
+		//{
+		//	double[] temp123 = {i,2,1};
+		//	double[] temp1234 = {i+1,3,2}; 
+		//	viewerPainter.addShape(new Marker (temp123,temp1234,i));   
+		//}
+//		new ZombieArm(6,2.2,1.75); 
+//		new ZombieArm(6,3.3,1.75); 
+//		new ZombieLeg(6,2.5,1.05);
+//		new ZombieLeg(6,3.0,1.05);
+		new Zombie(6, 2, 1.25);
+		
    	  	robot.mouseMove(getWidth()/2,getHeight()/2);
    	  	repaint();
    	  	new Thread(this).start();
@@ -210,6 +230,17 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
     			
     		}
 	    	b.dispose(); 
+    	}
+    	if(markerNum != -1 && availableMarkers.contains(markerNum))
+    	{
+    		availableMarkers.remove(new Integer(markerNum));
+    		MarkerMaker b = new MarkerMaker(realX, realY, realZ, posH, posZ, markerNum);
+    		while(!b.move(maze.getHitbox()))
+    		{
+    			
+    		}
+	    	b.dispose(); 
+	    	markerNum = -1;
     	}
     	//System.out.println(playerBullets.size());
     	for(int i = 0; i<playerBullets.size(); i++)
@@ -312,6 +343,16 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 	 */
 	public void keyReleased(KeyEvent e)
 	{
+		System.out.println(); 
+		if(Character.isDigit(e.getKeyChar()) && e.getKeyChar()!='0')
+		{
+			markerNum = e.getKeyChar()-48;
+			
+		}
+		else
+		{
+			markerNum = -1;
+		}
 		if (e.getKeyCode() == KeyEvent.VK_LEFT)
 		{
 			keys[0] = false;

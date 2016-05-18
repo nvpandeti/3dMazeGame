@@ -2,20 +2,21 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Bullet implements Hitboxable
+public class MarkerMaker implements Hitboxable
 {
 	private ArrayList<Hitbox> hitbox;
 	private ArrayList<Shapes> cubes;
 	private ArrayList<Face> faces;
 	private double x,y,z,vX,vY,vZ; 
 	private int index;
-	
-	public Bullet(double x, double y, double z, double posH, double posZ)
+	private int num;
+	public MarkerMaker(double x, double y, double z, double posH, double posZ, int num)
 	{
 		this.x = x;
 		this.y = y;
 		this.z = z; 
 		double moveCoefficient = .05;
+		this.num = num;
 		vX = moveCoefficient * Math.cos(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
     	vY = moveCoefficient * Math.sin(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
     	vZ = moveCoefficient * Math.sin(Math.toRadians(posZ));
@@ -75,18 +76,22 @@ public class Bullet implements Hitboxable
   				double minDist = Math.sqrt(Math.pow(x - min.getCenter()[0], 2) + Math.pow(y - min.getCenter()[1], 2) + Math.pow(z - min.getCenter()[2], 2));
   				for(int j=1; j<copy.size();j++)
   				{
-  					double tempDist = Math.sqrt(Math.pow(x - copy.get(j).getCenter()[0], 2) + Math.pow(y - copy.get(j).getCenter()[1], 2) + Math.pow(z - copy.get(j).getCenter()[2], 2));
-  					if(minDist > tempDist)
+  					if(copy.get(j).getOriginalShadeCoefficient() != 0)
   					{
-  						minDist = tempDist;
-  						min = copy.get(j);
+  						double tempDist = Math.sqrt(Math.pow(x - copy.get(j).getCenter()[0], 2) + Math.pow(y - copy.get(j).getCenter()[1], 2) + Math.pow(z - copy.get(j).getCenter()[2], 2));
+	  					if(minDist > tempDist)
+	  					{
+	  						minDist = tempDist;
+	  						min = copy.get(j);
+	  					}
   					}
+  					
   				}
   				//min.setColor(Color.green);
   				//double[] tempLightPos = min.getCenter();
   				//Face.addLights(new Light(tempLightPos, 4)); 
   				//Viewer.viewerPainter.addShape(new Sphere(Color.red, tempLightPos[0],tempLightPos[1],tempLightPos[2],.2,3));
-  				//Viewer.viewerPainter.addShape(new Marker(min.getCenter(),min.getNormal(),3));
+  				Viewer.viewerPainter.addShape(new Marker(min.getCenter(),min.getNormal(),num));
   				//dispose();
   				return true;
   			}

@@ -306,8 +306,8 @@ public class ViewerPainter extends JComponent
         		//g2.drawImage(img, getX()+8, getY()+31, this); 
         		//bitmap.drawPolygon(pointsX, pointsY, face.getShading());
         		//g.setColor(Color.lightGray);
-        		//g.drawPolyline(pointsX, pointsY, pointsX.length);
-	        	
+        		//g.drawPolyline(pointsX, pointsY, pointsX.length); 
+	        	 
 	        }
 	    
 		//System.out.println (getWidth()+ " " + getHeight());
@@ -344,6 +344,9 @@ public class ViewerPainter extends JComponent
 	    {
 	    	g.setColor(colors.get(i));
 	    	g.fillPolygon(polys.get(i));
+	    	//g.setColor(Color.lightGray);
+    		//g.drawPolyline(pointsX, pointsY, pointsX.length); 
+	    	//g.drawPolygon(polys.get(i));
 	    }
 	    
 	    g.setColor(Color.white);

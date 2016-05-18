@@ -1,6 +1,6 @@
 /*
- * Nikhil Pandeti
- * Mrs. Gallatin
+ * Nikhil Pandeti is a nub
+ * hi Mrs. Gallatin
  * Period 2
  */
 /**
@@ -14,4 +14,4 @@ public class GameViewer
 		//new SculptureDrawer();
 		new Viewer(new File("temp.txt")); 
 	}
-} 
+}
