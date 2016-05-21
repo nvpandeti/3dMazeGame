@@ -17,6 +17,8 @@ public interface Shapes// implements Comparable<Shape>
 	 * @return a list of the shape's Faces
 	 */
 	ArrayList<Face> getFaces();
+	
+	double[] getCenter();
 	/**
 	 * Returns a string representation of the shape
 	 * @return a string representation of the shape
@@ -24,6 +26,8 @@ public interface Shapes// implements Comparable<Shape>
 	String toString();
 	
 	void transform(double x, double y, double z);
+	
+	void rotate(double yaw, double pitch, double roll);
 	//int compareTo();
 	
 	//double[] getCenter();

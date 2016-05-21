@@ -60,4 +60,36 @@ public class ZombieArm
 				
 		}
 	}
+	
+	public void transform(double x, double y, double z)
+	{
+		this.x += x;
+		this.y += y;
+		this.z += z;
+		
+		for(Shapes s: cubes)
+		{
+			s.transform(x, y, z);
+		}
+	}
+	public void rotate(double yaw)
+	{
+		for(Shapes s: cubes)
+		{
+			double tempX = s.getCenter()[0];
+			double tempY = s.getCenter()[1];
+			double tempR = Math.sqrt(Math.pow(tempX-x, 2) + Math.pow(tempY-y, 2));
+            double tempAngle = Math.toDegrees(Math.atan2(tempY - y, tempX - x));
+            tempX = x + tempR * Math.cos(Math.toRadians(tempAngle + yaw - posH));
+            tempY = y + tempR * Math.sin(Math.toRadians(tempAngle + yaw - posH));
+            s.transform(tempX - s.getCenter()[0], tempY - s.getCenter()[1], 0);
+			s.rotate(yaw-posH, 0, 0);
+		}
+		posH = yaw;
+	}
+	public double[] getCenter()
+	{
+		double[] center = {x,y,z};
+		return center;
+	}
 }

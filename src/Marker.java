@@ -41,7 +41,7 @@ public class Marker implements Shapes
 		{
 			marker[i][0] = position[0] + .15 * Math.cos(Math.toRadians(theta));
 			marker[i][1] = position[1] + .15 * Math.sin(Math.toRadians(theta));
-			marker[i][2] = position[2] +.1;
+			marker[i][2] = position[2] +.15;
 			theta += 22.5; 
 		}
 		theta = -11.25;
@@ -65,7 +65,7 @@ public class Marker implements Shapes
 				{
 					marker[index][0] = marker[i][0];
 					marker[index][1] = marker[k][1];
-					marker[index][2] = position[2] +.1;
+					marker[index][2] = position[2] +.15;
 					index++;
 				}
 			//}
@@ -211,11 +211,22 @@ public class Marker implements Shapes
 		
 		return faces;
 	}
+	public double[] getCenter()
+	{
+		 return position;
+	}
 
 	@Override
 	public void transform(double x, double y, double z) 
 	{
 		
+		
+	}
+
+
+	@Override
+	public void rotate(double yaw, double pitch, double roll) {
+		// TODO Auto-generated method stub
 		
 	}
 }

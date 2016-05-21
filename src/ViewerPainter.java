@@ -128,7 +128,7 @@ public class ViewerPainter extends JComponent
 		//AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.DST_ATOP);  
 		//g.setComposite(ac);
 		
-		ArrayList<Face> faces = new ArrayList<Face>();
+		LinkedList<Face> faces = new LinkedList<Face>();
 	    for(Shapes s: shapes)
 	    {
 	    	if(s!=null)
@@ -144,11 +144,11 @@ public class ViewerPainter extends JComponent
 		    	}
 	    	}	
 	    }
-	        
+	    
 	    Collections.sort(faces);
 	    //Collections.reverse(faces);
-	    double divide = faces.size()/4.0;
-	    //System.out.print(divide);  
+	    double divide = faces.size()/4.0; 
+	    //System.out.print(faces.size());  
 	    PainterHelper ph1 = new PainterHelper(faces.subList((int) divide, (int) (divide*2)), realX, realY, realZ, origin, getWidth(), getHeight()); 
 	    PainterHelper ph2 = new PainterHelper(faces.subList((int) (divide*2), (int) (divide*3)), realX, realY, realZ, origin, getWidth(), getHeight());
 	    PainterHelper ph3 = new PainterHelper(faces.subList((int) (divide*3), (int) (divide*4)), realX, realY, realZ, origin, getWidth(), getHeight());

@@ -52,7 +52,7 @@ public class Bullet implements Hitboxable
 	{
 		transform(vX,vY,vZ);
    	  	//ArrayList<Hitbox> collisions = new ArrayList<Hitbox>();
-		if(Math.abs(x)>250 ||  Math.abs(y)>250 || Math.abs(z)>50)
+		if(Math.abs(x)>100 ||  Math.abs(y)>100 || Math.abs(z)>25)
 		{
 			return true;
 		}
@@ -102,6 +102,7 @@ public class Bullet implements Hitboxable
 		for(Shapes s: cubes)
 		{
 			s.transform(x, y, z);
+			s.rotate(10, 5, 0);
 		}
 	}
 	public void dispose()

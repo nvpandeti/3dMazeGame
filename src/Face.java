@@ -176,7 +176,7 @@ public class Face implements Comparable<Face>
 	}
 	public void calculateShading()
 	{
-		double distCoefficient = Math.max((10-distance)/10, 0);
+		double distCoefficient = Math.max((8-distance)/8, 0);
 		//if(distCoefficient != 0)
 		if(distance<20) 
 		{

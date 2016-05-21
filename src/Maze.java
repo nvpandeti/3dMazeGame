@@ -78,7 +78,7 @@ public class Maze implements Hitboxable
 		
 		cubes.add(new Plane(Color.blue.darker(), -.5,-.5,-.51,rows*width+1, cols*width+1, Math.max(rows*width+1, cols*width+1), 0, 0, 0, false));
 		cubes.add(new Plane(new Color(127, 0, 255).darker(), -.5,-.5,height-.49,rows*width+1, cols*width+1, Math.max(rows*width+1, cols*width+1), 0, 0, 0, true));
-		cubes.add(new Plane(Color.yellow, rows*width+.5,(cols-1)*width+.5,height-.49,width-1, width-1, width-1, 0, 0, 0, false));
+		cubes.add(new Plane(Color.yellow, rows*width+.5,(cols-1)*width+.5,-.51,width-1, width-1, width-1, 0, 0, 0, false)); 
 		Plane img = new Plane(Color.black, 2,.7,1,1,1,50,0,90,0,false);
 		img.rotate(-90, 0, 0);
 		//img.drawImg("starrynightTempbig.BMP"); 
@@ -86,7 +86,7 @@ public class Maze implements Hitboxable
 		//double[] tempLightPos = {2,2,2};
 		//Face.addLights(new Light(tempLightPos, 10));
 		
-		cubes.add(img); 
+		//cubes.add(img); 
 		
 		//cubes.add(new Torus(Color.orange, 2,2,2,.5,1,100,0,40,0));
 		Color wallColor = new Color(139,69,19, 255);
@@ -102,26 +102,58 @@ public class Maze implements Hitboxable
 				if(maze[i][j][1])
 					for (int h = 0; h<height; h++)
 						for (int w = 1; w<width; w++)
+						{
 							cubes.add(new Cube(wallColor, j*width+w, i*width, h,1,1,1,0,0,0));
+							ArrayList<Face> tempCube = cubes.get(cubes.size()-1).getFaces();
+							tempCube.remove(0);
+							tempCube.remove(1);
+							tempCube.remove(2);
+							tempCube.remove(2);
+						}
+							
 				if(maze[i][j][4])
 					for (int h = 0; h<height; h++)
 						for (int w = 1; w<width; w++)
+						{
 							cubes.add(new Cube(wallColor, j*width, i*width+w, h,1,1,1,0,0,0));
+							ArrayList<Face> tempCube = cubes.get(cubes.size()-1).getFaces();
+							tempCube.remove(1);
+							tempCube.remove(2);
+							tempCube.remove(2);
+							tempCube.remove(2);
+						}
+							
 							
 				if(i==rows-1 || j==cols-1)
 				{
 					if(maze[i][j][2])
 						for (int h = 0; h<height; h++)
 							for (int w = 1; w<width; w++)
+							{
 								cubes.add(new Cube(wallColor, j*width+width, i*width+w, h,1,1,1,0,0,0));
+								ArrayList<Face> tempCube = cubes.get(cubes.size()-1).getFaces();
+								tempCube.remove(1);
+								tempCube.remove(2);
+								tempCube.remove(2);
+								tempCube.remove(2);
+							}
+								
 					if(maze[i][j][3])
 						for (int h = 0; h<height; h++)
 							for (int w = 1; w<width; w++)
+							{
 								cubes.add(new Cube(wallColor, j*width+w, i*width+width, h,1,1,1,0,0,0));
+								ArrayList<Face> tempCube = cubes.get(cubes.size()-1).getFaces();
+								tempCube.remove(0);
+								tempCube.remove(1);
+								tempCube.remove(2);
+								tempCube.remove(2);
+							}
+								
 				}
 			}
 		}
-		
+		System.out.println("Maze Cubes: "+cubes.size());
 		hitbox = new ArrayList<Hitbox>();
 		faces = new ArrayList<Face>();
 		for(Shapes c: cubes)
@@ -139,6 +171,7 @@ public class Maze implements Hitboxable
 			}
 				
 		}
+		System.out.println("Maze Faces: "+faces.size());
 	}
 	private boolean inBounds(int a, int b)
 	{

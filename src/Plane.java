@@ -108,6 +108,11 @@ public class Plane implements Shapes, Hitboxable
 	{
 		return faces;
 	}
+	public double[] getCenter()
+	{
+		double[] center = {x,y,z};
+		return center;
+	}
 	/**
 	 * Returns a string representation of the shape
 	 * @return a string representation of the shape
@@ -122,6 +127,10 @@ public class Plane implements Shapes, Hitboxable
 	}
 	public void transform(double x, double y, double z)
 	{
+		this.x += x;
+		this.y += y;
+		this.z += z;
+		
 		for (int i = 0; i < plane.length; i++) 
 		{
 			plane[i][0] += x;

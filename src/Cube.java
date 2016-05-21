@@ -138,5 +138,42 @@ public class Cube implements Shapes, Hitboxable
 			h.transform(x, y, z);
 		}
 	}
+
+	public void rotate(double yaw, double pitch, double roll) 
+	{
+		for (int i = 0; i<8; i++)
+		{
+			double tempX = 	cube[i][0];
+            double tempY = 	cube[i][1];
+            double tempZ = 	cube[i][2];
+           	
+           	if(yaw!=0)
+			{
+				double tempR = Math.sqrt(Math.pow(tempX-center[0], 2) + Math.pow(tempY-center[1], 2));
+                double tempAngle = Math.toDegrees(Math.atan2(tempY - center[1], tempX - center[0]));
+                tempX = center[0] + tempR * Math.cos(Math.toRadians(tempAngle + yaw));
+                tempY = center[1] + tempR * Math.sin(Math.toRadians(tempAngle + yaw));
+			}
+            if(pitch!=0)
+            {
+            	double tempR = Math.sqrt(Math.pow(tempX-center[0], 2) + Math.pow(tempZ-center[2], 2));
+                double tempAngle = Math.toDegrees(Math.atan2(tempZ - center[2], tempX - center[0]));
+                tempX = center[0] + tempR * Math.cos(Math.toRadians(tempAngle + pitch));
+                tempZ = center[2] + tempR * Math.sin(Math.toRadians(tempAngle + pitch));
+            }
+            if(roll!=0)
+            {
+            	double tempR = Math.sqrt(Math.pow(tempY-center[1], 2) + Math.pow(tempZ-center[2], 2));
+                double tempAngle = Math.toDegrees(Math.atan2(tempZ - center[2], tempY - center[1]));
+                tempY = center[1] + tempR * Math.cos(Math.toRadians(tempAngle + roll));
+                tempZ = center[2] + tempR * Math.sin(Math.toRadians(tempAngle + roll));
+            }
+            
+            cube[i][0] = tempX;
+            cube[i][1] = tempY;
+            cube[i][2] = tempZ;
+		}
+		
+	}
 	
 }

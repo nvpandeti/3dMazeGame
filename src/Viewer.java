@@ -32,6 +32,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 	private ArrayList<Bullet> playerBullets;
 	private int markerNum;
 	private ArrayList<Integer> availableMarkers;
+	private ArrayList<Zombie> zombies;
 	/**
 	 * A constructor for Viewer
 	 * @param load The file you wish to view from
@@ -125,17 +126,20 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		Face.setReal(realX, realY, realZ);
 		player = new Player(realX, realY, realZ);
 		maze = new Maze(11,11,5,4);
+		Zombie.loadZombieHead();
 		//for(int i=1;i<10;i++)
 		//{
 		//	double[] temp123 = {i,2,1};
 		//	double[] temp1234 = {i+1,3,2}; 
 		//	viewerPainter.addShape(new Marker (temp123,temp1234,i));   
 		//}
-//		new ZombieArm(6,2.2,1.75); 
-//		new ZombieArm(6,3.3,1.75); 
-//		new ZombieLeg(6,2.5,1.05);
-//		new ZombieLeg(6,3.0,1.05);
-		new Zombie(6, 2, 1.25);
+		new ZombieArm(6,2.2,1.75); 
+		new ZombieArm(6,3.3,1.75); 
+		new ZombieLeg(6,2.5,1.05);
+		new ZombieLeg(6,3.0,1.05);
+		zombies = new ArrayList<Zombie>();
+		zombies.add(new Zombie(9, 1.5, 1.25,false));
+		zombies.add(new Zombie(9, 3, 1.25,true)); 
 		
    	  	robot.mouseMove(getWidth()/2,getHeight()/2);
    	  	repaint();
@@ -216,7 +220,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
     	if(mouseKeys[0])
     	{
     		playerBullets.add(new Bullet(realX, realY, realZ, posH, posZ));
-    		playerBullets.get(playerBullets.size()-1).multiplySpeed(15);
+    		playerBullets.get(playerBullets.size()-1).multiplySpeed(3);
     		mouseKeys[0] = false;
     		//(new Thread(new Sound("kazoo.wav", -17f))).start();
     		
@@ -243,15 +247,26 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 	    	markerNum = -1;
     	}
     	//System.out.println(playerBullets.size());
+    	bulletOuter:
     	for(int i = 0; i<playerBullets.size(); i++)
     	{
-    		if(playerBullets.get(i).move(maze.getHitbox()))
+    		for (int j = 0; j < 5; j++) 
     		{
-    			playerBullets.get(i).dispose();
-    			playerBullets.remove(i);
-    			i--;
-    		}
-    			
+    			//System.out.print(i);
+				if(playerBullets.get(i).move(maze.getHitbox()))
+	    		{
+					
+	    			playerBullets.get(i).dispose();
+	    			playerBullets.remove(i);
+	    			i--;
+	    			continue bulletOuter;
+	    		}
+			}
+    	}
+    	
+    	for(int i=0;i<zombies.size();i++)
+    	{
+    		//zombies.get(i).move(realX, realY, realZ);
     	}
     	    	
     	viewerPainter.setReal(realX, realY, realZ);

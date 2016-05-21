@@ -17,6 +17,7 @@ public class Sphere implements Shapes, Hitboxable
 	private ArrayList<Face> faces;
 	String s;
 	private double[][] sphere;
+	private double[] center;
 	private ArrayList<Hitbox> hitbox;
 	/**
 	 * A constructor for Spheres
@@ -32,6 +33,8 @@ public class Sphere implements Shapes, Hitboxable
 		s = "Sphere "+color.getRed()+" "+color.getGreen()+" "+color.getBlue()+" "+x+" "+y+" "+z+" "+r+" "+quality;
 		hitbox = new ArrayList<Hitbox>();
 		hitbox.add(new Hitbox(x,y,z,r,this));
+		double[] center = {x,y,z};
+		this.center = center;
 		double[][] sphere = new double[quality*quality+2][3];
 		this.sphere = sphere;
 		double posH = 0;
@@ -80,6 +83,10 @@ public class Sphere implements Shapes, Hitboxable
 	{
 		return faces;
 	}
+	public double[] getCenter()
+	{
+		 return center;
+	}
 	/**
 	 * Returns a string representation of the shape
 	 * @return a string representation of the shape
@@ -91,6 +98,9 @@ public class Sphere implements Shapes, Hitboxable
 	
 	public void transform(double x, double y, double z)
 	{
+		center[0] += x;
+		center[1] += y;
+		center[2] += z;
 		for (int i = 0; i < sphere.length; i++) 
 		{
 			sphere[i][0] += x;
@@ -102,7 +112,44 @@ public class Sphere implements Shapes, Hitboxable
 			h.transform(x, y, z);
 		}
 	}
-	
+	public void rotate(double yaw, double pitch, double roll) 
+	{
+		
+        for (int i = 0; i<sphere.length; i++)
+        {
+        	double tempX = 	sphere[i][0];
+            double tempY = 	sphere[i][1];
+            double tempZ = 	sphere[i][2];
+           	
+           	if(yaw!=0)
+			{
+				double tempR = Math.sqrt(Math.pow(tempX-center[0], 2) + Math.pow(tempY-center[1], 2));
+                double tempAngle = Math.toDegrees(Math.atan2(tempY - center[1], tempX - center[0]));
+                tempX = center[0] + tempR * Math.cos(Math.toRadians(tempAngle + yaw));
+                tempY = center[1] + tempR * Math.sin(Math.toRadians(tempAngle + yaw));
+			}
+            if(pitch!=0)
+            {
+            	double tempR = Math.sqrt(Math.pow(tempX-center[0], 2) + Math.pow(tempZ-center[2], 2));
+                double tempAngle = Math.toDegrees(Math.atan2(tempZ - center[2], tempX - center[0]));
+                tempX = center[0] + tempR * Math.cos(Math.toRadians(tempAngle + pitch));
+                tempZ = center[2] + tempR * Math.sin(Math.toRadians(tempAngle + pitch));
+            }
+            if(roll!=0)
+            {
+            	double tempR = Math.sqrt(Math.pow(tempY-center[1], 2) + Math.pow(tempZ-center[2], 2));
+                double tempAngle = Math.toDegrees(Math.atan2(tempZ - center[2], tempY - center[1]));
+                tempY = center[1] + tempR * Math.cos(Math.toRadians(tempAngle + roll));
+                tempZ = center[2] + tempR * Math.sin(Math.toRadians(tempAngle + roll));
+            }
+            
+            sphere[i][0] = tempX;
+            sphere[i][1] = tempY;
+            sphere[i][2] = tempZ;
+        }
+       	
+        
+	}
 	public ArrayList<Hitbox> getHitbox() {
 		return hitbox;
 	}
