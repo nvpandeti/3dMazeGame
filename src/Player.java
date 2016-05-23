@@ -44,13 +44,13 @@ public class Player implements Hitboxable
    	  		//System.out.println ("Blahhhhh");
    	  		changeX += moveCoefficient * Math.cos(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
         	changeY += moveCoefficient * Math.sin(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
-        	z += moveCoefficient * Math.sin(Math.toRadians(posZ));
+        	//z += moveCoefficient * Math.sin(Math.toRadians(posZ));
    	  	}
    	  	if(keys[5])
    	  	{
    	  		changeX -= moveCoefficient * Math.cos(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
    	  		changeY -= moveCoefficient * Math.sin(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
-        	z -= moveCoefficient * Math.sin(Math.toRadians(posZ));
+        	//z -= moveCoefficient * Math.sin(Math.toRadians(posZ));
    	  	}
    	  	if(keys[6])
    	  	{

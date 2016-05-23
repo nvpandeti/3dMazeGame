@@ -118,6 +118,10 @@ public class Cube implements Shapes, Hitboxable
 	{
 		return hitbox;
 	}
+	public void setHitbox(ArrayList<Hitbox> h)
+	{
+		hitbox = h;
+	}
 	public static void setReal(double x,double y, double z)
 	{
 		//realX = x;

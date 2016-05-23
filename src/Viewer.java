@@ -274,7 +274,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
     	
     	for(int i=0;i<zombies.size();i++)
     	{
-    		zombies.get(i).move(realX, realY, realZ);
+    		zombies.get(i).move(realX, realY, realZ, maze.getHitbox(), player.getHitbox().get(0), zombies);
     	}
     	    	
     	viewerPainter.setReal(realX, realY, realZ);

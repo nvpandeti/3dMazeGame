@@ -39,7 +39,7 @@ public class Bullet implements Hitboxable
 			}
 				
 		}
-		System.out.println(index);
+		//System.out.println(index);
 	}
 	
 	public void multiplySpeed(double multiplier)
@@ -116,6 +116,27 @@ public class Bullet implements Hitboxable
   		}
   		return false;
 	}
+	
+	public int move(ArrayList<Hitbox> maze, Hitbox player)
+	{
+		transform(vX,vY,vZ);
+   	  	//ArrayList<Hitbox> collisions = new ArrayList<Hitbox>();
+		if(hitbox.get(0).isColliding(player))
+		{
+			return 2;
+		}
+  		for(int i=0; i<maze.size(); i++)
+  		{
+  			Hitbox m = maze.get(i);
+  			
+  			if(hitbox.get(0).isColliding(m))
+  			{
+  				return 1;
+  			}
+  		}
+  		return 0;
+	}
+	
 	public void transform(double x, double y, double z)
 	{
 		this.x += x;
