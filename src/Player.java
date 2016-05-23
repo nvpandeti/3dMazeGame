@@ -25,6 +25,8 @@ public class Player implements Hitboxable
 		health += change;
 		if(health<0)
 			health = 0;
+		if(health>100)
+			health = 100;
 	}
 	public double getHealth()
 	{

@@ -32,5 +32,6 @@ public class GameViewer
 		}
 		*/
 		new Viewer(new File("temp.txt"), level); 
+		System.out.println("Done3");
 	}
 }

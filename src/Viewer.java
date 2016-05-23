@@ -294,11 +294,12 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		Face.setReal(realX, realY, realZ);
 		double[] light = {realX, realY, realZ};
 		Face.setLight(light);
-		
+		//System.out.println("Stuck1");
 		long tempTime = System.currentTimeMillis();
    	  	viewerPainter.drawComponent(getGraphics(), player);
    	  	long diff = System.currentTimeMillis() - tempTime;
-		//System.out.println(diff); 
+   	  	//System.out.println("Stuck2");
+		//System.out.println(diff);
 	}
 	/**
 	 * Processes button clicks

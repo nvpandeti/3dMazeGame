@@ -8,12 +8,14 @@ public class ZombieArm
 	private ArrayList<Shapes> cubes;
 	private ArrayList<Face> faces;
 	private double x,y,z,posH;
+	private int index;
 	public ZombieArm(double x, double y, double z)
 	{
 		this.x = x;
 		this.y = y;
 		this.z = z;
 		posH = 0;
+		
 		
 		Color zombieSkin = new Color(83,167,122);
 		cubes = new ArrayList<Shapes>();
@@ -44,9 +46,14 @@ public class ZombieArm
 		
 		hitbox = new ArrayList<Hitbox>();
 		faces = new ArrayList<Face>();
+		index = -1;
 		for(Shapes c: cubes)
 		{
-			Viewer.viewerPainter.addShape(c);
+			if(index == -1)
+				index = Viewer.viewerPainter.addShape(c);
+			else
+				Viewer.viewerPainter.addShape(c);
+			/*
 			if(c instanceof Cube)
 			{
 				hitbox.add(((Cube)c).getHitbox().get(0));
@@ -57,10 +64,18 @@ public class ZombieArm
 				hitbox.add(((Plane)c).getHitbox().get(0));
 				faces.addAll(((Plane)c).getFaces());
 			}
-				
+			*/
 		}
 	}
-	
+	public void dispose()
+	{
+		for (int i = index; i < index+cubes.size(); i++) {
+			
+			Viewer.viewerPainter.setShape(i, null);
+		}
+		System.out.println("Zombie Dispose");
+		
+	}
 	public void transform(double x, double y, double z)
 	{
 		this.x += x;

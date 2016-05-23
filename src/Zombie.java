@@ -23,9 +23,9 @@ public class Zombie implements Hitboxable
 		this.y = y;
 		this.z = z;
 		posH = 0;
-		speed = .1;
+		speed = .15;
 		playerX = playerY = -1;
-		health = 500;
+		health = 100;
 		index = -1;
 		
 		leftArm = new ZombieArm(x,y-.55,z+.55);
@@ -38,8 +38,9 @@ public class Zombie implements Hitboxable
 		
 		cubes.add(new Cube(Color.blue, x, y, z+.2,.3,.9, .9,0,0,0));
 		ArrayList<Hitbox> tempHitbox = new ArrayList<Hitbox>();
-		tempHitbox.add(new Hitbox(x,y,z-.45,1,1,2.1,this));
+		tempHitbox.add(new Hitbox(x,y,z-.55,1,1,2.1,this));
 		((Cube)cubes.get(0)).setHitbox(tempHitbox);
+		//cubes.add(new Cube(zombieSkin, x,y,z-.55,1,1,2.1,0,0,0));
 		//cubes.add(new Cube(zombieSkin, x, y, z+.82,.3,.3, .3,0,0,0));
 		
 		double tempX = x-.15+.015;
@@ -136,6 +137,8 @@ public class Zombie implements Hitboxable
 		{
 			if(index == -1)
 				index = Viewer.viewerPainter.addShape(c);
+			else
+				Viewer.viewerPainter.addShape(c);
 			/*
 			if(c instanceof Cube)
 			{
@@ -166,15 +169,19 @@ public class Zombie implements Hitboxable
 	{
 		for (int i = index; i < index+cubes.size(); i++) {
 			
-			Viewer.viewerPainter.setShape(index, null);
+			Viewer.viewerPainter.setShape(i, null);
 		}
+		leftArm.dispose();
+		rightArm.dispose();
+		leftLeg.dispose();
+		rightLeg.dispose();
 		System.out.println("Zombie Dispose");
 		
 	}
 	
 	public void move(double realX, double realY, double realZ, ArrayList<Hitbox> maze, Hitbox player, ArrayList<Zombie> zombies)
 	{
-		System.out.println(Arrays.toString(cubes.get(10).getCenter()));
+		//System.out.println(Arrays.toString(cubes.get(10).getCenter()));
 		double yaw = Math.toDegrees(Math.atan2(realY-y, realX-x));
 		Bullet visionProbe = new Bullet(x,y,z+.75,yaw,0);
 		visionProbe.multiplySpeed(10);
@@ -182,6 +189,7 @@ public class Zombie implements Hitboxable
 		while(tempCollision==0)
 		{
 			tempCollision = visionProbe.move(maze, player);
+			//System.out.println("Stuck1");
 		}
 		visionProbe.dispose();
 		if(tempCollision==2)
@@ -278,6 +286,7 @@ public class Zombie implements Hitboxable
 			Viewer.viewerPainter.setRedCover(true);
 			//System.out.println("Hitting");
 		}
+		//System.out.println("Stuck2");
 	}
 	
 	public void transform(double x, double y, double z)

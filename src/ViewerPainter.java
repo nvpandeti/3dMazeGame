@@ -367,11 +367,12 @@ public class ViewerPainter extends JComponent
 	    g.fillRect(midX-2, midY-10, 4, 20);
 	    //if(redCover<100)
 	    	//redCover++;
-	    
-	    //System.out.print("works 1");
+	    g.drawImage(gunImage, -getWidth()/4, -getHeight()/4, null);
+	    //System.out.println("works 1");
 	    
 	    if(redCover)
 	    {
+	    	//System.out.println(player.getHealth()+" "+(100-(int)player.getHealth()));
 	    	g.setColor(new Color(255,0,0,100-(int)player.getHealth())); 
 	    	g.fillRect(0,0,getWidth(), getHeight());
 	    	redCover = false;
@@ -384,8 +385,8 @@ public class ViewerPainter extends JComponent
 				g.drawString("YOU DIED", getWidth()/2 - 200, getHeight()/2 -50);
 	    	}
 	    }
-	    //System.out.print("works 2");
-	    g.drawImage(gunImage, -getWidth()/4, -getHeight()/4, null);
+	    //System.out.println("works 2");
+	    
 	    g.dispose();
 	    g2.drawImage(img, getX()+8, getY()+31, this);
 	}
