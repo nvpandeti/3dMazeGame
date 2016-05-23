@@ -22,6 +22,7 @@ public class ViewerPainter extends JComponent
 	private double[] origin;
 	private double realX, realY, realZ;
 	private Bitmap bitmap;
+	private static int redCover = 0;
 	
 	/**
 	 * A default constructor for ViewerPainter
@@ -354,6 +355,10 @@ public class ViewerPainter extends JComponent
 	    int midY = getHeight()/2;
 	    g.fillRect(midX-10, midY-2, 20, 4);
 	    g.fillRect(midX-2, midY-10, 4, 20);
+	    //if(redCover<100)
+	    	//redCover++;
+	    //g.setColor(new Color(255,0,0,redCover)); 
+		//g.fillRect(0,0,getWidth(), getHeight());
 	    
 	    g.dispose();
 	    g2.drawImage(img, getX()+8, getY()+31, this);

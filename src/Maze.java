@@ -86,7 +86,7 @@ public class Maze implements Hitboxable
 		//double[] tempLightPos = {2,2,2};
 		//Face.addLights(new Light(tempLightPos, 10));
 		
-		//cubes.add(img); 
+		cubes.add(img); 
 		
 		//cubes.add(new Torus(Color.orange, 2,2,2,.5,1,100,0,40,0));
 		Color wallColor = new Color(139,69,19, 255);

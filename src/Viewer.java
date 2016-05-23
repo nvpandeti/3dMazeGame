@@ -33,6 +33,8 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 	private int markerNum;
 	private ArrayList<Integer> availableMarkers;
 	private ArrayList<Zombie> zombies;
+	private ArrayList<Marker> markers;
+	
 	/**
 	 * A constructor for Viewer
 	 * @param load The file you wish to view from
@@ -119,6 +121,8 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 			availableMarkers.add(i);
 		}
 		
+		markers = new ArrayList<Marker>();
+		
 		playerBullets = new ArrayList<Bullet>();
 		
 		viewerPainter.setReal(realX, realY, realZ);
@@ -133,15 +137,16 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		//	double[] temp1234 = {i+1,3,2}; 
 		//	viewerPainter.addShape(new Marker (temp123,temp1234,i));   
 		//}
-		new ZombieArm(6,2.2,1.75); 
-		new ZombieArm(6,3.3,1.75); 
-		new ZombieLeg(6,2.5,1.05);
-		new ZombieLeg(6,3.0,1.05);
+		//new ZombieArm(6,2.2,1.75); 
+		//new ZombieArm(6,3.3,1.75); 
+		//new ZombieLeg(6,2.5,1.05);
+		//new ZombieLeg(6,3.0,1.05);
 		zombies = new ArrayList<Zombie>();
 		zombies.add(new Zombie(9, 1.5, 1.25,false));
 		zombies.add(new Zombie(9, 3, 1.25,true)); 
 		
    	  	robot.mouseMove(getWidth()/2,getHeight()/2);
+   	  	
    	  	repaint();
    	  	new Thread(this).start();
 	}
@@ -229,7 +234,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
     	{
     		mouseKeys[2] = false; 
     		Bullet b = new Bullet(realX, realY, realZ, posH, posZ);
-    		while(!b.move(maze.getHitbox()))
+    		while(!b.move(maze.getHitbox(), markers))
     		{
     			
     		}
@@ -243,7 +248,10 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
     		{
     			
     		}
-	    	b.dispose(); 
+	    	b.dispose();
+	    	if(b.getMarker() != null)
+	    		markers.add(b.getMarker());
+	    	System.out.println("markers: "+markers.size());
 	    	markerNum = -1;
     	}
     	//System.out.println(playerBullets.size());
@@ -253,7 +261,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
     		for (int j = 0; j < 5; j++) 
     		{
     			//System.out.print(i);
-				if(playerBullets.get(i).move(maze.getHitbox()))
+				if(playerBullets.get(i).move(maze.getHitbox(), markers))
 	    		{
 					
 	    			playerBullets.get(i).dispose();
@@ -266,7 +274,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
     	
     	for(int i=0;i<zombies.size();i++)
     	{
-    		//zombies.get(i).move(realX, realY, realZ);
+    		zombies.get(i).move(realX, realY, realZ);
     	}
     	    	
     	viewerPainter.setReal(realX, realY, realZ);
@@ -358,7 +366,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 	 */
 	public void keyReleased(KeyEvent e)
 	{
-		System.out.println(); 
+		//System.out.println(); 
 		if(Character.isDigit(e.getKeyChar()) && e.getKeyChar()!='0')
 		{
 			markerNum = e.getKeyChar()-48;

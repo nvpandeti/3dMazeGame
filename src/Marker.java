@@ -3,17 +3,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class Marker implements Shapes
+public class Marker implements Shapes, Hitboxable
 {
 	private double[] position;
 	private double[] normal;
-	private int num;
+	private int num, index;
 	private ArrayList<Hitbox> hitbox;
 	private ArrayList<Shapes> shapes;
 	private ArrayList<Face> faces;
 	private double[][] marker;
 	
-	public Marker(double[] pos, double[] norm, int n)
+	public Marker(double[] pos, double[] center,  double[] norm, int n)
 	{
 		num = n;
 		position = pos;
@@ -21,7 +21,7 @@ public class Marker implements Shapes
 		double[] angleNorm = new double[3];
 		for (int i = 0; i < angleNorm.length; i++) 
 		{
-			angleNorm[i] = normal[i] - position[i];
+			angleNorm[i] = normal[i] - center[i];
 		}
 		double normalizer = Math.sqrt(Math.pow(angleNorm[0],2) + Math.pow(angleNorm[1],2) + Math.pow(angleNorm[2],2));
 		for (int i = 0; i < angleNorm.length; i++) 
@@ -33,7 +33,7 @@ public class Marker implements Shapes
 		//double phi = Math.toDegrees(Math.asin(angleNorm[2]));
 		double phi = 90 - Math.toDegrees(Math.asin(angleNorm[2]));
 		
-		
+		//System.out.println("Hitting2");
 		
 		marker = new double[56][3];
 		double theta = -11.25;
@@ -91,9 +91,13 @@ public class Marker implements Shapes
             marker[i][1] = tempY;
             marker[i][2] = tempZ;
 		}
-		double[] tempLightPos = {position[0]+.2*angleNorm[0], position[1]+.2*angleNorm[1], position[2]+.2*angleNorm[2]};
-		Face.addLights(new Light(tempLightPos, 4)); 
 		
+		double[] tempLightPos = {position[0]+.2*angleNorm[0], position[1]+.2*angleNorm[1], position[2]+.2*angleNorm[2]};
+		Face.setLights(num,new Light(tempLightPos, 4)); 
+		
+		hitbox = new ArrayList<Hitbox>();
+		//hitbox.add(new Hitbox(position[0], position[1], position[2], .3,.3,.3,  this));
+		hitbox.add(new Hitbox(position[0], position[1], position[2], .15,this));
 		//for (int i = 0; i < marker.length; i++) {
 		//	System.out.println( Arrays.toString( marker[i]));
 			
@@ -192,10 +196,9 @@ public class Marker implements Shapes
 		
 		
 		
-		//System.out.println(" done"); 
 		
-		
-		
+		this.index = Viewer.viewerPainter.addShape(this);
+		//System.out.println("Marker index: "+index); 
 		
 		
 		
@@ -228,5 +231,16 @@ public class Marker implements Shapes
 	public void rotate(double yaw, double pitch, double roll) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void dispose()
+	{
+		Viewer.viewerPainter.setShape(index, null);
+		Face.setLights(num, null);
+	}
+	@Override
+	public ArrayList<Hitbox> getHitbox() {
+		// TODO Auto-generated method stub
+		return hitbox;
 	}
 }

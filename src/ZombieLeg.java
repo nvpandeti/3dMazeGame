@@ -7,13 +7,14 @@ public class ZombieLeg
 	private ArrayList<Hitbox> hitbox;
 	private ArrayList<Shapes> cubes;
 	private ArrayList<Face> faces;
-	private double x,y,z,posH;
+	private double x,y,z,posH,posZ;
 	public ZombieLeg(double x, double y, double z)
 	{
 		this.x = x;
 		this.y = y;
 		this.z = z;
 		posH = 0;
+		posZ = 90;
 		Color zombieSkin = new Color(83,167,122);
 		cubes = new ArrayList<Shapes>();
 		
@@ -73,6 +74,27 @@ public class ZombieLeg
 			s.rotate(yaw-posH, 0, 0);
 		}
 		posH = yaw;
+	}
+	public void rotateUp(double angle)
+	{
+		for(Shapes s: cubes)
+		{
+			double tempX = s.getCenter()[0];
+			double tempY = s.getCenter()[1];
+			double tempZ = s.getCenter()[2];
+			double tempH = Math.sqrt(Math.pow(tempX-x, 2) + Math.pow(tempY-y, 2));
+			double tempAngleH = Math.toDegrees(Math.atan2(tempY - y, tempX - x));
+			double tempR = Math.sqrt(Math.pow(tempH, 2) + Math.pow(tempZ-z, 2));
+            double tempAngle = Math.toDegrees(Math.atan2(tempZ - z, tempH));
+            
+            tempX = x + tempR * Math.cos(Math.toRadians(posH)) * Math.cos(Math.toRadians(tempAngle - angle - posZ));
+        	tempY = y + tempR * Math.sin(Math.toRadians(posH)) * Math.cos(Math.toRadians(tempAngle - angle - posZ));
+        	tempZ = z + tempR * Math.sin(Math.toRadians(tempAngle - angle - posZ));
+        	
+            s.transform(tempX - s.getCenter()[0], tempY - s.getCenter()[1], tempZ - s.getCenter()[2]);
+			//((Cube)s).rotateUp(posH, angle-posZ);
+		}
+		posZ = angle;
 	}
 	public double[] getCenter()
 	{

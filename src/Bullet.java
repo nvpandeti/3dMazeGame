@@ -48,13 +48,26 @@ public class Bullet implements Hitboxable
 		vY *= multiplier;
 		vZ *= multiplier;
 	}
-	public boolean move(ArrayList<Hitbox> maze)
+	public boolean move(ArrayList<Hitbox> maze, ArrayList<Marker> markers)
 	{
 		transform(vX,vY,vZ);
    	  	//ArrayList<Hitbox> collisions = new ArrayList<Hitbox>();
 		if(Math.abs(x)>100 ||  Math.abs(y)>100 || Math.abs(z)>25)
 		{
 			return true;
+		}
+		for (int i = 0; i < markers.size(); i++) 
+		{
+			Hitbox m = markers.get(i).getHitbox().get(0);
+			if(hitbox.get(0).isColliding(m))
+			{
+				//Viewer.viewerPainter.addShape(new Sphere(Color.red, x,y,z,.1,3));
+				
+				((Marker)m.getReference()).dispose();
+				markers.remove(i);
+				i--;
+				return true;
+			}
 		}
   		for(int i=0; i<maze.size(); i++)
   		{
@@ -70,18 +83,28 @@ public class Bullet implements Hitboxable
 //  				copy.addAll(m.getReference().getFaces());
 //  				Collections.sort(copy);
 //  				copy.get(copy.size()-1).setColor(Color.green);
-  				ArrayList<Face> copy=m.getReference().getFaces();
-  				Face min = copy.get(0);
-  				double minDist = Math.sqrt(Math.pow(x - min.getCenter()[0], 2) + Math.pow(y - min.getCenter()[1], 2) + Math.pow(z - min.getCenter()[2], 2));
-  				for(int j=1; j<copy.size();j++)
+  				if(m.getReference() instanceof Cube && m.getReference().getFaces().size()<=2)
   				{
-  					double tempDist = Math.sqrt(Math.pow(x - copy.get(j).getCenter()[0], 2) + Math.pow(y - copy.get(j).getCenter()[1], 2) + Math.pow(z - copy.get(j).getCenter()[2], 2));
-  					if(minDist > tempDist)
-  					{
-  						minDist = tempDist;
-  						min = copy.get(j);
-  					}
+  					ArrayList<Face> copy=m.getReference().getFaces();
+	  				for(int c=0;c<copy.size();)
+	  				{
+	  					copy.remove(0);
+	  				}
+	  				maze.remove(i);
+	  				i--;
   				}
+  				
+//  				Face min = copy.get(0);
+//  				double minDist = Math.sqrt(Math.pow(x - min.getCenter()[0], 2) + Math.pow(y - min.getCenter()[1], 2) + Math.pow(z - min.getCenter()[2], 2));
+//  				for(int j=1; j<copy.size();j++)
+//  				{
+//  					double tempDist = Math.sqrt(Math.pow(x - copy.get(j).getCenter()[0], 2) + Math.pow(y - copy.get(j).getCenter()[1], 2) + Math.pow(z - copy.get(j).getCenter()[2], 2));
+//  					if(minDist > tempDist)
+//  					{
+//  						minDist = tempDist;
+//  						min = copy.get(j);
+//  					}
+//  				}
   				//min.setColor(Color.green);
   				//double[] tempLightPos = min.getCenter();
   				//Face.addLights(new Light(tempLightPos, 4)); 

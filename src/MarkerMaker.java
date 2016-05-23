@@ -10,6 +10,7 @@ public class MarkerMaker implements Hitboxable
 	private double x,y,z,vX,vY,vZ; 
 	private int index;
 	private int num;
+	private Marker marker;
 	public MarkerMaker(double x, double y, double z, double posH, double posZ, int num)
 	{
 		this.x = x;
@@ -17,6 +18,7 @@ public class MarkerMaker implements Hitboxable
 		this.z = z; 
 		double moveCoefficient = .05;
 		this.num = num;
+		marker = null;
 		vX = moveCoefficient * Math.cos(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
     	vY = moveCoefficient * Math.sin(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
     	vZ = moveCoefficient * Math.sin(Math.toRadians(posZ));
@@ -40,7 +42,7 @@ public class MarkerMaker implements Hitboxable
 			}
 				
 		}
-		System.out.println(index);
+		//System.out.println(index);
 	}
 	
 	public void multiplySpeed(double multiplier)
@@ -87,16 +89,30 @@ public class MarkerMaker implements Hitboxable
   					}
   					
   				}
+  				double[] minPoint = min.getCenter();
+  				for(int j=0; j<min.getCorners().length;j++)
+  				{
+					double tempDist = Math.sqrt(Math.pow(x - min.getCorners()[j][0], 2) + Math.pow(y - min.getCorners()[j][1], 2) + Math.pow(z - min.getCorners()[j][2], 2));
+  					if(minDist > tempDist)
+  					{
+  						minDist = tempDist;
+  						minPoint = min.getCorners()[j];
+  					}
+  				}
   				//min.setColor(Color.green);
   				//double[] tempLightPos = min.getCenter();
   				//Face.addLights(new Light(tempLightPos, 4)); 
   				//Viewer.viewerPainter.addShape(new Sphere(Color.red, tempLightPos[0],tempLightPos[1],tempLightPos[2],.2,3));
-  				Viewer.viewerPainter.addShape(new Marker(min.getCenter(),min.getNormal(),num));
+  				marker = new Marker(minPoint,min.getCenter(),min.getNormal(),num);
   				//dispose();
   				return true;
   			}
   		}
   		return false;
+	}
+	public Marker getMarker()
+	{
+		return marker;
 	}
 	public void transform(double x, double y, double z)
 	{

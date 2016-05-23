@@ -90,6 +90,8 @@ public class Face implements Comparable<Face>
 	}
 	public static void setLights(int index, Light l)
 	{
+		while(lights.size()-1 < index)
+			lights.add(null);
 		lights.set(index, l);
 	}
 	/**

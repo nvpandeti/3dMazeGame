@@ -4,7 +4,9 @@
  * Period 2
  */
 import java.awt.*;
+
 import javax.swing.*;
+
 import java.awt.event.*;
 import java.util.*;
 /**
@@ -174,6 +176,28 @@ public class Cube implements Shapes, Hitboxable
             cube[i][2] = tempZ;
 		}
 		
+	}
+	
+	public void rotateUp(double posH, double angle)
+	{
+		for (int i = 0; i<8; i++)
+		{
+			double tempX = 	cube[i][0];
+            double tempY = 	cube[i][1];
+            double tempZ = 	cube[i][2];
+           	
+            double tempH = Math.sqrt(Math.pow(tempX-center[0], 2) + Math.pow(tempY-center[1], 2));
+            //double tempAngleH = Math.toDegrees(Math.atan2(tempY - center[1], tempX - center[0]));
+			double tempR = Math.sqrt(Math.pow(tempH, 2) + Math.pow(tempZ-center[2], 2));
+            double tempAngle = Math.toDegrees(Math.atan2(tempZ - center[2], tempH));
+            
+            tempX = center[0] + tempR * Math.cos(Math.toRadians(posH)) * Math.cos(Math.toRadians(tempAngle + angle));
+        	tempY = center[1] + tempR * Math.sin(Math.toRadians(posH)) * Math.cos(Math.toRadians(tempAngle + angle));
+        	tempZ = center[2] + tempR * Math.sin(Math.toRadians(tempAngle + angle));
+            cube[i][0] = tempX;
+            cube[i][1] = tempY;
+            cube[i][2] = tempZ;
+		}
 	}
 	
 }
