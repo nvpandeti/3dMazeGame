@@ -48,7 +48,7 @@ public class Bullet implements Hitboxable
 		vY *= multiplier;
 		vZ *= multiplier;
 	}
-	public boolean move(ArrayList<Hitbox> maze, ArrayList<Marker> markers)
+	public boolean move(ArrayList<Hitbox> maze, ArrayList<Marker> markers, ArrayList<Zombie> zombies)
 	{
 		transform(vX,vY,vZ);
    	  	//ArrayList<Hitbox> collisions = new ArrayList<Hitbox>();
@@ -69,6 +69,24 @@ public class Bullet implements Hitboxable
 				return true;
 			}
 		}
+		for (int i = 0; i < zombies.size(); i++) 
+		{
+			Hitbox m = zombies.get(i).getHitbox().get(0);
+			Hitbox m1 = zombies.get(i).getHitbox().get(1);
+			if(hitbox.get(0).isColliding(m) || hitbox.get(0).isColliding(m1) )
+			{
+				zombies.get(i).changeHealth(-10);
+				if(zombies.get(i).getHealth() == 0)
+				{
+					zombies.get(i).dispose();
+					zombies.remove(i);
+					i--;
+				}
+				Viewer.viewerPainter.addShape(new Sphere(Color.red, x,y,z,.1,3));
+				return true;
+			}
+		}
+			
   		for(int i=0; i<maze.size(); i++)
   		{
   			Hitbox m = maze.get(i);

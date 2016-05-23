@@ -5,11 +5,13 @@ public class Player implements Hitboxable
 	private double x,y,z;
 	private double footstepDist, lastStepX, lastStepY;
 	private int footstepNum;
+	private double health;
 	public Player(double x, double y, double z)
 	{
 		this.x = x; 
 		this.y = y; 
 		this.z = z;
+		health = 100;
 		hitbox = new ArrayList<Hitbox>();
 		hitbox.add(new Hitbox(x,y,z,1,1,1,this));
 		
@@ -17,6 +19,16 @@ public class Player implements Hitboxable
 		lastStepX = x;
 		lastStepY = y;
 		footstepNum = 1;
+	}
+	public void changeHealth(double change)
+	{
+		health += change;
+		if(health<0)
+			health = 0;
+	}
+	public double getHealth()
+	{
+		return health;
 	}
 	public void setPosition(double x, double y, double z)
 	{
@@ -39,43 +51,46 @@ public class Player implements Hitboxable
 		double changeX = 0;
 		double changeY = 0;
 		double changeZ = 0;
-   	  	if(keys[4])
-   	  	{
-   	  		//System.out.println ("Blahhhhh");
-   	  		changeX += moveCoefficient * Math.cos(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
-        	changeY += moveCoefficient * Math.sin(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
-        	//z += moveCoefficient * Math.sin(Math.toRadians(posZ));
-   	  	}
-   	  	if(keys[5])
-   	  	{
-   	  		changeX -= moveCoefficient * Math.cos(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
-   	  		changeY -= moveCoefficient * Math.sin(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
-        	//z -= moveCoefficient * Math.sin(Math.toRadians(posZ));
-   	  	}
-   	  	if(keys[6])
-   	  	{
-   	  		changeX += moveCoefficient * Math.sin(Math.toRadians(posH));
-   	  		changeY -= moveCoefficient * Math.cos(Math.toRadians(posH));
-   	  	}
-   	  	if(keys[7])
-   	  	{
-   	  		changeX -= moveCoefficient * Math.sin(Math.toRadians(posH));
-   	  		changeY += moveCoefficient * Math.cos(Math.toRadians(posH));
-   	  	}
-   	  	if(keys[8])
-   	  	{
-   	  		changeX += moveCoefficient * Math.cos(Math.toRadians(posH)) * Math.sin(Math.toRadians(posZ));
-   	  		changeY += moveCoefficient * Math.sin(Math.toRadians(posH)) * Math.sin(Math.toRadians(posZ));
-        	//z -= Math.sqrt(Math.pow(moveCoefficient * Math.cos(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ)),2) + 
-        	//					Math.pow(moveCoefficient * Math.sin(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ)), 2));
-   	  	}
-   	  	if(keys[9])
-   	  	{
-   	  		changeX -= moveCoefficient * Math.cos(Math.toRadians(posH)) * Math.sin(Math.toRadians(posZ));
-   	  		changeY -= moveCoefficient * Math.sin(Math.toRadians(posH)) * Math.sin(Math.toRadians(posZ));
-        	//z += Math.sqrt(Math.pow(moveCoefficient * Math.cos(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ)),2) + 
-        	//					Math.pow(moveCoefficient * Math.sin(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ)), 2));
-   	  	}
+		if(health!=0)
+		{
+		  	if(keys[4])
+		  	{
+		  		//System.out.println ("Blahhhhh");
+		  		changeX += moveCoefficient * Math.cos(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
+		    	changeY += moveCoefficient * Math.sin(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
+		    	//z += moveCoefficient * Math.sin(Math.toRadians(posZ));
+		  	}
+		  	if(keys[5])
+		  	{
+		  		changeX -= moveCoefficient * Math.cos(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
+		  		changeY -= moveCoefficient * Math.sin(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
+		    	//z -= moveCoefficient * Math.sin(Math.toRadians(posZ));
+		  	}
+		  	if(keys[6])
+		  	{
+		  		changeX += moveCoefficient * Math.sin(Math.toRadians(posH));
+		  		changeY -= moveCoefficient * Math.cos(Math.toRadians(posH));
+		  	}
+		  	if(keys[7])
+		  	{
+		  		changeX -= moveCoefficient * Math.sin(Math.toRadians(posH));
+		  		changeY += moveCoefficient * Math.cos(Math.toRadians(posH));
+		  	}
+		  	if(keys[8])
+		  	{
+		  		changeX += moveCoefficient * Math.cos(Math.toRadians(posH)) * Math.sin(Math.toRadians(posZ));
+		  		changeY += moveCoefficient * Math.sin(Math.toRadians(posH)) * Math.sin(Math.toRadians(posZ));
+		    	//z -= Math.sqrt(Math.pow(moveCoefficient * Math.cos(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ)),2) + 
+		    	//					Math.pow(moveCoefficient * Math.sin(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ)), 2));
+		  	}
+		  	if(keys[9])
+		  	{
+		  		changeX -= moveCoefficient * Math.cos(Math.toRadians(posH)) * Math.sin(Math.toRadians(posZ));
+		  		changeY -= moveCoefficient * Math.sin(Math.toRadians(posH)) * Math.sin(Math.toRadians(posZ));
+		    	//z += Math.sqrt(Math.pow(moveCoefficient * Math.cos(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ)),2) + 
+		    	//					Math.pow(moveCoefficient * Math.sin(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ)), 2));
+		  	}
+		}
    	  	x += changeX;
    	  	y += changeY;
    	  	z += changeZ;

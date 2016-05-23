@@ -1,14 +1,17 @@
 import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import java.awt.geom.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
 /**
@@ -22,8 +25,8 @@ public class ViewerPainter extends JComponent
 	private double[] origin;
 	private double realX, realY, realZ;
 	private Bitmap bitmap;
-	private static int redCover = 0;
-	
+	private boolean redCover;
+	private Image gunImage;
 	/**
 	 * A default constructor for ViewerPainter
 	 */
@@ -36,7 +39,13 @@ public class ViewerPainter extends JComponent
 		realY = -6;
 		realZ = 6.5;
 		
-		
+		redCover = false;
+		try
+		{
+			gunImage = ImageIO.read( getClass().getResourceAsStream("gun_powerpoint2.png")); 
+		}
+		catch(IOException e){
+		}
 	}
 	/**
 	 * Sets the origin coordinates
@@ -108,14 +117,15 @@ public class ViewerPainter extends JComponent
 			}
 		}
 	}
+	public void setRedCover(boolean red)
+	{
+		redCover = red;
+	}
 	/**
 	 * Draws the shapes. It also double buffers
 	 * @param g2 the graphics
-	 * @param colorB true if you want to draw colors
-	 * @param shadingB true if you want to shade colors
-	 * @param wireB true if you want to draw wire frame
 	 */
-	public void drawComponent(Graphics g2)
+	public void drawComponent(Graphics g2, Player player)
 	{
 		//super.paintComponent(g);
 		//Image img = createImage(getWidth(), getHeight());
@@ -357,9 +367,25 @@ public class ViewerPainter extends JComponent
 	    g.fillRect(midX-2, midY-10, 4, 20);
 	    //if(redCover<100)
 	    	//redCover++;
-	    //g.setColor(new Color(255,0,0,redCover)); 
-		//g.fillRect(0,0,getWidth(), getHeight());
 	    
+	    //System.out.print("works 1");
+	    
+	    if(redCover)
+	    {
+	    	g.setColor(new Color(255,0,0,100-(int)player.getHealth())); 
+	    	g.fillRect(0,0,getWidth(), getHeight());
+	    	redCover = false;
+	    	
+	    	if(player.getHealth() == 0)
+	    	{
+	    		//g.drawImage(bkg, getWidth()/2 - bkg.getWidth()/2, getHeight()/2 - bkg.getHeight()/2, this);
+				g.setFont(new Font("Chiller", Font.BOLD, 120));
+				g.setColor(Color.BLACK);
+				g.drawString("YOU DIED", getWidth()/2 - 200, getHeight()/2 -50);
+	    	}
+	    }
+	    //System.out.print("works 2");
+	    g.drawImage(gunImage, -getWidth()/4, -getHeight()/4, null);
 	    g.dispose();
 	    g2.drawImage(img, getX()+8, getY()+31, this);
 	}

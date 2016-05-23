@@ -19,12 +19,12 @@ import java.awt.image.*;
 */
 public class Viewer extends JFrame implements ActionListener, KeyListener, Runnable, MouseListener //, MouseMotionListener
 {
-	public static ViewerPainter viewerPainter = new ViewerPainter();
+	public static ViewerPainter viewerPainter;// = new ViewerPainter();
 	private Robot robot;
 	private boolean[] keys;
 	private boolean[] mouseKeys;
 	private double posH, posZ, realX, realY, realZ, r;
-	private int mX, mY, tempX, tempY;
+	private int mX, mY, tempX, tempY, status;
 	private double[] origin, light;
 	private Player player;
 	private Maze maze;
@@ -34,13 +34,15 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 	private ArrayList<Integer> availableMarkers;
 	private ArrayList<Zombie> zombies;
 	private ArrayList<Marker> markers;
+	private Thread GameLoopThread;
 	
 	/**
 	 * A constructor for Viewer
 	 * @param load The file you wish to view from
 	 */
-	public Viewer(File load)
+	public Viewer(File load, int level)
 	{
+		viewerPainter = new ViewerPainter();
 		try {
 			RandomAccessFile raf = new RandomAccessFile(getClass().getProtectionDomain().getClassLoader().getResource("").getPath()+"\\tunnelBetter.BMP", "r");
 			System.out.println("FILE SIZE "+raf.length());
@@ -57,12 +59,12 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		}
 		
 		
-		setTitle("Sculpture Maker");
+		setTitle("Darkness");
 		try{
 		setIconImage(ImageIO.read( getClass().getResourceAsStream("icon2.png")));
 		}
 		catch(IOException e){}
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		//setUndecorated(true);
 		setExtendedState(MAXIMIZED_BOTH);
@@ -96,10 +98,11 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		setVisible(true);
 		
 		//mX = mY = tempX = tempY = -1;
+		status = 0;
 		keys = new boolean[10];
 		mouseKeys = new boolean[3];
 		posH = 45;
-		posZ = 0; 
+		posZ = 0;
 		//realX = 7.5;
 		//realY = 7.5;
 		realX = realY = 3; 
@@ -148,7 +151,9 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
    	  	robot.mouseMove(getWidth()/2,getHeight()/2);
    	  	
    	  	repaint();
-   	  	new Thread(this).start();
+   	  	
+   	  	GameLoopThread = new Thread(this);
+   	  	GameLoopThread.start();
 	}
 	/**
 	 * Processes any changes
@@ -213,6 +218,10 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
    	  	}
    	  	//maze.transform(.01, 0, 0);
    	  	player.move(keys, posH, posZ, maze.getHitbox());
+   	  	if(player.getHealth() != 0)
+   	  		player.changeHealth(.1);
+   	  	else
+   	  		status = 1;
    	  	double[] position = player.getPosition();
    	  	realX = position[0];
    	  	realY = position[1];
@@ -222,38 +231,42 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
     	origin[1] = realY + r * Math.sin(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
     	origin[2] = realZ + r * Math.sin(Math.toRadians(posZ));
     	
-    	if(mouseKeys[0])
+    	if(player.getHealth() != 0)
     	{
-    		playerBullets.add(new Bullet(realX, realY, realZ, posH, posZ));
-    		playerBullets.get(playerBullets.size()-1).multiplySpeed(3);
-    		mouseKeys[0] = false;
-    		//(new Thread(new Sound("kazoo.wav", -17f))).start();
-    		
+			if(mouseKeys[0])
+			{
+				playerBullets.add(new Bullet(realX, realY, realZ, posH, posZ));
+				playerBullets.get(playerBullets.size()-1).multiplySpeed(3);
+				mouseKeys[0] = false;
+				//(new Thread(new Sound("kazoo.wav", -17f))).start();
+				
+			}
+			if(mouseKeys[2])
+			{
+				mouseKeys[2] = false; 
+				Bullet b = new Bullet(realX, realY, realZ, posH, posZ);
+				while(!b.move(maze.getHitbox(), markers, zombies))
+				{
+					
+				}
+		    	b.dispose(); 
+			}
+			if(markerNum != -1 && availableMarkers.contains(markerNum))
+			{
+				availableMarkers.remove(new Integer(markerNum));
+				MarkerMaker b = new MarkerMaker(realX, realY, realZ, posH, posZ, markerNum);
+				while(!b.move(maze.getHitbox()))
+				{
+					
+				}
+		    	b.dispose();
+		    	if(b.getMarker() != null)
+		    		markers.add(b.getMarker());
+		    	System.out.println("markers: "+markers.size());
+		    	markerNum = -1;
+			}
     	}
-    	if(mouseKeys[2])
-    	{
-    		mouseKeys[2] = false; 
-    		Bullet b = new Bullet(realX, realY, realZ, posH, posZ);
-    		while(!b.move(maze.getHitbox(), markers))
-    		{
-    			
-    		}
-	    	b.dispose(); 
-    	}
-    	if(markerNum != -1 && availableMarkers.contains(markerNum))
-    	{
-    		availableMarkers.remove(new Integer(markerNum));
-    		MarkerMaker b = new MarkerMaker(realX, realY, realZ, posH, posZ, markerNum);
-    		while(!b.move(maze.getHitbox()))
-    		{
-    			
-    		}
-	    	b.dispose();
-	    	if(b.getMarker() != null)
-	    		markers.add(b.getMarker());
-	    	System.out.println("markers: "+markers.size());
-	    	markerNum = -1;
-    	}
+    	
     	//System.out.println(playerBullets.size());
     	bulletOuter:
     	for(int i = 0; i<playerBullets.size(); i++)
@@ -261,7 +274,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
     		for (int j = 0; j < 5; j++) 
     		{
     			//System.out.print(i);
-				if(playerBullets.get(i).move(maze.getHitbox(), markers))
+				if(playerBullets.get(i).move(maze.getHitbox(), markers, zombies))
 	    		{
 					
 	    			playerBullets.get(i).dispose();
@@ -283,9 +296,9 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		Face.setLight(light);
 		
 		long tempTime = System.currentTimeMillis();
-   	  	viewerPainter.drawComponent(getGraphics());
+   	  	viewerPainter.drawComponent(getGraphics(), player);
    	  	long diff = System.currentTimeMillis() - tempTime;
-		//System.out.println(diff);
+		//System.out.println(diff); 
 	}
 	/**
 	 * Processes button clicks
@@ -355,6 +368,10 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
 		{
 			System.exit(0);
+			//GameLoopThread.interrupt();
+			status = 1;
+			//bkgMusic.stop();
+			//dispose();
 		}
 		
 		
@@ -495,6 +512,10 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		mouseKeys[e.getButton()-1] = false;
 	}
 	
+	public int getStatus()
+	{
+		return status;
+	}
 	public void run()
 	{
 		long tempTime = System.currentTimeMillis();
@@ -502,6 +523,8 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		{
 			while(true)
 			{
+				if(Thread.currentThread().isInterrupted())
+					break;
 				long diff = System.currentTimeMillis() - tempTime;
 				System.out.println("    "+diff); 
 				

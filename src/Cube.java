@@ -141,7 +141,8 @@ public class Cube implements Shapes, Hitboxable
 		}
 		for(Hitbox h: hitbox)
 		{
-			h.transform(x, y, z);
+			//h.transform(x, y, z);
+			h.setPosition(center[0], center[1], center[2]);
 		}
 	}
 
