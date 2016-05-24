@@ -212,115 +212,113 @@ public class Zombie implements Hitboxable
 	 */
 	public void move(double realX, double realY, double realZ, ArrayList<Hitbox> maze, Hitbox player, ArrayList<Zombie> zombies)
 	{
-		if(Math.pow(realX - this.x, 2) + Math.pow(realY - this.y, 2) + Math.pow(realZ - this.z, 2)  < 400)
+		
+		//System.out.println(Arrays.toString(cubes.get(10).getCenter()));
+		double yaw = Math.toDegrees(Math.atan2(realY-y, realX-x));
+		Bullet visionProbe = new Bullet(x,y,z+.75,yaw,0);
+		visionProbe.multiplySpeed(10);
+		int tempCollision = visionProbe.move(maze, player);
+		while(tempCollision==0)
 		{
-			//System.out.println(Arrays.toString(cubes.get(10).getCenter()));
-			double yaw = Math.toDegrees(Math.atan2(realY-y, realX-x));
-			Bullet visionProbe = new Bullet(x,y,z+.75,yaw,0);
-			visionProbe.multiplySpeed(10);
-			int tempCollision = visionProbe.move(maze, player);
-			while(tempCollision==0)
+			tempCollision = visionProbe.move(maze, player);
+			//System.out.println("Stuck1");
+		}
+		visionProbe.dispose();
+		if(tempCollision==2)
+		{
+			playerX = player.getPosition()[0];
+			playerY = player.getPosition()[1];
+			if((Math.pow(playerY-y, 2) + Math.pow(playerX-x, 2)) >.2)
 			{
-				tempCollision = visionProbe.move(maze, player);
-				//System.out.println("Stuck1");
+				transform(speed * Math.cos(Math.toRadians(yaw)), speed * Math.sin(Math.toRadians(yaw)), 0);
 			}
-			visionProbe.dispose();
-			if(tempCollision==2)
-			{
-				playerX = player.getPosition()[0];
-				playerY = player.getPosition()[1];
-				if((Math.pow(playerY-y, 2) + Math.pow(playerX-x, 2)) >.2)
-				{
-					transform(speed * Math.cos(Math.toRadians(yaw)), speed * Math.sin(Math.toRadians(yaw)), 0);
-				}
-				
-			}
-			if(tempCollision==1 && playerX!=-1 && playerY!=-1)
-			{
-				if(Math.pow(playerY-y, 2) + Math.pow(playerX-x, 2) >.2)
-				{
-					double playerAngle = Math.toDegrees(Math.atan2(playerY-y, playerX-x)); 
-					transform(speed * Math.cos(Math.toRadians(playerAngle)), speed * Math.sin(Math.toRadians(playerAngle)), 0);
-				}
-				
-			}
-			rotate(yaw+180);
 			
-			for(int i=0; i<zombies.size(); i++)
-	  		{
-				//System.out.println("Z collision");
-				if(zombies.get(i) != this)
-				{
-					//System.out.println("Real collision");
-					Hitbox m = zombies.get(i).getHitbox().get(0);
-		  			
-		  			if(hitbox.get(0).isColliding(m))
-		  			{
-	  					if(Math.abs(x-m.getPosition()[0])>Math.abs(y-m.getPosition()[1]))
-		  				{
-		  					if(x-m.getPosition()[0]<0)
-			  					hitbox.get(0).setPosition(m.getMinX()-.51, y, z-.5);
-			  				else
-			  					hitbox.get(0).setPosition(m.getMaxX()+.51, y, z-.5);
-		  				}
-		  				else// if(Math.abs(x-m.getPosition()[0])<Math.abs(y-m.getPosition()[1]))
-		  				{
-		  					if(y-m.getPosition()[1]<0)
-			  					hitbox.get(0).setPosition(x, m.getMinY()-.51, z-.5);
-			  				else
-			  					hitbox.get(0).setPosition(x, m.getMaxY()+.51, z-.5);
-		  				}
-	  				}
-		  				
-		  				
-	  				double[] temp = hitbox.get(0).getPosition();
-	  				transform(temp[0]-x, temp[1]-y, 0);
-				}
-	  			
-	  				
-	  		}
+		}
+		if(tempCollision==1 && playerX!=-1 && playerY!=-1)
+		{
+			if(Math.pow(playerY-y, 2) + Math.pow(playerX-x, 2) >.2)
+			{
+				double playerAngle = Math.toDegrees(Math.atan2(playerY-y, playerX-x)); 
+				transform(speed * Math.cos(Math.toRadians(playerAngle)), speed * Math.sin(Math.toRadians(playerAngle)), 0);
+			}
 			
-			for(int i=0; i<maze.size(); i++)
-	  		{
-	  			Hitbox m = maze.get(i);
+		}
+		rotate(yaw+180);
+		
+		for(int i=0; i<zombies.size(); i++)
+  		{
+			//System.out.println("Z collision");
+			if(zombies.get(i) != this)
+			{
+				//System.out.println("Real collision");
+				Hitbox m = zombies.get(i).getHitbox().get(0);
 	  			
 	  			if(hitbox.get(0).isColliding(m))
 	  			{
-	  				//collisions.add(m);
-					if(Math.abs(x-m.getPosition()[0])>Math.abs(y-m.getPosition()[1]))
+  					if(Math.abs(x-m.getPosition()[0])>Math.abs(y-m.getPosition()[1]))
 	  				{
 	  					if(x-m.getPosition()[0]<0)
-		  					hitbox.get(0).setPosition(m.getMinX()-.5, y, z-.5);
+		  					hitbox.get(0).setPosition(m.getMinX()-.51, y, z-.5);
 		  				else
-		  					hitbox.get(0).setPosition(m.getMaxX()+.5, y, z-.5);
+		  					hitbox.get(0).setPosition(m.getMaxX()+.51, y, z-.5);
 	  				}
 	  				else// if(Math.abs(x-m.getPosition()[0])<Math.abs(y-m.getPosition()[1]))
 	  				{
 	  					if(y-m.getPosition()[1]<0)
-		  					hitbox.get(0).setPosition(x, m.getMinY()-.5, z-.5);
+		  					hitbox.get(0).setPosition(x, m.getMinY()-.51, z-.5);
 		  				else
-		  					hitbox.get(0).setPosition(x, m.getMaxY()+.5, z-.5);
+		  					hitbox.get(0).setPosition(x, m.getMaxY()+.51, z-.5);
 	  				}
-		  				
-		  				
-	  				double[] temp = hitbox.get(0).getPosition();
-	  		   	  	//x = temp[0];
-	  		   	  	//y = temp[1];
-	  		   	  	//z = temp[2];
-	  				transform(temp[0]-x, temp[1]-y, 0);
-		  				
-	  			}
+  				}
 	  				
-	  		}
-			
-			if(hitbox.get(0).isColliding(player))
-			{
-				((Player)player.getReference()).changeHealth(-3);
-				Viewer.viewerPainter.setRedCover(true);
-				//System.out.println("Hitting");
+	  				
+  				double[] temp = hitbox.get(0).getPosition();
+  				transform(temp[0]-x, temp[1]-y, 0);
 			}
-			//System.out.println("Stuck2");
+  			
+  				
+  		}
+		
+		for(int i=0; i<maze.size(); i++)
+  		{
+  			Hitbox m = maze.get(i);
+  			
+  			if(hitbox.get(0).isColliding(m))
+  			{
+  				//collisions.add(m);
+				if(Math.abs(x-m.getPosition()[0])>Math.abs(y-m.getPosition()[1]))
+  				{
+  					if(x-m.getPosition()[0]<0)
+	  					hitbox.get(0).setPosition(m.getMinX()-.5, y, z-.5);
+	  				else
+	  					hitbox.get(0).setPosition(m.getMaxX()+.5, y, z-.5);
+  				}
+  				else// if(Math.abs(x-m.getPosition()[0])<Math.abs(y-m.getPosition()[1]))
+  				{
+  					if(y-m.getPosition()[1]<0)
+	  					hitbox.get(0).setPosition(x, m.getMinY()-.5, z-.5);
+	  				else
+	  					hitbox.get(0).setPosition(x, m.getMaxY()+.5, z-.5);
+  				}
+	  				
+	  				
+  				double[] temp = hitbox.get(0).getPosition();
+  		   	  	//x = temp[0];
+  		   	  	//y = temp[1];
+  		   	  	//z = temp[2];
+  				transform(temp[0]-x, temp[1]-y, 0);
+	  				
+  			}
+  				
+  		}
+		
+		if(hitbox.get(0).isColliding(player))
+		{
+			((Player)player.getReference()).changeHealth(-3);
+			Viewer.viewerPainter.setRedCover(true);
+			//System.out.println("Hitting");
 		}
+		//System.out.println("Stuck2");
 	}
 	/**
 	 * Changes the position of the zombie
@@ -510,6 +508,16 @@ public class Zombie implements Hitboxable
 		}
 		
 		
+	}
+	
+	/**
+	 * Returns center coordinates
+	 * @return center coordinates
+	 */
+	public double[] getCenter()
+	{
+		double[] center = {x,y,z};
+		return center;
 	}
 	/**
 	 * Returns hitboxes

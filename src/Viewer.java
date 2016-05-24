@@ -303,7 +303,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 			}
     	}
     	
-    	if(Math.random()*100<1)
+    	if(Math.random()*100<10 && zombies.size()<10)
     	{
     		double tempZombieX = Math.random()*((level*5+6)*5-1)+1;
     		double tempZombieY = Math.random()*((level*5+6)*5-1)+1;
@@ -318,7 +318,17 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
     	
     	for(int i=0;i<zombies.size();i++)
     	{
-    		zombies.get(i).move(realX, realY, realZ, maze.getHitbox(), player.getHitbox().get(0), zombies);
+    		Zombie z = zombies.get(i);
+    		if(Math.pow(realX - z.getCenter()[0], 2) + Math.pow(realY - z.getCenter()[1], 2) + Math.pow(realZ - z.getCenter()[2], 2)  < 400)
+    		{
+    			z.move(realX, realY, realZ, maze.getHitbox(), player.getHitbox().get(0), zombies);
+    		}
+    		else
+    		{
+    			z.dispose();
+    			zombies.remove(i);
+				i--;
+    		}
     	}
     	
     	viewerPainter.showHelp(showHelp);
