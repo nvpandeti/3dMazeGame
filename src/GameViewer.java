@@ -31,7 +31,23 @@ public class GameViewer
 			//new Viewer(new File("temp.txt")); 
 		}
 		*/
-		new Viewer(new File("temp.txt"), level); 
+		for (int i = 1; i <= 4; i++) 
+		{
+			Viewer v = new Viewer(i);
+			Thread t = new Thread(v);
+			t.start();
+			while(t.isAlive())
+			{
+				
+			}
+			if(v.getStatus() == 0)
+				break;
+			else if(v.getStatus() == 1)
+				i--;
+		}
+		
+		
 		System.out.println("Done3");
+		System.exit(0);
 	}
 }

@@ -16,7 +16,7 @@ public class Maze implements Hitboxable
 	private ArrayList<Face> faces;
 	public Maze(int rows, int cols, int width, int height)
 	{
-		r = new Random(4560);
+		r = new Random();
 		this.rows = rows;
 		this.cols = cols;
 		maze = new boolean[rows][cols][5];

@@ -66,6 +66,23 @@ public class Bullet implements Hitboxable
 				((Marker)m.getReference()).dispose();
 				markers.remove(i);
 				i--;
+				Hitbox explosion = new Hitbox(((Marker)m.getReference()).getCenter()[0], ((Marker)m.getReference()).getCenter()[1], ((Marker)m.getReference()).getCenter()[2], .65,null);
+				for(int j=0; j<maze.size(); j++)
+		  		{
+					System.out.println("explosion");
+		  			Hitbox mazeH = maze.get(j);
+		  			
+		  			if(mazeH.getReference().getFaces().size()<=2 && explosion.isColliding(mazeH))
+		  			{
+		  				ArrayList<Face> copy=mazeH.getReference().getFaces();
+		  				for(int c=0;c<copy.size();)
+		  				{
+		  					copy.remove(0);
+		  				}
+		  				maze.remove(j);
+		  				j--;
+		  			}
+		  		}
 				return true;
 			}
 		}
@@ -101,6 +118,7 @@ public class Bullet implements Hitboxable
 //  				copy.addAll(m.getReference().getFaces());
 //  				Collections.sort(copy);
 //  				copy.get(copy.size()-1).setColor(Color.green);
+  				/*
   				if(m.getReference() instanceof Cube && m.getReference().getFaces().size()<=2)
   				{
   					ArrayList<Face> copy=m.getReference().getFaces();
@@ -111,6 +129,7 @@ public class Bullet implements Hitboxable
 	  				maze.remove(i);
 	  				i--;
   				}
+  				*/
   				
 //  				Face min = copy.get(0);
 //  				double minDist = Math.sqrt(Math.pow(x - min.getCenter()[0], 2) + Math.pow(y - min.getCenter()[1], 2) + Math.pow(z - min.getCenter()[2], 2));

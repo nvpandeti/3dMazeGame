@@ -25,8 +25,9 @@ public class ViewerPainter extends JComponent
 	private double[] origin;
 	private double realX, realY, realZ;
 	private Bitmap bitmap;
-	private boolean redCover;
+	private boolean redCover, showHelp, win;
 	private Image gunImage;
+	private int intro;
 	/**
 	 * A default constructor for ViewerPainter
 	 */
@@ -38,8 +39,11 @@ public class ViewerPainter extends JComponent
 		realX = -2;
 		realY = -6;
 		realZ = 6.5;
+		intro = 50;
 		
 		redCover = false;
+		showHelp = false;
+		win = false;
 		try
 		{
 			gunImage = ImageIO.read( getClass().getResourceAsStream("gun_powerpoint2.png")); 
@@ -120,6 +124,14 @@ public class ViewerPainter extends JComponent
 	public void setRedCover(boolean red)
 	{
 		redCover = red;
+	}
+	public void showHelp(boolean help)
+	{
+		showHelp = help;
+	}
+	public void setWin(boolean win)
+	{
+		this.win = win;
 	}
 	/**
 	 * Draws the shapes. It also double buffers
@@ -369,7 +381,16 @@ public class ViewerPainter extends JComponent
 	    	//redCover++;
 	    g.drawImage(gunImage, -getWidth()/4, -getHeight()/4, null);
 	    //System.out.println("works 1");
-	    
+	    if(intro>0)
+	    {
+	    	g.setFont(new Font("Cooper Back", Font.BOLD, 120));
+			g.setColor(new Color(0,0,0, Math.min(255, intro*10)));
+			g.drawString("Darkness", getWidth()/2 - 280, getHeight()/2 -180); 
+			g.drawString("Level "+Viewer.level, getWidth()/2 - 200, getHeight()/2 -50); 
+			g.setFont(new Font("Cooper Back", Font.BOLD, 60));
+			g.drawString("Hold 'H' for help", getWidth()/2 - 250, getHeight()/2 +50);
+			intro--;
+	    }
 	    if(redCover)
 	    {
 	    	//System.out.println(player.getHealth()+" "+(100-(int)player.getHealth()));
@@ -382,8 +403,27 @@ public class ViewerPainter extends JComponent
 	    		//g.drawImage(bkg, getWidth()/2 - bkg.getWidth()/2, getHeight()/2 - bkg.getHeight()/2, this);
 				g.setFont(new Font("Chiller", Font.BOLD, 120));
 				g.setColor(Color.BLACK);
-				g.drawString("YOU DIED", getWidth()/2 - 200, getHeight()/2 -50);
+				g.drawString("YOU DIED", getWidth()/2 - 210, getHeight()/2 -50);
+				g.setFont(new Font("Chiller", Font.PLAIN, 40));
+				g.drawString("PRESS ENTER TO CONTINUE", getWidth()/2 - 190, getHeight()/2 +50);
 	    	}
+	    }
+	    if(win)
+	    {
+	    	g.setFont(new Font("Harlow Solid Italic", Font.BOLD, 80));
+			g.setColor(Color.YELLOW);
+			g.drawString("Congratulations!", getWidth()/2 - 300, getHeight()/2 -50);
+			g.setFont(new Font("Harlow Solid Italic", Font.PLAIN, 40));
+			g.drawString("Press Enter To Continue", getWidth()/2 - 200, getHeight()/2 +50);
+	    }
+	    if(showHelp)
+	    {
+	    	g.setFont(new Font("Cooper Back", Font.PLAIN, 40));
+			g.setColor(Color.WHITE);
+			g.drawString("W - UP    A - LEFT    S - DOWN    D - RIGHT", getWidth()/2 - 370, getHeight()/2 -300);
+			g.drawString("Left Mouse Click - FIRE", getWidth()/2 - 210, getHeight()/2 -250);
+			g.drawString("Number Keys - PLACE MARKER", getWidth()/2 - 280, getHeight()/2 -200);
+			g.drawString("ESC - EXIT", getWidth()/2 - 105, getHeight()/2 -150);
 	    }
 	    //System.out.println("works 2");
 	    

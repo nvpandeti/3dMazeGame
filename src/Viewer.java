@@ -23,6 +23,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 	private Robot robot;
 	private boolean[] keys;
 	private boolean[] mouseKeys;
+	private boolean showHelp;
 	private double posH, posZ, realX, realY, realZ, r;
 	private int mX, mY, tempX, tempY, status;
 	private double[] origin, light;
@@ -35,13 +36,14 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 	private ArrayList<Zombie> zombies;
 	private ArrayList<Marker> markers;
 	private Thread GameLoopThread;
-	
+	public static int level;
 	/**
 	 * A constructor for Viewer
 	 * @param load The file you wish to view from
 	 */
-	public Viewer(File load, int level)
+	public Viewer(int level)
 	{
+		Viewer.level = level;
 		viewerPainter = new ViewerPainter();
 		try {
 			RandomAccessFile raf = new RandomAccessFile(getClass().getProtectionDomain().getClassLoader().getResource("").getPath()+"\\tunnelBetter.BMP", "r");
@@ -64,7 +66,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		setIconImage(ImageIO.read( getClass().getResourceAsStream("icon2.png")));
 		}
 		catch(IOException e){}
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 		setLocationRelativeTo(null);
 		//setUndecorated(true);
 		setExtendedState(MAXIMIZED_BOTH);
@@ -98,6 +100,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		setVisible(true);
 		
 		//mX = mY = tempX = tempY = -1;
+		showHelp = false;
 		status = 0;
 		keys = new boolean[10];
 		mouseKeys = new boolean[3];
@@ -132,7 +135,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		viewerPainter.setOrigin(origin);
 		Face.setReal(realX, realY, realZ);
 		player = new Player(realX, realY, realZ);
-		maze = new Maze(11,11,5,4);
+		maze = new Maze(level*5+6,level*5+6,5,4);
 		Zombie.loadZombieHead();
 		//for(int i=1;i<10;i++)
 		//{
@@ -145,15 +148,15 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		//new ZombieLeg(6,2.5,1.05);
 		//new ZombieLeg(6,3.0,1.05);
 		zombies = new ArrayList<Zombie>();
-		zombies.add(new Zombie(9, 1.5, 1.25,false));
-		zombies.add(new Zombie(9, 3, 1.25,true)); 
+		//zombies.add(new Zombie(9, 1.5, 1.25,false));
+		//zombies.add(new Zombie(9, 3, 1.25,true)); 
 		
    	  	robot.mouseMove(getWidth()/2,getHeight()/2);
    	  	
    	  	repaint();
    	  	
-   	  	GameLoopThread = new Thread(this);
-   	  	GameLoopThread.start();
+   	  	//GameLoopThread = new Thread(this);
+   	  	//GameLoopThread.start();
 	}
 	/**
 	 * Processes any changes
@@ -220,8 +223,12 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
    	  	player.move(keys, posH, posZ, maze.getHitbox());
    	  	if(player.getHealth() != 0)
    	  		player.changeHealth(.1);
-   	  	else
-   	  		status = 1;
+   	  	else 
+   	  	{	
+   	  		if(status == 0)
+   	  			status = 1;
+   	  	}
+   	  	//System.out.println("Status: "+status);
    	  	double[] position = player.getPosition();
    	  	realX = position[0];
    	  	realY = position[1];
@@ -230,6 +237,17 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
    	  	origin[0] = realX + r * Math.cos(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
     	origin[1] = realY + r * Math.sin(Math.toRadians(posH)) * Math.cos(Math.toRadians(posZ));
     	origin[2] = realZ + r * Math.sin(Math.toRadians(posZ));
+    	
+    	if(realX>(level*5+6)*5 && realY>(level*5+6-1)*5 && realX<(level*5+6)*5+4 && realY<(level*5+6-1)*5+4)
+    	{
+    		status = 2;
+    		viewerPainter.setWin(true);
+    	}
+    	else if(realX<0 || realY<0 || realX>(level*5+6)*5 || realY>(level*5+6)*5)
+    	{
+    		player.changeHealth(-10);
+    		viewerPainter.setRedCover(true);
+    	}
     	
     	if(player.getHealth() != 0)
     	{
@@ -285,11 +303,25 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 			}
     	}
     	
+    	if(Math.random()*100<1)
+    	{
+    		double tempZombieX = Math.random()*((level*5+6)*5-1)+1;
+    		double tempZombieY = Math.random()*((level*5+6)*5-1)+1;
+    		while(Math.abs(realX - tempZombieX) > 20 || Math.abs(realY - tempZombieY) > 20)
+    		{
+    			tempZombieX = Math.random()*((level*5+6)*5-1)+1;
+        		tempZombieY = Math.random()*((level*5+6)*5-1)+1;
+    		}
+    		zombies.add(new Zombie(tempZombieX, tempZombieY, 1.25,Math.random()*2<1)); 
+    		System.out.println("Zombies: " + zombies.size()); 
+    	}
+    	
     	for(int i=0;i<zombies.size();i++)
     	{
     		zombies.get(i).move(realX, realY, realZ, maze.getHitbox(), player.getHitbox().get(0), zombies);
     	}
-    	    	
+    	
+    	viewerPainter.showHelp(showHelp);
     	viewerPainter.setReal(realX, realY, realZ);
 		Face.setReal(realX, realY, realZ);
 		double[] light = {realX, realY, realZ};
@@ -368,13 +400,30 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		}
 		if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
 		{
-			System.exit(0);
+			//System.exit(0);
 			//GameLoopThread.interrupt();
-			status = 1;
-			//bkgMusic.stop();
-			//dispose();
+			status = 0;
+			bkgMusic.suspend();
+			dispose();
+			//new Viewer(level+1);
+			
 		}
 		
+		if (e.getKeyCode() == KeyEvent.VK_ENTER && status!=0)
+		{
+			//System.exit(0);
+			//GameLoopThread.interrupt();
+			bkgMusic.suspend();
+			dispose();
+			//new Viewer(level+1);
+			
+		}
+		
+		if (e.getKeyCode() == KeyEvent.VK_H)
+		{
+			//keys[9] = true;
+			showHelp = true;
+		}
 		
 	}
 
@@ -433,6 +482,11 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		if (e.getKeyCode() == KeyEvent.VK_2)
 		{
 			keys[9] = false;
+		}
+		
+		if (e.getKeyCode() == KeyEvent.VK_H)
+		{
+			showHelp = false;
 		}
 	}
 	
@@ -527,8 +581,10 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 				if(Thread.currentThread().isInterrupted())
 					break;
 				long diff = System.currentTimeMillis() - tempTime;
+				 
+				while(diff<100)
+					diff = System.currentTimeMillis() - tempTime;
 				System.out.println("    "+diff); 
-				
 				//Thread.currentThread().sleep(Math.max(0, 130 - diff));
 				//System.out.println("Yay");
 				tempTime = System.currentTimeMillis();
