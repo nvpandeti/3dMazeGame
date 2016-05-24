@@ -1,3 +1,8 @@
+/*
+ * Nikhil Pandeti
+ * Mrs. Gallatin
+ * Period 2
+ */
 import java.io.File;
 import java.io.IOException;
 
@@ -19,22 +24,35 @@ import java.util.*;
 import java.io.*;
 import java.net.URL;
 import java.awt.image.*;
-
+/**
+ * A class for Sounds
+ */
 public class Sound implements Runnable
 {
 	String fileName;
 	float masterGain;
+	/**
+	 * A constructor for Sound
+	 * @param fileName file name
+	 */
 	public Sound(String fileName)
 	{
 		this.fileName = fileName;
 		masterGain = 0f;
 	}
+	/**
+	 * A constructor for Sound
+	 * @param fileName file name
+	 * @param masterGain volume control
+	 */
 	public Sound(String fileName, float masterGain)
 	{
 		this.fileName = fileName;
 		this.masterGain = masterGain;
 	}
-	
+	/**
+	 * Plays/mixes the sound
+	 */
 	public void run() 
 	{
 		//File soundFile = new File(fileName);

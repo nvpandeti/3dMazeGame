@@ -11,7 +11,7 @@ import java.awt.event.*;
 import java.io.RandomAccessFile;
 import java.util.*;
 /**
- * A class for Cubes that implements the Shapes interface
+ * A class for Planes that implements the Shapes interface
  */
 public class Plane implements Shapes, Hitboxable
 {
@@ -108,6 +108,10 @@ public class Plane implements Shapes, Hitboxable
 	{
 		return faces;
 	}
+	/**
+	 * Returns center coordinates
+	 * @return center coordinates
+	 */
 	public double[] getCenter()
 	{
 		double[] center = {x,y,z};
@@ -121,10 +125,20 @@ public class Plane implements Shapes, Hitboxable
 	{
 		return s;
 	}
+	/**
+	 * Returns hitboxes
+	 * @return hitboxes
+	 */
 	public ArrayList<Hitbox> getHitbox()
 	{
 		return hitbox;
 	}
+	/**
+	 * Changes the position of the cube
+	 * @param x x change
+	 * @param y y change
+	 * @param z z change
+	 */
 	public void transform(double x, double y, double z)
 	{
 		this.x += x;
@@ -142,6 +156,12 @@ public class Plane implements Shapes, Hitboxable
 			hitbox.get(0).transform(x, y, z);
 		}
 	}
+	/**
+	 * Rotates the cube
+	 * @param yaw Rotation in the xy plane
+	 * @param pitch Rotation in the xz plane
+	 * @param roll Rotation in the yz plane
+	 */
 	public void rotate(double yaw, double pitch, double roll){
 		
 		for (int i = 0; i<(quality+1)*(quality+1); i++)
@@ -177,6 +197,10 @@ public class Plane implements Shapes, Hitboxable
             plane[i][2] = tempZ;
 		}
 	}
+	/**
+	 * Draws an image onto the plane
+	 * @param file file name
+	 */
 	public void drawImg(String file)
 	{
 		try{

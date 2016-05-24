@@ -83,6 +83,10 @@ public class Sphere implements Shapes, Hitboxable
 	{
 		return faces;
 	}
+	/**
+	 * Returns center coordinates
+	 * @return center coordinates
+	 */
 	public double[] getCenter()
 	{
 		 return center;
@@ -95,7 +99,12 @@ public class Sphere implements Shapes, Hitboxable
 	{
 		return s;
 	}
-	
+	/**
+	 * Changes the position of the cube
+	 * @param x x change
+	 * @param y y change
+	 * @param z z change
+	 */
 	public void transform(double x, double y, double z)
 	{
 		center[0] += x;
@@ -112,6 +121,12 @@ public class Sphere implements Shapes, Hitboxable
 			h.transform(x, y, z);
 		}
 	}
+	/**
+	 * Rotates the cube
+	 * @param yaw Rotation in the xy plane
+	 * @param pitch Rotation in the xz plane
+	 * @param roll Rotation in the yz plane
+	 */
 	public void rotate(double yaw, double pitch, double roll) 
 	{
 		
@@ -150,6 +165,10 @@ public class Sphere implements Shapes, Hitboxable
        	
         
 	}
+	/**
+	 * Returns hitboxes
+	 * @return hitboxes
+	 */
 	public ArrayList<Hitbox> getHitbox() {
 		return hitbox;
 	}

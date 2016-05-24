@@ -1,8 +1,15 @@
+/*
+ * Nikhil Pandeti
+ * Mrs. Gallatin
+ * Period 2
+ */
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
+/**
+ * A class for Markers
+ */
 public class Marker implements Shapes, Hitboxable
 {
 	private double[] position;
@@ -12,7 +19,13 @@ public class Marker implements Shapes, Hitboxable
 	private ArrayList<Shapes> shapes;
 	private ArrayList<Face> faces;
 	private double[][] marker;
-	
+	/**
+	 * Constructor for Markers
+	 * @param pos position coordinates
+	 * @param center center coordinates of a face
+	 * @param norm normal coordinates of a face
+	 * @param n number of the marker
+	 */
 	public Marker(double[] pos, double[] center,  double[] norm, int n)
 	{
 		num = n;
@@ -209,17 +222,29 @@ public class Marker implements Shapes, Hitboxable
 		
 	}
 
-	
+	/**
+	 * Returns a list of the hitboxable's Faces
+	 * @return a list of the hitboxable's Faces
+	 */
 	public ArrayList<Face> getFaces() {
 		
 		return faces;
 	}
+	/**
+	 * Returns center coordinates
+	 * @return center coordinates
+	 */
 	public double[] getCenter()
 	{
 		 return position;
 	}
-
-	@Override
+	
+	/**
+	 * Changes the position of the cube
+	 * @param x x change
+	 * @param y y change
+	 * @param z z change
+	 */
 	public void transform(double x, double y, double z) 
 	{
 		
@@ -227,18 +252,28 @@ public class Marker implements Shapes, Hitboxable
 	}
 
 
-	@Override
+	/**
+	 * Rotates the cube
+	 * @param yaw Rotation in the xy plane
+	 * @param pitch Rotation in the xz plane
+	 * @param roll Rotation in the yz plane
+	 */
 	public void rotate(double yaw, double pitch, double roll) {
 		// TODO Auto-generated method stub
 		
 	}
-
+	/**
+	 * Removes the Marker
+	 */
 	public void dispose()
 	{
 		Viewer.viewerPainter.setShape(index, null);
 		Face.setLights(num, null);
 	}
-	@Override
+	/**
+	 * Returns hitboxes
+	 * @return hitboxes
+	 */
 	public ArrayList<Hitbox> getHitbox() {
 		// TODO Auto-generated method stub
 		return hitbox;

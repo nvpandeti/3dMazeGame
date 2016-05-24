@@ -566,11 +566,17 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		// TODO Auto-generated method stub
 		mouseKeys[e.getButton()-1] = false;
 	}
-	
+	/**
+	 * Returns the status of the game
+	 * @return the status of the game
+	 */
 	public int getStatus()
 	{
 		return status;
 	}
+	/**
+	 * Runs the game at a steady 10 fps
+	 */
 	public void run()
 	{
 		long tempTime = System.currentTimeMillis();

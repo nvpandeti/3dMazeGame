@@ -82,12 +82,21 @@ public class Face implements Comparable<Face>
 	{
 		light = tempLight;
 	}
-	
+	/**
+	 * Add a Light
+	 * @param l a light
+	 * @return index of the light in the lights array
+	 */
 	public static int addLights(Light l)
 	{
 		lights.add(l);
 		return lights.size()-1;
 	}
+	/**
+	 * Sets a light at a specific index
+	 * @param index index
+	 * @param l Light
+	 */
 	public static void setLights(int index, Light l)
 	{
 		while(lights.size()-1 < index)
@@ -106,7 +115,9 @@ public class Face implements Comparable<Face>
 		realY = y;
 		realZ = z;
 	}
-	
+	/**
+	 * Calculate the distance from the camera to the center
+	 */
 	public void updateDistance()
 	{
 		double x = 0;
@@ -134,7 +145,10 @@ public class Face implements Comparable<Face>
 	{
 		return center;
 	}
-	
+	/**
+	 * Returns the normal position vector
+	 * @return the normal position vector
+	 */
 	public double[] getNormal()
 	{
 		return normal;
@@ -155,10 +169,18 @@ public class Face implements Comparable<Face>
 	{
 		return color;
 	}
+	/**
+	 * Returns the amount of shading on the face
+	 * @return the amount of shading on the face
+	 */
 	public double getShadeCoefficient()
 	{
 		return shade;
 	}
+	/**
+	 * Returns the amount of shading on the face caused by the players light source
+	 * @return the amount of shading on the face caused by the players light source
+	 */
 	public double getOriginalShadeCoefficient()
 	{
 		return origShade; 
@@ -172,10 +194,17 @@ public class Face implements Comparable<Face>
 		return shading;
 		
 	}
+	/**
+	 * Returns distance from camera
+	 * @return distance from camera
+	 */
 	public double getDistance()
 	{
 		return distance;
 	}
+	/**
+	 * Calculate the shading on a face
+	 */
 	public void calculateShading()
 	{
 		double distCoefficient = Math.max((8-distance)/8, 0);
@@ -232,6 +261,11 @@ public class Face implements Comparable<Face>
 		shading = new Color((int)(color.getRed() * shade), (int)(color.getGreen() * shade), (int)(color.getBlue() * shade), color.getAlpha());
 		
 	}
+	/**
+	 * John Carmak's inverse sqrt formula
+	 * @param x input
+	 * @return output
+	 */
 	public static double invSqrt(double x) 
 	{
 	    double xhalf = 0.5d*x;

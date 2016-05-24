@@ -1,3 +1,8 @@
+/*
+ * Nikhil Pandeti
+ * Mrs. Gallatin
+ * Period 2
+ */
 import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.RandomAccessFile;
@@ -5,7 +10,9 @@ import java.util.ArrayList;
 import java.util.Random; 
 import java.util.Stack;
 
-
+/**
+ * A class for Mazes
+ */
 public class Maze implements Hitboxable
 {
 	private int rows,cols;
@@ -14,6 +21,13 @@ public class Maze implements Hitboxable
 	private ArrayList<Hitbox> hitbox;
 	private ArrayList<Shapes> cubes;
 	private ArrayList<Face> faces;
+	/**
+	 * 
+	 * @param rows rows
+	 * @param cols colomns
+	 * @param width width of the hallways
+	 * @param height height of the walls
+	 */
 	public Maze(int rows, int cols, int width, int height)
 	{
 		r = new Random();
@@ -173,10 +187,22 @@ public class Maze implements Hitboxable
 		}
 		System.out.println("Maze Faces: "+faces.size());
 	}
+	/**
+	 * Returns true if in bounds
+	 * @param a row
+	 * @param b column
+	 * @return true if in bounds
+	 */
 	private boolean inBounds(int a, int b)
 	{
 		return a>=0 && b>=0 && a<rows && b<cols;
 	}
+	/**
+	 * Randomly chooses how maze is generated
+	 * @param a row
+	 * @param b column
+	 * @return int representing how maze is generated
+	 */
 	private int goTo(int a, int b)
 	{
 		ArrayList<Integer> possible = new ArrayList<Integer>();
@@ -196,6 +222,12 @@ public class Maze implements Hitboxable
 		
 		return possible.get(r.nextInt(possible.size()));
 	}
+	/**
+	 * Changes the position of the cube
+	 * @param x x change
+	 * @param y y change
+	 * @param z z change
+	 */
 	public void transform(double x, double y, double z)
 	{
 		for(Shapes s: cubes)
@@ -203,10 +235,18 @@ public class Maze implements Hitboxable
 			s.transform(x, y, z);
 		}
 	}
+	/**
+	 * Returns hitboxes
+	 * @return hitboxes
+	 */
 	public ArrayList<Hitbox> getHitbox() 
 	{
 		return hitbox;
 	}
+	/**
+	 * Returns a list of the hitboxable's Faces
+	 * @return a list of the hitboxable's Faces
+	 */
 	public ArrayList<Face> getFaces()
 	{
 		return faces;

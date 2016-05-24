@@ -1,10 +1,10 @@
 /*
- * Nikhil Pandeti is a nub
- * hi Mrs. Gallatin
+ * Nikhil Pandeti
+ * Mrs. Gallatin
  * Period 2
  */
 /**
- * A runner program for Sculpture Drawer
+ * A runner program for the Darkness game
  */
 import java.io.*;
 

@@ -25,6 +25,7 @@ public class Hitbox
 	 * @param length X Length
 	 * @param width Y Width
 	 * @param hight Z Height
+	 * @param ref a reference to the Hitboxable that owns the Hitbox
 	 */
 	public Hitbox(double x, double y, double z, double length, double width, double height, Hitboxable ref)
 	{
@@ -37,6 +38,14 @@ public class Hitbox
 		isBox = true;
 		reference = ref;
 	}
+	/**
+	 * A constructor for Rectangular Hitboxes
+	 * @param x X
+	 * @param y Y
+	 * @param z Z
+	 * @param radius radius
+	 * @param ref a reference to the Hitboxable that owns the Hitbox
+	 */
 	public Hitbox(double x, double y, double z, double radius, Hitboxable ref)
 	{
 		this.x = x; 
@@ -46,54 +55,99 @@ public class Hitbox
 		isBox = false;
 		reference = ref;
 	}
+	/**
+	 * Returns the position
+	 * @return the position
+	 */
 	public double[] getPosition()
 	{
 		double[] pos = {x,y,z};
 		return pos;
 		
 	}
+	/**
+	 * Returns the Hitboxable object
+	 * @return the Hitboxable object
+	 */
 	public Hitboxable getReference()
 	{
 		return reference;
 	}
+	/**
+	 * Sets the position of the hitbox
+	 * @param x x
+	 * @param y y
+	 * @param z z
+	 */
 	public void setPosition(double x, double y, double z)
 	{
 		this.x = x; 
 		this.y = y; 
 		this.z = z; 
 	}
+	/**
+	 * Changes the position of the cube
+	 * @param x x change
+	 * @param y y change
+	 * @param z z change
+	 */
 	public void transform(double x, double y, double z)
 	{
 		this.x += x; 
 		this.y += y; 
 		this.z += z;
 	}
+	/**
+	 * Returns max x
+	 * @return max x
+	 */
 	public double getMaxX()
 	{
 		return x+length/2;
 	}
+	/**
+	 * Returns max y
+	 * @return max y
+	 */
 	public double getMaxY()
 	{
 		return y+width/2;
 	}
+	/**
+	 * Returns max z
+	 * @return max z
+	 */
 	public double getMaxZ()
 	{
 		return z+height/2;
 	}
+	/**
+	 * Returns min x
+	 * @return min x
+	 */
 	public double getMinX()
 	{
 		return x-length/2;
 	}
+	/**
+	 * Returns min y
+	 * @return min y
+	 */
 	public double getMinY()
 	{
 		return y-width/2;
 	}
+	/**
+	 * Returns min y
+	 * @return min y
+	 */
 	public double getMinZ()
 	{
 		return z-height/2;
 	}
 	/**
-	 * returns true if this HitBox is intersecting the other HitBox
+	 * Returns true if this HitBox is intersecting the other HitBox
+	 * @return true if this HitBox is intersecting the other HitBox
 	 */
 	public boolean isColliding(Hitbox o)
 	{

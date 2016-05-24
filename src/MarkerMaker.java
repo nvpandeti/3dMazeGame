@@ -1,7 +1,14 @@
+/*
+ * Nikhil Pandeti
+ * Mrs. Gallatin
+ * Period 2
+ */
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
-
+/**
+ * A class for MarkerMakers
+ */
 public class MarkerMaker implements Hitboxable
 {
 	private ArrayList<Hitbox> hitbox;
@@ -11,6 +18,15 @@ public class MarkerMaker implements Hitboxable
 	private int index;
 	private int num;
 	private Marker marker;
+	/**
+	 *  A constructor for Bullets
+	 * @param x x position
+	 * @param y y position
+	 * @param z z position
+	 * @param posH horizontal angle
+	 * @param posZ vertical angle
+	 * @param num number of the marker
+	 */
 	public MarkerMaker(double x, double y, double z, double posH, double posZ, int num)
 	{
 		this.x = x;
@@ -44,13 +60,21 @@ public class MarkerMaker implements Hitboxable
 		}
 		//System.out.println(index);
 	}
-	
+	/**
+	 * Multiply the speed of the bullet
+	 * @param multiplier the speed multiplier
+	 */
 	public void multiplySpeed(double multiplier)
 	{
 		vX *= multiplier;
 		vY *= multiplier;
 		vZ *= multiplier;
 	}
+	/**
+	 * Manages collisions for bullets
+	 * @param maze Maze hitboxes
+	 * @return if the bullet should be disposed
+	 */
 	public boolean move(ArrayList<Hitbox> maze)
 	{
 		transform(vX,vY,vZ);
@@ -110,10 +134,20 @@ public class MarkerMaker implements Hitboxable
   		}
   		return false;
 	}
+	/**
+	 * Returns the Marker
+	 * @return the Marker
+	 */
 	public Marker getMarker()
 	{
 		return marker;
 	}
+	/**
+	 * Changes the position of the cube
+	 * @param x x change
+	 * @param y y change
+	 * @param z z change
+	 */
 	public void transform(double x, double y, double z)
 	{
 		this.x += x;
@@ -125,6 +159,9 @@ public class MarkerMaker implements Hitboxable
 			s.transform(x, y, z);
 		}
 	}
+	/**
+	 * Removes the MarkerMaker
+	 */
 	public void dispose()
 	{
 		for(int i=index; i<index+cubes.size(); i++)
@@ -132,11 +169,17 @@ public class MarkerMaker implements Hitboxable
 			Viewer.viewerPainter.setShape(i, null);
 		}
 	}
-
+	/**
+	 * Returns hitboxes
+	 * @return hitboxes
+	 */
 	public ArrayList<Hitbox> getHitbox() {
-		// TODO Auto-generated method stub
 		return hitbox;
 	}
+	/**
+	 * Returns a list of the hitboxable's Faces
+	 * @return a list of the hitboxable's Faces
+	 */
 	public ArrayList<Face> getFaces()
 	{
 		return faces;

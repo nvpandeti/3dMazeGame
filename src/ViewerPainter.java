@@ -80,10 +80,19 @@ public class ViewerPainter extends JComponent
 		shapes.add(s);
 		return shapes.size()-1;
 	}
+	/**
+	 * Sets a Shape at a specific index
+	 * @param index index
+	 * @param l Shape
+	 */
 	public void setShape(int index, Shapes s)
 	{
 		shapes.set(index, s);
 	}
+	/**
+	 * Adds a list of shapes
+	 * @param s list of Shapes
+	 */
 	public void addShapes(ArrayList<Shapes> s)
 	{
 		int size = s.size();
@@ -121,14 +130,26 @@ public class ViewerPainter extends JComponent
 			}
 		}
 	}
+	/**
+	 * Sets red tint
+	 * @param red true/false
+	 */
 	public void setRedCover(boolean red)
 	{
 		redCover = red;
 	}
+	/**
+	 * Shows help text
+	 * @param help true/false
+	 */
 	public void showHelp(boolean help)
 	{
 		showHelp = help;
 	}
+	/**
+	 * show congrats text
+	 * @param win true/false
+	 */
 	public void setWin(boolean win)
 	{
 		this.win = win;
@@ -430,6 +451,11 @@ public class ViewerPainter extends JComponent
 	    g.dispose();
 	    g2.drawImage(img, getX()+8, getY()+31, this);
 	}
+	/**
+	 * John Carmak's inverse sqrt formula
+	 * @param x input
+	 * @return output
+	 */
 	public static double invSqrt(double x) 
 	{
 	    double xhalf = 0.5d*x;

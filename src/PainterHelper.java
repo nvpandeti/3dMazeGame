@@ -1,10 +1,17 @@
+/*
+ * Nikhil Pandeti
+ * Mrs. Gallatin
+ * Period 2
+ */
 import java.awt.Color;
 import java.awt.Polygon;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
+/**
+ * A class that helps draw the shapes
+ */
 public class PainterHelper implements Runnable
 {
 	private List<Face> faces;
@@ -12,6 +19,16 @@ public class PainterHelper implements Runnable
 	private ArrayList<Color> colors;
 	private double realX, realY, realZ, width, height;
 	private double[] origin;
+	/**
+	 * A constructor for PainterHelper
+	 * @param f List of faces
+	 * @param x x 
+	 * @param y y
+	 * @param z z
+	 * @param orig origin position
+	 * @param w screen width
+	 * @param h screen height
+	 */
 	public PainterHelper(List<Face> f, double x, double y, double z, double[] orig, double w, double h)
 	{
 		faces = f;
@@ -24,14 +41,27 @@ public class PainterHelper implements Runnable
 		width = w;
 		height = h;
 	}
+	/**
+	 * Returns width
+	 * @return width
+	 */
 	private double getWidth()
 	{
 		return width;
 	}
+	/**
+	 * Returns height
+	 * @return height
+	 */
 	private double getHeight()
 	{
 		return height;
 	}
+	/**
+	 * John Carmak's inverse sqrt formula
+	 * @param x input
+	 * @return output
+	 */
 	public static double invSqrt(double x) 
 	{
 	    double xhalf = 0.5d*x;
@@ -45,6 +75,9 @@ public class PainterHelper implements Runnable
 	    //x = x*(1.5d - xhalf*x*x);
 	    return x;
 	}
+	/**
+	 * Calculates the rendering for the list of faces
+	 */
 	public void run() 
 	{
 		double fov = Math.sqrt(Math.pow(getWidth(), 2) + Math.pow(getHeight(), 2)) / 110;
@@ -121,10 +154,18 @@ public class PainterHelper implements Runnable
 	    }
 		
 	}
+	/**
+	 * Returns a list of the colors of the faces
+	 * @return a list of the colors of the faces
+	 */
 	public ArrayList<Color> getColors()
 	{
 		return colors;
 	}
+	/**
+	 * Returns a list of the calculated polygons of the faces
+	 * @return a list of the calculated polygons of the faces
+	 */
 	public ArrayList<Polygon> getPolygons()
 	{
 		return polys;

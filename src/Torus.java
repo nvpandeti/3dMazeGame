@@ -106,6 +106,10 @@ public class Torus implements Shapes
 	{
 		return faces;
 	}
+	/**
+	 * Returns center coordinates
+	 * @return center coordinates
+	 */
 	public double[] getCenter()
 	{
 		 return center;
@@ -118,7 +122,12 @@ public class Torus implements Shapes
 	{
 		return s;
 	}
-	
+	/**
+	 * Changes the position of the cube
+	 * @param x x change
+	 * @param y y change
+	 * @param z z change
+	 */
 	public void transform(double x, double y, double z)
 	{
 		for (int i = 0; i < torus.length; i++) 
@@ -128,7 +137,12 @@ public class Torus implements Shapes
 			torus[i][2] += z;
 		}
 	}
-	
+	/**
+	 * Rotates the cube
+	 * @param yaw Rotation in the xy plane
+	 * @param pitch Rotation in the xz plane
+	 * @param roll Rotation in the yz plane
+	 */
 	public void rotate(double yaw, double pitch, double roll) 
 	{
 		

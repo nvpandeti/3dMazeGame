@@ -1,7 +1,14 @@
+/*
+ * Nikhil Pandeti
+ * Mrs. Gallatin
+ * Period 2
+ */
 import java.awt.Color;
 import java.util.ArrayList;
 
-
+/**
+ * A class for ZombieLegs
+ */
 public class ZombieLeg
 {
 	private ArrayList<Hitbox> hitbox;
@@ -9,6 +16,12 @@ public class ZombieLeg
 	private ArrayList<Face> faces;
 	private double x,y,z,posH,posZ;
 	private int index;
+	/**
+	 * 
+	 * @param x x
+	 * @param y y
+	 * @param z z
+	 */
 	public ZombieLeg(double x, double y, double z)
 	{
 		this.x = x;
@@ -56,7 +69,9 @@ public class ZombieLeg
 				
 		}
 	}
-	
+	/**
+	 * Removes zombie leg
+	 */
 	public void dispose()
 	{
 		for (int i = index; i < index+cubes.size(); i++) {
@@ -66,7 +81,12 @@ public class ZombieLeg
 		System.out.println("Zombie Dispose");
 		
 	}
-	
+	/**
+	 * Changes the position of the zombie leg
+	 * @param x x change
+	 * @param y y change
+	 * @param z z change
+	 */
 	public void transform(double x, double y, double z)
 	{
 		this.x += x;
@@ -78,6 +98,10 @@ public class ZombieLeg
 			s.transform(x, y, z);
 		}
 	}
+	/**
+	 * Rotates the zomie leg
+	 * @param yaw Rotation in the xy plane
+	 */
 	public void rotate(double yaw)
 	{
 		for(Shapes s: cubes)
@@ -93,6 +117,11 @@ public class ZombieLeg
 		}
 		posH = yaw;
 	}
+	/**
+	 * Not used
+	 * @param posH horizontal angle
+	 * @param angle vertical angle
+	 */
 	public void rotateUp(double angle)
 	{
 		for(Shapes s: cubes)
@@ -114,6 +143,10 @@ public class ZombieLeg
 		}
 		posZ = angle;
 	}
+	/**
+	 * Returns center coordinates
+	 * @return center coordinates
+	 */
 	public double[] getCenter()
 	{
 		double[] center = {x,y,z};

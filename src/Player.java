@@ -1,4 +1,12 @@
+/*
+ * Nikhil Pandeti
+ * Mrs. Gallatin
+ * Period 2
+ */
 import java.util.*;
+/**
+ * A class for the player
+ */
 public class Player implements Hitboxable
 {
 	private ArrayList<Hitbox> hitbox;
@@ -20,6 +28,10 @@ public class Player implements Hitboxable
 		lastStepY = y;
 		footstepNum = 1;
 	}
+	/**
+	 * Change the health of the player by a certain amount 
+	 * @param change a certain amount 
+	 */
 	public void changeHealth(double change)
 	{
 		health += change;
@@ -28,10 +40,20 @@ public class Player implements Hitboxable
 		if(health>100)
 			health = 100;
 	}
+	/**
+	 * Returns health
+	 * @return health
+	 */
 	public double getHealth()
 	{
 		return health;
 	}
+	/**
+	 * Sets the position of the player
+	 * @param x x
+	 * @param y y
+	 * @param z z
+	 */
 	public void setPosition(double x, double y, double z)
 	{
 		this.x = x; 
@@ -39,6 +61,10 @@ public class Player implements Hitboxable
 		this.z = z;
 		hitbox.get(0).setPosition(x, y, z);
 	}
+	/**
+	 * Returns the position
+	 * @return the position
+	 */
 	public double[] getPosition()
 	{
 		double[] ret = new double[3];
@@ -47,6 +73,13 @@ public class Player implements Hitboxable
 		ret[2] = z;
 		return ret;
 	}
+	/**
+	 * Manages collisions for the player
+	 * @param keys keypresses
+	 * @param posH horizontal angle
+	 * @param posZ vertical angle
+	 * @param maze Maze hitboxes
+	 */
 	public void move(boolean[] keys, double posH, double posZ, ArrayList<Hitbox> maze)
 	{
 		double moveCoefficient = .25;
@@ -155,11 +188,18 @@ public class Player implements Hitboxable
    	  	}
    	  	
 	}
+	/**
+	 * Returns hitboxes
+	 * @return hitboxes
+	 */
 	public ArrayList<Hitbox> getHitbox()
 	{
 		return hitbox;
 	}
-	
+	/**
+	 * Returns a list of the hitboxable's Faces
+	 * @return a list of the hitboxable's Faces
+	 */
 	public ArrayList<Face> getFaces() 
 	{
 		

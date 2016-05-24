@@ -109,25 +109,48 @@ public class Cube implements Shapes, Hitboxable
 	{
 		return s;
 	}
-	
+	/**
+	 * Returns center coordinates
+	 * @return center coordinates
+	 */
 	public double[] getCenter()
 	{
 		 return center;
 	}
+	/**
+	 * Returns hitboxes
+	 * @return hitboxes
+	 */
 	public ArrayList<Hitbox> getHitbox()
 	{
 		return hitbox;
 	}
+	/**
+	 * Sets the hitboxes of the cube
+	 * @param h hitboxes
+	 */
 	public void setHitbox(ArrayList<Hitbox> h)
 	{
 		hitbox = h;
 	}
+	/**
+	 * Not used
+	 * @param x x coordinate
+	 * @param y y coordinate
+	 * @param z z coordinate
+	 */
 	public static void setReal(double x,double y, double z)
 	{
 		//realX = x;
 		//realY = y;
 		//realZ = z;
 	}
+	/**
+	 * Changes the position of the cube
+	 * @param x x change
+	 * @param y y change
+	 * @param z z change
+	 */
 	public void transform(double x, double y, double z)
 	{
 		center[0] += x;
@@ -145,7 +168,12 @@ public class Cube implements Shapes, Hitboxable
 			h.setPosition(center[0], center[1], center[2]);
 		}
 	}
-
+	/**
+	 * Rotates the cube
+	 * @param yaw Rotation in the xy plane
+	 * @param pitch Rotation in the xz plane
+	 * @param roll Rotation in the yz plane
+	 */
 	public void rotate(double yaw, double pitch, double roll) 
 	{
 		for (int i = 0; i<8; i++)
@@ -182,7 +210,11 @@ public class Cube implements Shapes, Hitboxable
 		}
 		
 	}
-	
+	/**
+	 * Not used
+	 * @param posH horizontal angle
+	 * @param angle vertical angle
+	 */
 	public void rotateUp(double posH, double angle)
 	{
 		for (int i = 0; i<8; i++)

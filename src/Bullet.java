@@ -1,7 +1,14 @@
+/*
+ * Nikhil Pandeti
+ * Mrs. Gallatin
+ * Period 2
+ */
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
-
+/**
+ * A class for bullets and vision probes
+ */
 public class Bullet implements Hitboxable
 {
 	private ArrayList<Hitbox> hitbox;
@@ -9,7 +16,14 @@ public class Bullet implements Hitboxable
 	private ArrayList<Face> faces;
 	private double x,y,z,vX,vY,vZ; 
 	private int index;
-	
+	/**
+	 *  A constructor for Bullets
+	 * @param x x position
+	 * @param y y position
+	 * @param z z position
+	 * @param posH horizontal angle
+	 * @param posZ vertical angle
+	 */
 	public Bullet(double x, double y, double z, double posH, double posZ)
 	{
 		this.x = x;
@@ -41,13 +55,23 @@ public class Bullet implements Hitboxable
 		}
 		//System.out.println(index);
 	}
-	
+	/**
+	 * Multiply the speed of the bullet
+	 * @param multiplier the speed multiplier
+	 */
 	public void multiplySpeed(double multiplier)
 	{
 		vX *= multiplier;
 		vY *= multiplier;
 		vZ *= multiplier;
 	}
+	/**
+	 * Manages collisions for bullets
+	 * @param maze Maze hitboxes
+	 * @param markers All markers
+	 * @param zombies All zombies
+	 * @return if the bullet should be disposed
+	 */
 	public boolean move(ArrayList<Hitbox> maze, ArrayList<Marker> markers, ArrayList<Zombie> zombies)
 	{
 		transform(vX,vY,vZ);
@@ -153,7 +177,12 @@ public class Bullet implements Hitboxable
   		}
   		return false;
 	}
-	
+	/**
+	 * Manages collisions for vision probes
+	 * @param maze Maze hitboxes
+	 * @param markers All markers
+	 * @return a number based on what the vision probe has hit
+	 */
 	public int move(ArrayList<Hitbox> maze, Hitbox player)
 	{
 		transform(vX,vY,vZ);
@@ -173,7 +202,12 @@ public class Bullet implements Hitboxable
   		}
   		return 0;
 	}
-	
+	/**
+	 * Changes the position of the bullet
+	 * @param x x change
+	 * @param y y change
+	 * @param z z change
+	 */
 	public void transform(double x, double y, double z)
 	{
 		this.x += x;
@@ -186,6 +220,9 @@ public class Bullet implements Hitboxable
 			s.rotate(10, 5, 0);
 		}
 	}
+	/**
+	 * Removes the bullet
+	 */
 	public void dispose()
 	{
 		for(int i=index; i<index+cubes.size(); i++)
@@ -193,11 +230,17 @@ public class Bullet implements Hitboxable
 			Viewer.viewerPainter.setShape(i, null);
 		}
 	}
-
+	/**
+	 * Returns hitboxes
+	 * @return hitboxes
+	 */
 	public ArrayList<Hitbox> getHitbox() {
-		// TODO Auto-generated method stub
 		return hitbox;
 	}
+	/**
+	 * Returns faces
+	 * @return faces
+	 */
 	public ArrayList<Face> getFaces()
 	{
 		return faces;

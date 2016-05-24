@@ -1,7 +1,14 @@
+/*
+ * Nikhil Pandeti
+ * Mrs. Gallatin
+ * Period 2
+ */
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
-
+/**
+ * A class for Zombies
+ */
 public class Zombie implements Hitboxable
 {
 	private double x,y,z,posH,speed, playerX, playerY, health;
@@ -16,7 +23,13 @@ public class Zombie implements Hitboxable
 	private static Color zombieEye = new Color(133,41,46);
 	private static Color zombieLid = new Color(63,240, 149);
 	private static Color zombieHair = new Color(160,82,45);
-	
+	/**
+	 * 
+	 * @param x x
+	 * @param y y
+	 * @param z z
+	 * @param female true/false
+	 */
 	public Zombie(double x, double y, double z, boolean female)
 	{
 		this.x = x;
@@ -153,18 +166,27 @@ public class Zombie implements Hitboxable
 			*/	
 		}
 	}
-	
+	/**
+	 * Change the health of the zombie by a certain amount 
+	 * @param change a certain amount 
+	 */
 	public void changeHealth(double change)
 	{
 		health += change;
 		if(health<0)
 			health = 0;
 	}
+	/**
+	 * Returns health
+	 * @return health
+	 */
 	public double getHealth()
 	{
 		return health;
 	}
-	
+	/**
+	 * Removes zombie
+	 */
 	public void dispose()
 	{
 		for (int i = index; i < index+cubes.size(); i++) {
@@ -178,7 +200,16 @@ public class Zombie implements Hitboxable
 		System.out.println("Zombie Dispose");
 		
 	}
-	
+	/**
+	 * Manages collisions for zombies
+	 * @param x player X
+	 * @param y player Y
+	 * @param z player Z
+	 * @param maze Maze hitboxes
+	 * @param player player hitbox
+	 * @param zombies All zombies
+	 * @return if the bullet should be disposed
+	 */
 	public void move(double realX, double realY, double realZ, ArrayList<Hitbox> maze, Hitbox player, ArrayList<Zombie> zombies)
 	{
 		if(Math.pow(realX - this.x, 2) + Math.pow(realY - this.y, 2) + Math.pow(realZ - this.z, 2)  < 400)
@@ -291,7 +322,12 @@ public class Zombie implements Hitboxable
 			//System.out.println("Stuck2");
 		}
 	}
-	
+	/**
+	 * Changes the position of the zombie
+	 * @param x x change
+	 * @param y y change
+	 * @param z z change
+	 */
 	public void transform(double x, double y, double z)
 	{
 		this.x += x;
@@ -310,7 +346,10 @@ public class Zombie implements Hitboxable
 		hitbox.get(1).transform(x, y, z);
 		
 	}
-	
+	/**
+	 * Rotates the zombie
+	 * @param yaw Rotation in the xy plane
+	 */
 	public void rotate(double yaw)
 	{
 		for(Shapes s: cubes)
@@ -365,7 +404,9 @@ public class Zombie implements Hitboxable
 	}
 	
 	
-	
+	/**
+	 * Loads the colors for the head of the zombie
+	 */
 	public static void loadZombieHead()
 	{
 		for (int i = 0; i < zombieHead.length; i++) {
@@ -470,13 +511,19 @@ public class Zombie implements Hitboxable
 		
 		
 	}
-
+	/**
+	 * Returns hitboxes
+	 * @return hitboxes
+	 */
 	public ArrayList<Hitbox> getHitbox() 
 	{
 		return hitbox;
 	}
 
-	@Override
+	/**
+	 * Returns a list of the hitboxable's Faces
+	 * @return a list of the hitboxable's Faces
+	 */
 	public ArrayList<Face> getFaces() {
 		return faces;
 	}
