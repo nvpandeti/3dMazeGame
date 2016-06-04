@@ -22,7 +22,7 @@ public class Face implements Comparable<Face>
 	private Color color,shading;
 	private double[] center, normal, a, b;
 	private double distance, shade, origShade;
-	private static ArrayList<Light> lights = new ArrayList<Light>();
+	private static ArrayList<Light> lights= new ArrayList<Light>();
 	/**
 	 * A constructor for Faces
 	 * @param color Color
@@ -74,6 +74,10 @@ public class Face implements Comparable<Face>
 	{
 		color = c;
 	}
+	public static void resetLights()
+	{
+		lights = new ArrayList<Light>();
+	}
 	/**
 	 * Sets the posiion of the light
 	 * @param tempLight the posiion of the light (x,y,z)
@@ -90,6 +94,7 @@ public class Face implements Comparable<Face>
 	public static int addLights(Light l)
 	{
 		lights.add(l);
+		
 		return lights.size()-1;
 	}
 	/**
@@ -102,6 +107,7 @@ public class Face implements Comparable<Face>
 		while(lights.size()-1 < index)
 			lights.add(null);
 		lights.set(index, l);
+		System.out.println("Lights: "+lights);
 	}
 	/**
 	 * Sets the real position coordinates

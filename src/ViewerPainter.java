@@ -400,7 +400,7 @@ public class ViewerPainter extends JComponent
 	    g.fillRect(midX-2, midY-10, 4, 20);
 	    //if(redCover<100)
 	    	//redCover++;
-	    g.drawImage(gunImage, -getWidth()/4, -getHeight()/4, null);
+	    g.drawImage(gunImage, getWidth()-1800, getHeight()-950, null);
 	    //System.out.println("works 1");
 	    if(intro>0)
 	    {
@@ -409,7 +409,8 @@ public class ViewerPainter extends JComponent
 			g.drawString("Darkness", getWidth()/2 - 280, getHeight()/2 -180); 
 			g.drawString("Level "+Viewer.level, getWidth()/2 - 200, getHeight()/2 -50); 
 			g.setFont(new Font("Cooper Back", Font.BOLD, 60));
-			g.drawString("Hold 'H' for help", getWidth()/2 - 250, getHeight()/2 +50);
+			g.drawString("By Nikhil Pandeti", getWidth()/2 - 260, getHeight()/2 +25); 
+			g.drawString("Hold 'H' for help", getWidth()/2 - 250, getHeight()/2 +100);
 			intro--;
 	    }
 	    if(redCover)

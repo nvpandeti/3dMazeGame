@@ -36,9 +36,9 @@ public class Zombie implements Hitboxable
 		this.y = y;
 		this.z = z;
 		posH = 0;
-		speed = .18;
+		speed = .15;
 		playerX = playerY = -1;
-		health = 150;
+		health = 60;
 		index = -1;
 		
 		leftArm = new ZombieArm(x,y-.55,z+.55);
@@ -314,7 +314,7 @@ public class Zombie implements Hitboxable
 		
 		if(hitbox.get(0).isColliding(player))
 		{
-			((Player)player.getReference()).changeHealth(-3);
+			((Player)player.getReference()).changeHealth(-2);
 			Viewer.viewerPainter.setRedCover(true);
 			//System.out.println("Hitting");
 		}

@@ -87,26 +87,10 @@ public class Bullet implements Hitboxable
 			{
 				//Viewer.viewerPainter.addShape(new Sphere(Color.red, x,y,z,.1,3));
 				
-				((Marker)m.getReference()).dispose();
-				markers.remove(i);
-				i--;
-				Hitbox explosion = new Hitbox(((Marker)m.getReference()).getCenter()[0], ((Marker)m.getReference()).getCenter()[1], ((Marker)m.getReference()).getCenter()[2], .65,null);
-				for(int j=0; j<maze.size(); j++)
-		  		{
-					System.out.println("explosion");
-		  			Hitbox mazeH = maze.get(j);
-		  			
-		  			if(mazeH.getReference().getFaces().size()<=2 && explosion.isColliding(mazeH))
-		  			{
-		  				ArrayList<Face> copy=mazeH.getReference().getFaces();
-		  				for(int c=0;c<copy.size();)
-		  				{
-		  					copy.remove(0);
-		  				}
-		  				maze.remove(j);
-		  				j--;
-		  			}
-		  		}
+				
+				
+				i-= markerExplosion(i, m, maze, markers);
+				
 				return true;
 			}
 		}
@@ -176,6 +160,42 @@ public class Bullet implements Hitboxable
   			}
   		}
   		return false;
+	}
+	public int markerExplosion(int markerIndex, Hitbox m, ArrayList<Hitbox> maze, ArrayList<Marker> markers)
+	{
+		((Marker)m.getReference()).dispose();
+		markers.remove(markerIndex);
+		Hitbox explosion = new Hitbox(((Marker)m.getReference()).getCenter()[0], ((Marker)m.getReference()).getCenter()[1], ((Marker)m.getReference()).getCenter()[2], .65,null);
+		for(int j=0; j<maze.size(); j++)
+  		{
+			//System.out.println("explosion");
+  			Hitbox mazeH = maze.get(j);
+  			
+  			if(mazeH.getReference().getFaces().size()<=2 && explosion.isColliding(mazeH))
+  			{
+  				ArrayList<Face> copy=mazeH.getReference().getFaces();
+  				for(int c=0;c<copy.size();)
+  				{
+  					copy.remove(0);
+  				}
+  				maze.remove(j);
+  				j--;
+  			}
+  		}
+  		int markerHits = 0;
+  		Hitbox explosion2 = new Hitbox(((Marker)m.getReference()).getCenter()[0], ((Marker)m.getReference()).getCenter()[1], ((Marker)m.getReference()).getCenter()[2], 1.5,null);
+  		for(int j=0; j<markers.size(); j++)
+  		{
+			System.out.println("explosion2");
+  			Hitbox markerH = markers.get(j).getHitbox().get(0);
+  			
+  			if(explosion2.isColliding(markerH))
+  			{
+  				j-= markerExplosion(j, markerH, maze, markers);
+  				markerHits++;
+  			}
+  		}
+  		return 1 + markerHits;
 	}
 	/**
 	 * Manages collisions for vision probes

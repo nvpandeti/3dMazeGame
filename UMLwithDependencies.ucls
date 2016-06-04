@@ -1,0 +1,1007 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.9" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="Sphere" project="3dMazeGame" file="/3dMazeGame/src/Sphere.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="243" width="247" x="2125" y="2450"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="Cylinder" project="3dMazeGame" file="/3dMazeGame/src/Cylinder.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="225" width="391" x="1275" y="2450"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="MarkerMaker" project="3dMazeGame" file="/3dMazeGame/src/MarkerMaker.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="351" width="282" x="23" y="99"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="4" language="java" name="Shapes" project="3dMazeGame" file="/3dMazeGame/src/Shapes.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="153" width="206" x="1214" y="2841"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="5" language="java" name="GameViewer" project="3dMazeGame" file="/3dMazeGame/src/GameViewer.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="113" x="345" y="99"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="Face" project="3dMazeGame" file="/3dMazeGame/src/Face.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="639" width="203" x="1225" y="3461"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="ZombieArm" project="3dMazeGame" file="/3dMazeGame/src/ZombieArm.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="243" width="206" x="1261" y="99"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="Maze" project="3dMazeGame" file="/3dMazeGame/src/Maze.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="243" width="206" x="360" y="1632"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="ViewerPainter" project="3dMazeGame" file="/3dMazeGame/src/ViewerPainter.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="459" width="214" x="1371" y="1951"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="Plane" project="3dMazeGame" file="/3dMazeGame/src/Plane.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="315" width="419" x="84" y="2450"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="Player" project="3dMazeGame" file="/3dMazeGame/src/Player.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="351" width="287" x="-369" y="2450"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="Bullet" project="3dMazeGame" file="/3dMazeGame/src/Bullet.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="333" width="376" x="738" y="1259"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="PainterHelper" project="3dMazeGame" file="/3dMazeGame/src/PainterHelper.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="333" width="367" x="2454" y="2450"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="Viewer" project="3dMazeGame" file="/3dMazeGame/src/Viewer.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="729" width="202" x="114" y="490"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="15" language="java" name="Hitboxable" project="3dMazeGame" file="/3dMazeGame/src/Hitboxable.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="169" x="263" y="3322"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="16" language="java" name="Torus" project="3dMazeGame" file="/3dMazeGame/src/Torus.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="225" width="379" x="1706" y="2450"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="Zombie" project="3dMazeGame" file="/3dMazeGame/src/Zombie.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="513" width="403" x="1261" y="-454"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="Marker" project="3dMazeGame" file="/3dMazeGame/src/Marker.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="279" width="206" x="114" y="1632"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="Light" project="3dMazeGame" file="/3dMazeGame/src/Light.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="171" width="246" x="-451" y="4140"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="Cube" project="3dMazeGame" file="/3dMazeGame/src/Cube.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="297" width="398" x="774" y="2450"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="Sound" project="3dMazeGame" file="/3dMazeGame/src/Sound.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="153" width="117" x="-411" y="2841"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="Hitbox" project="3dMazeGame" file="/3dMazeGame/src/Hitbox.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="441" width="324" x="263" y="2841"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="ZombieLeg" project="3dMazeGame" file="/3dMazeGame/src/ZombieLeg.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="279" width="206" x="1507" y="99"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="24">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="25" name="leftLeg"/>      
+      <multiplicity id="26" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="27">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <association id="28">    
+    <bendpoint x="1492" y="2841"/>    
+    <bendpoint x="1492" y="3322"/>    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="29" name="faces"/>      
+      <multiplicity id="30" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="31">    
+    <bendpoint x="1244" y="2450"/>    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="32" name="shapes"/>      
+      <multiplicity id="33" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="34">    
+    <bendpoint x="596" y="490"/>    
+    <bendpoint x="617" y="1259"/>    
+    <bendpoint x="690" y="1632"/>    
+    <bendpoint x="764" y="1951"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <realization id="35">    
+    <bendpoint x="1450" y="2841"/>    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="15"/>  
+  </realization>  
+  <dependency id="36">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <association id="37">    
+    <bendpoint x="1471" y="2841"/>    
+    <bendpoint x="1471" y="3322"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="38" name="faces"/>      
+      <multiplicity id="39" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="40">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="41" name="hitbox"/>      
+      <multiplicity id="42" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="43">    
+    <bendpoint x="617" y="1951"/>    
+    <bendpoint x="680" y="2450"/>    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="44" name="shapes"/>      
+      <multiplicity id="45" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="46">    
+    <bendpoint x="-337" y="1259"/>    
+    <bendpoint x="-358" y="1632"/>    
+    <bendpoint x="-400" y="1951"/>    
+    <bendpoint x="-442" y="2450"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <realization id="47">    
+    <bendpoint x="232" y="2841"/>    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="15"/>  
+  </realization>  
+  <dependency id="48">    
+    <bendpoint x="806" y="1632"/>    
+    <bendpoint x="806" y="1951"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <association id="49">    
+    <bendpoint x="1123" y="1632"/>    
+    <bendpoint x="1162" y="1951"/>    
+    <bendpoint x="1202" y="2450"/>    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="50" name="cubes"/>      
+      <multiplicity id="51" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="52">    
+    <bendpoint x="659" y="1632"/>    
+    <bendpoint x="659" y="1951"/>    
+    <bendpoint x="596" y="2450"/>    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="53" name="hitbox"/>      
+      <multiplicity id="54" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="55">    
+    <bendpoint x="1165" y="490"/>    
+    <bendpoint x="1249" y="1259"/>    
+    <bendpoint x="1291" y="1632"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="56">    
+    <bendpoint x="2872" y="2450"/>    
+    <bendpoint x="2872" y="2841"/>    
+    <bendpoint x="2872" y="3322"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <association id="57">    
+    <bendpoint x="74" y="1951"/>    
+    <bendpoint x="-10" y="2450"/>    
+    <bendpoint x="-10" y="2841"/>    
+    <bendpoint x="-10" y="3322"/>    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="58" name="faces"/>      
+      <multiplicity id="59" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="60">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="61" name="hitbox"/>      
+      <multiplicity id="62" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="63">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <association id="64">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="65" name="leftArm"/>      
+      <multiplicity id="66" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="67">    
+    <bendpoint x="1722" y="490"/>    
+    <bendpoint x="1722" y="1259"/>    
+    <bendpoint x="1722" y="1632"/>    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <association id="68">    
+    <bendpoint x="1291" y="490"/>    
+    <bendpoint x="1228" y="1259"/>    
+    <bendpoint x="1144" y="1632"/>    
+    <bendpoint x="785" y="1951"/>    
+    <bendpoint x="701" y="2450"/>    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="69" name="hitbox"/>      
+      <multiplicity id="70" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="71">    
+    <bendpoint x="2465" y="99"/>    
+    <bendpoint x="2465" y="490"/>    
+    <bendpoint x="2444" y="1259"/>    
+    <bendpoint x="2402" y="1632"/>    
+    <bendpoint x="2381" y="1951"/>    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="72">    
+    <bendpoint x="1270" y="490"/>    
+    <bendpoint x="1270" y="1259"/>    
+    <bendpoint x="1270" y="1632"/>    
+    <bendpoint x="1270" y="1951"/>    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <realization id="73">    
+    <bendpoint x="-31" y="2841"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="15"/>  
+  </realization>  
+  <dependency id="74">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <dependency id="75">    
+    <bendpoint x="1229" y="3322"/>    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <association id="76">    
+    <bendpoint x="246" y="1259"/>    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="77" name="maze"/>      
+      <multiplicity id="78" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="79">    
+    <bendpoint x="554" y="1951"/>    
+    <bendpoint x="554" y="2450"/>    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="80" name="hitbox"/>      
+      <multiplicity id="81" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="82">    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="83" name="playerBullets"/>      
+      <multiplicity id="84" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="85">    
+    <bendpoint x="211" y="2841"/>    
+    <bendpoint x="211" y="3322"/>    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="86" name="faces"/>      
+      <multiplicity id="87" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="88">    
+    <bendpoint x="-52" y="1951"/>    
+    <bendpoint x="-52" y="2450"/>    
+    <bendpoint x="-52" y="2841"/>    
+    <bendpoint x="-52" y="3322"/>    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="89" name="faces"/>      
+      <multiplicity id="90" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="91">    
+    <bendpoint x="-379" y="1259"/>    
+    <bendpoint x="-400" y="1632"/>    
+    <bendpoint x="-442" y="1951"/>    
+    <bendpoint x="-463" y="2450"/>    
+    <bendpoint x="-463" y="2841"/>    
+    <bendpoint x="-421" y="3322"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="92">    
+    <bendpoint x="1380" y="490"/>    
+    <bendpoint x="1380" y="1259"/>    
+    <bendpoint x="1380" y="1632"/>    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="93">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <realization id="94">    
+    <bendpoint x="743" y="2841"/>    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="15"/>  
+  </realization>  
+  <dependency id="95">    
+    <bendpoint x="1516" y="490"/>    
+    <bendpoint x="1437" y="1259"/>    
+    <bendpoint x="1359" y="1632"/>    
+    <bendpoint x="1340" y="1951"/>    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <dependency id="96">    
+    <bendpoint x="-400" y="99"/>    
+    <bendpoint x="-400" y="490"/>    
+    <bendpoint x="-400" y="1259"/>    
+    <bendpoint x="-379" y="1632"/>    
+    <bendpoint x="-379" y="1951"/>    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="11"/>  
+  </dependency>  
+  <association id="97">    
+    <bendpoint x="1849" y="2841"/>    
+    <bendpoint x="1849" y="3322"/>    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="98" name="faces"/>      
+      <multiplicity id="99" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="100">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <association id="101">    
+    <bendpoint x="1009" y="2841"/>    
+    <bendpoint x="1009" y="3322"/>    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="102" name="faces"/>      
+      <multiplicity id="103" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="104">    
+    <bendpoint x="743" y="1632"/>    
+    <bendpoint x="743" y="1951"/>    
+    <bendpoint x="722" y="2450"/>    
+    <bendpoint x="722" y="2841"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="15"/>  
+  </realization>  
+  <dependency id="105">    
+    <bendpoint x="-264" y="2841"/>    
+    <bendpoint x="-264" y="3322"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="106">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <realization id="107">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <association id="108">    
+    <bendpoint x="1701" y="490"/>    
+    <bendpoint x="2091" y="1259"/>    
+    <bendpoint x="2481" y="1632"/>    
+    <bendpoint x="2872" y="1951"/>    
+    <bendpoint x="2914" y="2450"/>    
+    <bendpoint x="2914" y="2841"/>    
+    <bendpoint x="2914" y="3322"/>    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="109" name="faces"/>      
+      <multiplicity id="110" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="111">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <association id="112">    
+    <bendpoint x="-316" y="1259"/>    
+    <bendpoint x="-316" y="1632"/>    
+    <bendpoint x="-321" y="1951"/>    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="113" name="player"/>      
+      <multiplicity id="114" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="115">    
+    <bendpoint x="1123" y="490"/>    
+    <bendpoint x="1186" y="1259"/>    
+    <bendpoint x="1186" y="1632"/>    
+    <bendpoint x="1223" y="1951"/>    
+    <bendpoint x="1223" y="2450"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="116" name="cubes"/>      
+      <multiplicity id="117" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="118">    
+    <bendpoint x="2444" y="490"/>    
+    <bendpoint x="2658" y="1259"/>    
+    <bendpoint x="2872" y="1632"/>    
+    <bendpoint x="2903" y="1951"/>    
+    <bendpoint x="2935" y="2450"/>    
+    <bendpoint x="2935" y="2841"/>    
+    <bendpoint x="2935" y="3322"/>    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="119" name="faces"/>      
+      <multiplicity id="120" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="121">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="122" name="rightArm"/>      
+      <multiplicity id="123" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="124">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="125" name="hitbox"/>      
+      <multiplicity id="126" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="127">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="128" name="reference"/>      
+      <multiplicity id="129" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="130">    
+    <bendpoint x="-484" y="490"/>    
+    <bendpoint x="-484" y="1259"/>    
+    <bendpoint x="-484" y="1632"/>    
+    <bendpoint x="-484" y="1951"/>    
+    <bendpoint x="-484" y="2450"/>    
+    <bendpoint x="-484" y="2841"/>    
+    <bendpoint x="-484" y="3322"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="131" name="faces"/>      
+      <multiplicity id="132" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="133">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <dependency id="134">    
+    <bendpoint x="53" y="1259"/>    
+    <bendpoint x="53" y="1632"/>    
+    <bendpoint x="53" y="1951"/>    
+    <bendpoint x="53" y="2450"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <association id="135">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="136" name="hitbox"/>      
+      <multiplicity id="137" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="138">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="139">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <association id="140">    
+    <bendpoint x="32" y="490"/>    
+    <bendpoint x="32" y="1259"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="141" name="marker"/>      
+      <multiplicity id="142" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="143">    
+    <bendpoint x="-379" y="490"/>    
+    <bendpoint x="-421" y="1259"/>    
+    <bendpoint x="-421" y="1632"/>    
+    <bendpoint x="-421" y="1951"/>    
+    <bendpoint x="-421" y="2450"/>    
+    <bendpoint x="-243" y="2841"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="15"/>  
+  </realization>  
+  <association id="144">    
+    <bendpoint x="1144" y="1259"/>    
+    <bendpoint x="1249" y="1632"/>    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="145" name="viewerPainter"/>      
+      <multiplicity id="146" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="147">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <association id="148">    
+    <bendpoint x="1228" y="1632"/>    
+    <bendpoint x="2060" y="1951"/>    
+    <bendpoint x="2893" y="2450"/>    
+    <bendpoint x="2893" y="2841"/>    
+    <bendpoint x="2893" y="3322"/>    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="149" name="faces"/>      
+      <multiplicity id="150" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="151">    
+    <bendpoint x="-358" y="490"/>    
+    <bendpoint x="-358" y="1259"/>    
+    <bendpoint x="-337" y="1632"/>    
+    <bendpoint x="-163" y="1951"/>    
+    <bendpoint x="11" y="2450"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="152" name="hitbox"/>      
+      <multiplicity id="153" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="154">    
+    <bendpoint x="1207" y="99"/>    
+    <bendpoint x="1207" y="490"/>    
+    <bendpoint x="1207" y="1259"/>    
+    <bendpoint x="1207" y="1632"/>    
+    <bendpoint x="1202" y="1951"/>    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <association id="155">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="156" name="rightLeg"/>      
+      <multiplicity id="157" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="158">    
+    <bendpoint x="701" y="1951"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <realization id="159">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <association id="160">    
+    <bendpoint x="680" y="1951"/>    
+    <bendpoint x="743" y="2450"/>    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="161" name="cubes"/>      
+      <multiplicity id="162" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="163">    
+    <bendpoint x="617" y="99"/>    
+    <bendpoint x="617" y="490"/>    
+    <bendpoint x="596" y="1259"/>    
+    <bendpoint x="596" y="1632"/>    
+    <bendpoint x="596" y="1951"/>    
+    <bendpoint x="575" y="2450"/>    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="164" name="hitbox"/>      
+      <multiplicity id="165" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="166">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="167">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="11"/>  
+  </dependency>  
+  <dependency id="168">    
+    <bendpoint x="1165" y="1632"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="169">    
+    <bendpoint x="1743" y="99"/>    
+    <bendpoint x="1743" y="490"/>    
+    <bendpoint x="1743" y="1259"/>    
+    <bendpoint x="1743" y="1632"/>    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <realization id="170">    
+    <bendpoint x="575" y="1951"/>    
+    <bendpoint x="638" y="2450"/>    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <association id="171">    
+    <bendpoint x="123" y="1259"/>    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="172" name="markers"/>      
+      <multiplicity id="173" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="174">    
+    <bendpoint x="533" y="1951"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <association id="175">    
+    <bendpoint x="1186" y="490"/>    
+    <bendpoint x="1165" y="1259"/>    
+    <bendpoint x="785" y="1632"/>    
+    <bendpoint x="722" y="1951"/>    
+    <bendpoint x="659" y="2450"/>    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="176" name="hitbox"/>      
+      <multiplicity id="177" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="178">    
+    <bendpoint x="2851" y="99"/>    
+    <bendpoint x="2851" y="490"/>    
+    <bendpoint x="2851" y="1259"/>    
+    <bendpoint x="2851" y="1632"/>    
+    <bendpoint x="2851" y="1951"/>    
+    <bendpoint x="2851" y="2450"/>    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="179" name="cubes"/>      
+      <multiplicity id="180" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="181">    
+    <bendpoint x="2423" y="490"/>    
+    <bendpoint x="2423" y="1259"/>    
+    <bendpoint x="2423" y="1632"/>    
+    <bendpoint x="2423" y="1951"/>    
+    <bendpoint x="2423" y="2450"/>    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="182" name="cubes"/>      
+      <multiplicity id="183" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="184">    
+    <bendpoint x="1144" y="490"/>    
+    <bendpoint x="1144" y="99"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="185">    
+    <bendpoint x="-300" y="1951"/>    
+    <bendpoint x="-400" y="2450"/>    
+    <bendpoint x="-442" y="2841"/>    
+    <bendpoint x="-442" y="3322"/>    
+    <bendpoint x="-442" y="3461"/>    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <association id="186">    
+    <bendpoint x="512" y="1951"/>    
+    <bendpoint x="533" y="2450"/>    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="187" name="hitbox"/>      
+      <multiplicity id="188" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="189">    
+    <bendpoint x="95" y="1951"/>    
+    <bendpoint x="32" y="2450"/>    
+    <bendpoint x="32" y="2841"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="15"/>  
+  </realization>  
+  <association id="190">    
+    <bendpoint x="596" y="99"/>    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="191" name="zombies"/>      
+      <multiplicity id="192" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="193">    
+    <bendpoint x="1495" y="490"/>    
+    <bendpoint x="1701" y="1259"/>    
+    <bendpoint x="2051" y="1632"/>    
+    <bendpoint x="2402" y="1951"/>    
+    <bendpoint x="2402" y="2450"/>    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="194" name="cubes"/>      
+      <multiplicity id="195" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="196">    
+    <bendpoint x="638" y="99"/>    
+    <bendpoint x="638" y="490"/>    
+    <bendpoint x="638" y="1259"/>    
+    <bendpoint x="638" y="1632"/>    
+    <bendpoint x="638" y="1951"/>    
+    <bendpoint x="617" y="2450"/>    
+    <bendpoint x="617" y="2841"/>    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="15"/>  
+  </realization>  
+  <realization id="197">    
+    <bendpoint x="-31" y="1951"/>    
+    <bendpoint x="-31" y="2450"/>    
+    <bendpoint x="11" y="2841"/>    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="15"/>  
+  </realization>  
+  <association id="198">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="199" name="lights"/>      
+      <multiplicity id="200" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="201">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="202">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <dependency id="203">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <association id="204">    
+    <bendpoint x="2956" y="99"/>    
+    <bendpoint x="2956" y="490"/>    
+    <bendpoint x="2956" y="1259"/>    
+    <bendpoint x="2956" y="1632"/>    
+    <bendpoint x="2956" y="1951"/>    
+    <bendpoint x="2956" y="2450"/>    
+    <bendpoint x="2956" y="2841"/>    
+    <bendpoint x="2956" y="3322"/>    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="205" name="faces"/>      
+      <multiplicity id="206" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="207">    
+    <bendpoint x="1684" y="2841"/>    
+    <bendpoint x="1684" y="3322"/>    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="208" name="faces"/>      
+      <multiplicity id="209" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="210">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

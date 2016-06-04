@@ -133,6 +133,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		
 		viewerPainter.setReal(realX, realY, realZ);
 		viewerPainter.setOrigin(origin);
+		Face.resetLights();
 		Face.setReal(realX, realY, realZ);
 		player = new Player(realX, realY, realZ);
 		maze = new Maze(level*5+6,level*5+6,5,4);
@@ -173,7 +174,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 			//tempX = e.getX();
 			//tempY = e.getY();
 			tempX = (int)viewerPainter.getMousePosition().getX();
-			tempY = (int)viewerPainter.getMousePosition().getY()+23;
+			tempY = (int)viewerPainter.getMousePosition().getY()+22;
 			//posH += (tempX - mX)/30.0;
 			//posZ -= (tempY - mY)/30.0;
 			posH += (tempX - getWidth()/2)/3.0;
@@ -598,7 +599,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 					break;
 				long diff = System.currentTimeMillis() - tempTime;
 				 
-				while(diff<100)
+				while(diff<80)
 					diff = System.currentTimeMillis() - tempTime;
 				System.out.println("    "+diff); 
 				//Thread.currentThread().sleep(Math.max(0, 130 - diff));
