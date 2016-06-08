@@ -446,6 +446,7 @@ public class ViewerPainter extends JComponent
 			g.drawString("Left Mouse Click - FIRE", getWidth()/2 - 210, getHeight()/2 -250);
 			g.drawString("Number Keys - PLACE MARKER", getWidth()/2 - 280, getHeight()/2 -200);
 			g.drawString("ESC - EXIT", getWidth()/2 - 105, getHeight()/2 -150);
+			g.drawString("Hold C and use WASD - CALIBRATE", getWidth()/2 - 320, getHeight()/2 -100);
 	    }
 	    //System.out.println("works 2");
 	    

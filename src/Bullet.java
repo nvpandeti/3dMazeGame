@@ -89,7 +89,7 @@ public class Bullet implements Hitboxable
 				
 				
 				
-				i-= markerExplosion(i, m, maze, markers);
+				i-= markerExplosion(i, m, maze, markers, zombies);
 				
 				return true;
 			}
@@ -161,7 +161,7 @@ public class Bullet implements Hitboxable
   		}
   		return false;
 	}
-	public int markerExplosion(int markerIndex, Hitbox m, ArrayList<Hitbox> maze, ArrayList<Marker> markers)
+	public int markerExplosion(int markerIndex, Hitbox m, ArrayList<Hitbox> maze, ArrayList<Marker> markers, ArrayList<Zombie> zombies)
 	{
 		((Marker)m.getReference()).dispose();
 		markers.remove(markerIndex);
@@ -182,8 +182,26 @@ public class Bullet implements Hitboxable
   				j--;
   			}
   		}
+		
+		Hitbox explosion2 = new Hitbox(((Marker)m.getReference()).getCenter()[0], ((Marker)m.getReference()).getCenter()[1], ((Marker)m.getReference()).getCenter()[2], 1.5,null);
+		for (int i = 0; i < zombies.size(); i++) 
+		{
+			Hitbox zombieH = zombies.get(i).getHitbox().get(0);
+			Hitbox zombieH1 = zombies.get(i).getHitbox().get(1);
+			if(explosion2.isColliding(zombieH) || explosion2.isColliding(zombieH1) )
+			{
+				zombies.get(i).changeHealth(-100);
+				if(zombies.get(i).getHealth() == 0)
+				{
+					zombies.get(i).dispose();
+					zombies.remove(i);
+					i--;
+				}
+				Viewer.viewerPainter.addShape(new Sphere(Color.red, x,y,z,1.5,10));
+			}
+		}
   		int markerHits = 0;
-  		Hitbox explosion2 = new Hitbox(((Marker)m.getReference()).getCenter()[0], ((Marker)m.getReference()).getCenter()[1], ((Marker)m.getReference()).getCenter()[2], 1.5,null);
+  		
   		for(int j=0; j<markers.size(); j++)
   		{
 			System.out.println("explosion2");
@@ -191,7 +209,7 @@ public class Bullet implements Hitboxable
   			
   			if(explosion2.isColliding(markerH))
   			{
-  				j-= markerExplosion(j, markerH, maze, markers);
+  				j-= markerExplosion(j, markerH, maze, markers, zombies);
   				markerHits++;
   			}
   		}

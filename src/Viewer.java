@@ -24,6 +24,8 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 	private boolean[] keys;
 	private boolean[] mouseKeys;
 	private boolean showHelp;
+	private boolean calibrating;
+	private int calibrateX, calibrateY;
 	private double posH, posZ, realX, realY, realZ, r;
 	private int mX, mY, tempX, tempY, status;
 	private double[] origin, light;
@@ -100,6 +102,17 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		setVisible(true);
 		
 		//mX = mY = tempX = tempY = -1;
+		calibrating = false;
+		try {
+			System.out.println(getClass().getProtectionDomain().getClassLoader().getResource("").getPath()+"calibration.txt"); 
+			//Scanner cal = new Scanner(new File(getClass().getProtectionDomain().getClassLoader().getResource("").getPath()+"calibration.txt"));
+			Scanner cal = new Scanner(new File("calibration.txt"));
+			calibrateX = cal.nextInt();
+			calibrateY = cal.nextInt(); 
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
 		showHelp = false;
 		status = 0;
 		keys = new boolean[10];
@@ -173,8 +186,8 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		{
 			//tempX = e.getX();
 			//tempY = e.getY();
-			tempX = (int)viewerPainter.getMousePosition().getX();
-			tempY = (int)viewerPainter.getMousePosition().getY()+22;
+			tempX = (int)viewerPainter.getMousePosition().getX()+calibrateX;
+			tempY = (int)viewerPainter.getMousePosition().getY()+calibrateY;
 			//posH += (tempX - mX)/30.0;
 			//posZ -= (tempY - mY)/30.0;
 			posH += (tempX - getWidth()/2)/3.0;
@@ -221,7 +234,31 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
   				posZ = 89;
    	  	}
    	  	//maze.transform(.01, 0, 0);
-   	  	player.move(keys, posH, posZ, maze.getHitbox());
+   	  	if(!calibrating)
+   	  		player.move(keys, posH, posZ, maze.getHitbox());
+   	  	else
+   	  	{
+	   	  	if(keys[4])
+		  	{
+		  		calibrateY--;
+		  		keys[4] = false;
+		  	}
+		  	if(keys[5])
+		  	{
+		  		calibrateY++;
+		  		keys[5] = false;
+		  	}
+		  	if(keys[6])
+		  	{
+		  		calibrateX--;
+		  		keys[6] = false;
+		  	}
+		  	if(keys[7])
+		  	{
+		  		calibrateX++;
+		  		keys[7] = false;
+		  	}
+   	  	}
    	  	if(player.getHealth() != 0)
    	  		player.changeHealth(.1);
    	  	else 
@@ -304,7 +341,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 			}
     	}
     	
-    	if(Math.random()*100<10 && zombies.size()<10)
+    	if(Math.random()*100<10 && zombies.size()<10) 
     	{
     		double tempZombieX = Math.random()*((level*5+6)*5-1)+1;
     		double tempZombieY = Math.random()*((level*5+6)*5-1)+1;
@@ -313,7 +350,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
     			tempZombieX = Math.random()*((level*5+6)*5-1)+1;
         		tempZombieY = Math.random()*((level*5+6)*5-1)+1;
     		}
-    		zombies.add(new Zombie(tempZombieX, tempZombieY, 1.25,Math.random()*2<1)); 
+    		zombies.add(new Zombie(tempZombieX, tempZombieY, 1.25,Math.random()*2<1));
     		System.out.println("Zombies: " + zombies.size()); 
     	}
     	
@@ -435,6 +472,11 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 			//keys[9] = true;
 			showHelp = true;
 		}
+		if (e.getKeyCode() == KeyEvent.VK_C)
+		{
+			//keys[9] = true;
+			calibrating = true;
+		}
 		
 	}
 
@@ -498,6 +540,20 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 		if (e.getKeyCode() == KeyEvent.VK_H)
 		{
 			showHelp = false;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_C)
+		{
+			//keys[9] = true;
+			calibrating = false;
+			try {
+				System.out.println(getClass().getProtectionDomain().getClassLoader().getResource("").getPath()+"calibration.txt");
+				//PrintWriter cal = new PrintWriter(new File(getClass().getProtectionDomain().getClassLoader().getResource("").getPath()+"calibration.txt"));
+				PrintWriter cal = new PrintWriter(new File("calibration.txt"));
+				cal.println(calibrateX+" "+calibrateY);
+				cal.close();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
 		}
 	}
 	
