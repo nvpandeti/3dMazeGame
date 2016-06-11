@@ -93,7 +93,7 @@ public class ViewerPainter extends JComponent
 	 * Adds a list of shapes
 	 * @param s list of Shapes
 	 */
-	public void addShapes(ArrayList<Shapes> s)
+	public int addShapes(ArrayList<Shapes> s)
 	{
 		int size = s.size();
 		int index = 0;
@@ -119,15 +119,19 @@ public class ViewerPainter extends JComponent
 		{
 			for(int i=index;i<index+size;i++)
 			{
-				shapes.set(i, s.get(1));
+				shapes.set(i, s.get(i-index));
 			}
+			return index;
 		}
 		else
 		{
+			int temp = shapes.size();
 			for(Shapes p: s)
 			{
 				shapes.add(p);
+				
 			}
+			return temp;
 		}
 	}
 	/**

@@ -111,6 +111,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 			calibrateY = cal.nextInt(); 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			calibrateY = 22;
 		}
 		
 		showHelp = false;
@@ -341,11 +342,11 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
 			}
     	}
     	
-    	if(Math.random()*100<10 && zombies.size()<10) 
+    	if(Math.random()*100<10 && zombies.size()<10)
     	{
     		double tempZombieX = Math.random()*((level*5+6)*5-1)+1;
     		double tempZombieY = Math.random()*((level*5+6)*5-1)+1;
-    		while(Math.abs(realX - tempZombieX) > 20 || Math.abs(realY - tempZombieY) > 20)
+    		while(Math.abs(realX - tempZombieX) > 15 || Math.abs(realX - tempZombieX) < 5 || Math.abs(realY - tempZombieY) > 15 || Math.abs(realY - tempZombieY) < 5) 
     		{
     			tempZombieX = Math.random()*((level*5+6)*5-1)+1;
         		tempZombieY = Math.random()*((level*5+6)*5-1)+1;
@@ -357,7 +358,7 @@ public class Viewer extends JFrame implements ActionListener, KeyListener, Runna
     	for(int i=0;i<zombies.size();i++)
     	{
     		Zombie z = zombies.get(i);
-    		if(Math.pow(realX - z.getCenter()[0], 2) + Math.pow(realY - z.getCenter()[1], 2) + Math.pow(realZ - z.getCenter()[2], 2)  < 400)
+    		if(Math.pow(realX - z.getCenter()[0], 2) + Math.pow(realY - z.getCenter()[1], 2) + Math.pow(realZ - z.getCenter()[2], 2)  < 300)
     		{
     			z.move(realX, realY, realZ, maze.getHitbox(), player.getHitbox().get(0), zombies);
     		}

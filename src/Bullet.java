@@ -197,7 +197,7 @@ public class Bullet implements Hitboxable
 					zombies.remove(i);
 					i--;
 				}
-				Viewer.viewerPainter.addShape(new Sphere(Color.red, x,y,z,1.5,10));
+				//Viewer.viewerPainter.addShape(new Sphere(Color.red, x,y,z,1.5,10));
 			}
 		}
   		int markerHits = 0;
